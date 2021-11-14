@@ -1,5 +1,5 @@
 import Card from "../ui/Card";
-import classes from "./SignUpCustomerForm.module.css";
+import classes from "./signupStyle/SignUpCustomerForm.module.css";
 
 function SignUpCustomerForm() {
   function submitHandler(event) {

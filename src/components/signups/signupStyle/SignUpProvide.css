@@ -1,0 +1,47 @@
+label {
+    display: block;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.fullLengthIn > input {
+    width: 100%;
+}
+input {
+    margin: 2px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+form {
+    padding: 1rem;
+}
+
+.inline {
+    display: inline-block;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+button {
+    border-radius: 20em;
+    border: #80808085 solid 1px;
+    width: 125px;
+    height: 38px;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    background-color: lightskyblue;
+}
+
+.flex-parent {
+    margin: 2px;
+    display: flex;
+}
+
+.jc-center {
+    justify-content: center;
+}
