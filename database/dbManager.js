@@ -33,11 +33,10 @@ const addUser = async (collectionName, data) => {
   let connectedCollection;
 
   try {
+    //Check if user Exist: If it does than return false
+    const res = await findUser(collectionName, testData.userName);
     connectedCollection = await collectionConnect(collectionName);
     const collection = connectedCollection.collection;
-
-    //Check if user Exist: If it does than return false
-    const res = await findUser("loginCredentials", testData.userName);
 
     if (res) {
       console.log("User Exist");

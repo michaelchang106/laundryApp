@@ -1,13 +1,31 @@
 import Card from "../ui/Card";
 import "./signupStyle/SignUpProvide.css";
+// import { useState } from "react";
 
 const SignUpProviderForm = () => {
+  //Which is the initial state, and returns two values:
+  //1) the current state and a 2)function that can be used to update the state.
+
+  //Sets the user info w/o password
+  // let [userInfo, setUserInfo] = useState({
+  //   companyName: "",
+  //   firstName: "",
+  //   lastName: "",
+  //   address: "",
+  //   city: "",
+  //   phone: "",
+  //   zipCode: null,
+  //   userName: "",
+  // });
+
+  //Sets user login credentials (password, userType, userName)
+  // let [loginCredential, setloginCredential] = useState();
+
   return (
     <Card>
-      <form action="">
+      <form>
         <h2>Contact Info</h2>
-        <input type="hidden" name="userType" value="provider" />
-        <div class="fullLengthIn">
+        <div className="fullLengthIn">
           <label htmlFor="companyName">Company Name</label>
           <input
             type="text"
@@ -36,12 +54,17 @@ const SignUpProviderForm = () => {
           </div>
           <div className="inline">
             <label htmlFor="phone">Phone</label>
-            <input type="tel" name="phone" placeholder="XXX-XXX-XXXX" />
+            <input
+              type="tel"
+              name="phone"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="XXX-XXX-XXXX"
+            />
           </div>
         </div>
         <h2>Address</h2>
         <div>
-          <div class="fullLengthIn">
+          <div className="fullLengthIn">
             <label htmlFor="address1">Address Line 1</label>
             <input name="address1" type="text" />
             <label htmlFor="address2">Address Line 2</label>
