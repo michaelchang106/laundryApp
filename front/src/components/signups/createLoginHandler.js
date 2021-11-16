@@ -1,5 +1,5 @@
 async function createLoginHandler(data) {
-  await fetch("/createLogin", {
+  await fetch("/api/createLogin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

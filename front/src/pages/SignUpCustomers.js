@@ -7,7 +7,7 @@ function SignUpCustomers() {
   const navigate = useNavigate();
 
   async function createCustomerHandler(data) {
-    await fetch("/createCustomer", {
+    await fetch("/api/createCustomer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

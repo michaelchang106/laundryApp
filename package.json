@@ -1,52 +1,24 @@
 {
-  "name": "laundry-app",
-  "version": "0.1.0",
+  "name": "laundryapp",
+  "author": "Michael Chang & Daniel Lisko",
   "license": "MIT",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "bootstrap": "^5.1.3",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "mongodb": "^4.1.4",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.0.2",
-    "react-dom": "^17.0.2",
-    "react-jotform-embed": "^1.1.2",
-    "react-router-dom": "^6.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "mongodb": "^4.1.4",
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
+    "nodemon": "^2.0.15",
     "prettier": "^2.4.1"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
