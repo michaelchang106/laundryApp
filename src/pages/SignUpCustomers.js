@@ -1,10 +1,10 @@
-import { useHistory } from "react";
+import { useNavigate } from "react-router-dom";
 
 import SignUpCustomerForm from "../components/signups/SignUpCustomerForm";
 import createLoginHandler from "../components/signups/createLoginHandler";
 
 function SignUpCustomers() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function createCustomerHandler(data) {
     await fetch("/createCustomer", {
@@ -14,7 +14,7 @@ function SignUpCustomers() {
       },
       body: JSON.stringify(data),
     }).then(() => {
-      history.replace("/");
+      navigate("/");
     });
   }
   return (
