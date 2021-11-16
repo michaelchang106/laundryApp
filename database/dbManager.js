@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+require("dotenv").config({ path: "../.env" });
 
 //This connects to the collections
 const collectionConnect = async (documents) => {
@@ -6,7 +8,7 @@ const collectionConnect = async (documents) => {
   const dbName = "laundryApp";
 
   //Connect to url
-  const url = "mongodb://localhost:27017";
+  const url = uri || "mongodb://localhost:27017";
   const client = await new MongoClient(
     url,
     { useUnifiedTopology: true },
@@ -19,7 +21,7 @@ const collectionConnect = async (documents) => {
 
   //Connect to collection
   const db = await client.db(dbName);
-  collection = await db.collection(documents);
+  const collection = await db.collection(documents);
   console.log("collection => ", documents);
 
   return { collection, client };
@@ -51,6 +53,8 @@ const addUser = async (collectionName, data) => {
 };
 
 const findUser = async (collectionName, userName) => {
+  let connectedCollection;
+
   try {
     connectedCollection = await collectionConnect(collectionName);
     const collection = connectedCollection.collection;
@@ -73,7 +77,7 @@ const testData = {
   password: 123,
 };
 
-main = async () => {
+const main = async () => {
   // const res = await findUser("loginCredentials", testData.userName);
   // console.log("---->", res);
   await addUser("loginCredentials", testData);

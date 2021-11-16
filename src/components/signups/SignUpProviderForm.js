@@ -1,5 +1,5 @@
 import Card from "../ui/Card";
-import "./signupStyle/SignUpProvide.css";
+import "./SignUpProvide.css";
 // import { useState } from "react";
 
 const SignUpProviderForm = () => {

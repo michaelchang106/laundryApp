@@ -1,14 +1,49 @@
-import Card from "../ui/Card";
-import classes from "./signupStyle/SignUpCustomerForm.module.css";
+import { useRef } from "react";
 
-function SignUpCustomerForm() {
-  function submitHandler(event) {
+import Card from "../ui/Card";
+import classes from "./SignUpCustomerForm.module.css";
+
+function SignUpCustomerForm(props) {
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const cityRef = useRef();
+  const stateRef = useRef();
+  const phoneNumberRef = useRef();
+
+  function customerSubmitHandler(event) {
     event.preventDefault();
+
+    const customerFirstName = firstNameRef.current.value;
+    const customerLastName = lastNameRef.current.value;
+    const customerEmail = emailRef.current.value;
+    const customerPassword = passwordRef.current.value;
+    const customerCity = cityRef.current.value;
+    const customerState = stateRef.current.value;
+    const customerPhoneNumber = phoneNumberRef.current.value;
+
+    const customerData = {
+      firstName: customerFirstName,
+      lastName: customerLastName,
+      email: customerEmail,
+      city: customerCity,
+      state: customerState,
+      phoneNumber: customerPhoneNumber,
+    };
+
+    const customerLoginData = {
+      email: customerEmail,
+      password: customerPassword,
+    };
+
+    props.onCreateCustomer(customerData);
+    props.onCreateLogin(customerLoginData);
   }
 
   return (
     <Card>
-      <form className={classes.form} onSubmit={submitHandler}>
+      <form className={classes.form} onSubmit={customerSubmitHandler}>
         <div className={classes.control}>
           <label htmlFor="firstname">First Name</label>
           <input type="text" placeholder="First Name" required id="firstname" />
