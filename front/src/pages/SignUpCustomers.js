@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import SignUpCustomerForm from "../components/signups/SignUpCustomerForm";
-import createLoginHandler from "../components/signups/createLoginHandler";
 
 function SignUpCustomers() {
   const navigate = useNavigate();
@@ -22,7 +21,6 @@ function SignUpCustomers() {
       <h1>Customers Sign Up Page</h1>
       <SignUpCustomerForm
         onCreateCustomer={createCustomerHandler}
-        onCreateLogin={createLoginHandler}
       />
     </div>
   );

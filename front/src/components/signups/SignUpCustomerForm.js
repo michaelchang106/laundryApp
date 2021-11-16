@@ -12,7 +12,7 @@ function SignUpCustomerForm(props) {
   const stateRef = useRef();
   const phoneNumberRef = useRef();
 
-  function customerSubmitHandler(event) {
+  async function customerSubmitHandler(event) {
     event.preventDefault();
 
     const customerFirstName = firstNameRef.current.value;
@@ -30,17 +30,11 @@ function SignUpCustomerForm(props) {
       city: customerCity,
       state: customerState,
       phoneNumber: customerPhoneNumber,
-      userType: "customer",
-    };
-
-    const customerLoginData = {
-      email: customerEmail,
       password: customerPassword,
       userType: "customer",
     };
 
-    props.onCreateLogin(customerLoginData);
-    props.onCreateCustomer(customerData);
+    await props.onCreateCustomer(customerData);
   }
 
   return (

@@ -44,12 +44,8 @@ const addUser = async (collectionName, data) => {
       return false;
     }
 
-    await collection.insertOne({
-      email: data.email,
-      password: data.password,
-      userType: data.userType,
-    });
-    console.log("User Added to Logins Collection!");
+    await collection.insertOne(data);
+    console.log(`User Added to ${collectionName} collection!`);
   } catch (error) {
     console.log("ERROR--", error);
   } finally {
@@ -57,37 +53,37 @@ const addUser = async (collectionName, data) => {
   }
 };
 
-const addCustomer = async (collectionName, data) => {
-  let connectedCollection;
+// const addCustomer = async (collectionName, data) => {
+//   let connectedCollection;
 
-  try {
-    //Check if user Exist: If it does than return false
-    connectedCollection = await collectionConnect(collectionName);
-    const collection = connectedCollection.collection;
-    const res = await findUser("logins", data.email);
+//   try {
+//     //Check if user Exist: If it does than return false
+//     connectedCollection = await collectionConnect(collectionName);
+//     const collection = connectedCollection.collection;
+//     const res = await findUser("logins", data.email);
 
-    if (res) {
-      console.log("User Exist");
-      return false;
-    }
+//     if (res) {
+//       console.log("User Exist");
+//       return false;
+//     }
 
-    await collection.insertOne({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      city: data.city,
-      state: data.state,
-      phoneNumber: data.phoneNumber,
-      userType: data.userType,
-      // loginsColID: res._id,
-    });
-    console.log("Customer Added to Customers Collection!");
-  } catch (error) {
-    console.log("ERROR--", error);
-  } finally {
-    await connectedCollection.client.close();
-  }
-};
+//     await collection.insertOne({
+//       firstName: data.firstName,
+//       lastName: data.lastName,
+//       email: data.email,
+//       city: data.city,
+//       state: data.state,
+//       phoneNumber: data.phoneNumber,
+//       userType: data.userType,
+//       // loginsColID: res._id,
+//     });
+//     console.log("Customer Added to Customers Collection!");
+//   } catch (error) {
+//     console.log("ERROR--", error);
+//   } finally {
+//     await connectedCollection.client.close();
+//   }
+// };
 
 const findUser = async (collectionName, email) => {
   let connectedCollection;
@@ -108,4 +104,4 @@ const findUser = async (collectionName, email) => {
 
 //-----------------Customer DB Manager--------------------//
 
-module.exports = { addUser, addCustomer };
+module.exports = { addUser };
