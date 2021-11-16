@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
+require("dotenv").config();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-require("dotenv").config({ path: "../.env" });
 
 //This connects to the collections
 const collectionConnect = async (documents) => {
@@ -9,11 +9,10 @@ const collectionConnect = async (documents) => {
 
   //Connect to url
   const url = uri || "mongodb://localhost:27017";
-  const client = await new MongoClient(
-    url,
-    { useUnifiedTopology: true },
-    { useNewUrlParser: true }
-  );
+  const client = await new MongoClient(url, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
 
   //Connect to db
   await client.connect();
@@ -36,30 +35,70 @@ const addUser = async (collectionName, data) => {
 
   try {
     //Check if user Exist: If it does than return false
-    const res = await findUser(collectionName, testData.userName);
     connectedCollection = await collectionConnect(collectionName);
     const collection = connectedCollection.collection;
+    const res = await findUser(collectionName, data.email);
 
     if (res) {
       console.log("User Exist");
       return false;
     }
 
-    await collection.insertOne(data);
-    console.log("User Added!");
+    await collection.insertOne({
+      email: data.email,
+      password: data.password,
+      userType: data.userType,
+    });
+    console.log("User Added to Logins Collection!");
+  } catch (error) {
+    console.log("ERROR--", error);
   } finally {
     await connectedCollection.client.close();
   }
 };
 
-const findUser = async (collectionName, userName) => {
+const addCustomer = async (collectionName, data) => {
+  let connectedCollection;
+
+  try {
+    //Check if user Exist: If it does than return false
+    connectedCollection = await collectionConnect(collectionName);
+    const collection = connectedCollection.collection;
+    const res = await findUser("logins", data.email);
+
+    if (res) {
+      console.log("User Exist");
+      return false;
+    }
+
+    await collection.insertOne({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      city: data.city,
+      state: data.state,
+      phoneNumber: data.phoneNumber,
+      userType: data.userType,
+      // loginsColID: res._id,
+    });
+    console.log("Customer Added to Customers Collection!");
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
+const findUser = async (collectionName, email) => {
   let connectedCollection;
 
   try {
     connectedCollection = await collectionConnect(collectionName);
     const collection = connectedCollection.collection;
-    const res = await collection.findOne({ userName: userName });
+    const res = await collection.findOne({ email: email });
     return res;
+  } catch (error) {
+    console.log("ERROR--", error);
   } finally {
     await connectedCollection.client.close();
   }
@@ -67,20 +106,6 @@ const findUser = async (collectionName, userName) => {
 
 //-----------------Provider DB Manager--------------------//
 
-//----------------------Test------------------------------//
+//-----------------Customer DB Manager--------------------//
 
-const testData = {
-  firstName: "Daniel",
-  lastName: "Lisko",
-  userName: "djlisko01",
-  userType: "provider",
-  password: 123,
-};
-
-const main = async () => {
-  // const res = await findUser("loginCredentials", testData.userName);
-  // console.log("---->", res);
-  await addUser("loginCredentials", testData);
-};
-
-main();
+module.exports = { addUser, addCustomer };

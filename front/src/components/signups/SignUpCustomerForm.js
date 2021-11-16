@@ -30,15 +30,17 @@ function SignUpCustomerForm(props) {
       city: customerCity,
       state: customerState,
       phoneNumber: customerPhoneNumber,
+      userType: "customer",
     };
 
     const customerLoginData = {
       email: customerEmail,
       password: customerPassword,
+      userType: "customer",
     };
 
-    props.onCreateCustomer(customerData);
     props.onCreateLogin(customerLoginData);
+    props.onCreateCustomer(customerData);
   }
 
   return (
