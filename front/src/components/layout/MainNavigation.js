@@ -14,6 +14,9 @@ function MainNavigation() {
           <li>
             <Link to="/SignUp">Sign Up</Link>
           </li>
+          <li>
+            <Link to="/Login">Login</Link>
+          </li>
         </ul>
       </nav>
     </header>

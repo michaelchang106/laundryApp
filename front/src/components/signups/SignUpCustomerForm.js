@@ -168,7 +168,7 @@ function SignUpCustomerForm(props) {
           <input
             type="text"
             pattern="[0-9]{5}"
-            placeholder="Zip Code"
+            placeholder="Zip Code (eg. 12345)"
             required
             name="zipCode"
             ref={zipCodeRef}
