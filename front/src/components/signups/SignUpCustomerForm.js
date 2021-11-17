@@ -1,20 +1,54 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Card from "../ui/Card";
 import classes from "./SignUpCustomerForm.module.css";
 
 function SignUpCustomerForm(props) {
+  // state variables
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
+  // navigate variable
+  const navigate = useNavigate();
+
+  // reference varaibles
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const cityRef = useRef();
+  const zipCodeRef = useRef();
   const stateRef = useRef();
   const phoneNumberRef = useRef();
 
+  // onChange password && confirmPassword input handler
+  async function passwordChangeHandler(event) {
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+
+    if (password !== confirmPassword) {
+      setPasswordErrorMessage("Passwords do not match!");
+    } else {
+      setPasswordErrorMessage("");
+    }
+  }
+
+  // onChange email input handler
+  async function emailChangeHandler(event) {
+    const email = emailRef.current.value;
+
+    const response = await props.onEmailChange(email);
+
+    if (response === null || response === undefined) {
+      setEmailErrorMessage("");
+    } else {
+      setEmailErrorMessage("Email already registered please login!");
+    }
+  }
+
+  // onSubmit customer form handler
   async function customerSubmitHandler(event) {
     event.preventDefault();
 
@@ -24,6 +58,7 @@ function SignUpCustomerForm(props) {
     const customerPassword = passwordRef.current.value;
     const customerConfirmPassword = confirmPasswordRef.current.value;
     const customerCity = cityRef.current.value;
+    const customerZipCode = zipCodeRef.current.value;
     const customerState = stateRef.current.value;
     const customerPhoneNumber = phoneNumberRef.current.value;
 
@@ -37,15 +72,25 @@ function SignUpCustomerForm(props) {
         lastName: customerLastName,
         email: customerEmail,
         city: customerCity,
+        zipCode: customerZipCode,
         state: customerState,
         phoneNumber: customerPhoneNumber,
         password: customerPassword,
         userType: "customer",
       };
-      await props.onCreateCustomer(customerData);
+
+      const response = await props.onCreateCustomer(customerData);
+
+      if (response) {
+        setEmailErrorMessage("");
+        navigate("/redirectHome");
+      } else {
+        setEmailErrorMessage("Email already registered please login!");
+      }
     }
   }
 
+  // form component
   return (
     <Card>
       <form className={classes.form} onSubmit={customerSubmitHandler}>
@@ -77,7 +122,11 @@ function SignUpCustomerForm(props) {
             required
             name="email"
             ref={emailRef}
+            onChange={emailChangeHandler}
           />
+        </div>
+        <div className={classes.error}>
+          <p>{emailErrorMessage}</p>
         </div>
         <div className={classes.control}>
           <label htmlFor="password">Password</label>
@@ -87,6 +136,7 @@ function SignUpCustomerForm(props) {
             required
             name="password"
             ref={passwordRef}
+            onChange={passwordChangeHandler}
           />
         </div>
         <div className={classes.control}>
@@ -97,6 +147,7 @@ function SignUpCustomerForm(props) {
             required
             name="confirmPassword"
             ref={confirmPasswordRef}
+            onChange={passwordChangeHandler}
           />
         </div>
         <div className={classes.error}>
@@ -110,6 +161,17 @@ function SignUpCustomerForm(props) {
             required
             name="city"
             ref={cityRef}
+          />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor="zipCode">Zip Code</label>
+          <input
+            type="text"
+            pattern="[0-9]{5}"
+            placeholder="Zip Code"
+            required
+            name="zipCode"
+            ref={zipCodeRef}
           />
         </div>
         <div className={classes.control}>

@@ -58,6 +58,7 @@ const addUser = async (collectionName, data) => {
 
     await collection.insertOne(data);
     console.log(`User Added to ${collectionName} collection!`);
+    return true;
   } catch (error) {
     console.log("ERROR--", error);
   } finally {
@@ -69,4 +70,4 @@ const addUser = async (collectionName, data) => {
 
 //-----------------Customer DB Manager--------------------//
 
-module.exports = { addUser };
+module.exports = { addUser, findUser };

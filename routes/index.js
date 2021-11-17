@@ -3,33 +3,54 @@ const router = express.Router();
 const dbManager = require("../database/dbManager.js");
 
 /* POST createCustomer. */
-router.post("/createCustomer", async function (req, res, next) {
+router.post("/createCustomer", async function (req, res) {
   console.log("Got /createCustomer POST request");
-  const rawData = req.body;
+  try {
+    const rawData = req.body;
 
-  const customerData = {
-    firstName: rawData.firstName,
-    lastName: rawData.lastName,
-    email: rawData.email,
-    city: rawData.city,
-    state: rawData.state,
-    phoneNumber: rawData.phoneNumber,
-    userType: rawData.userType,
-  };
+    const customerData = {
+      firstName: rawData.firstName,
+      lastName: rawData.lastName,
+      email: rawData.email,
+      city: rawData.city,
+      zipCode: rawData.zipCode,
+      state: rawData.state,
+      phoneNumber: rawData.phoneNumber,
+      userType: rawData.userType,
+    };
 
-  const loginData = {
-    email: rawData.email,
-    password: rawData.password,
-    userType: rawData.userType,
-  };
+    const loginData = {
+      email: rawData.email,
+      password: rawData.password,
+      userType: rawData.userType,
+    };
 
-  await dbManager.addUser("loginCreds", loginData);
+    const response = await dbManager.addUser("loginCreds", loginData);
 
-  if (loginData.userType === "customer") {
-    await dbManager.addUser("customers", customerData);
+    if (response) {
+      if (loginData.userType === "customer") {
+        await dbManager.addUser("customers", customerData);
+      }
+    }
+
+    res.json(response);
+  } catch (error) {
+    res.send(error);
   }
+});
 
-  res.status(200).send();
+/* POST createCustomer. */
+router.post("/findEmail", async function (req, res) {
+  console.log("Got /findEmail POST request");
+  try {
+    const rawData = req.body;
+
+    const response = await dbManager.findUser("loginCreds", rawData);
+
+    res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = router;
