@@ -2,6 +2,11 @@
   padding: 1rem;
 }
 
+.error {
+  color: red;
+  font-size: 10px;
+}
+
 .control {
   margin-bottom: 0.5rem;
 }
@@ -28,11 +33,9 @@
 }
 
 .actions button {
-  font: inherit;
   cursor: pointer;
   background-color: lightskyblue;
   color: white;
-  /*  padding: 0.5rem 1.5rem;*/
   border: 1px solid lightskyblue;
   border-radius: 4px;
   font-weight: bold;

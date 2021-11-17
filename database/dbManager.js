@@ -27,8 +27,20 @@ const collectionConnect = async (documents) => {
 };
 
 //-----------------Customer/Provider Shared Features-------//
+const findUser = async (collectionName, email) => {
+  let connectedCollection;
 
-//Sign Up
+  try {
+    connectedCollection = await collectionConnect(collectionName);
+    const collection = connectedCollection.collection;
+    const res = await collection.findOne({ email: email });
+    return res;
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
 
 const addUser = async (collectionName, data) => {
   let connectedCollection;
@@ -46,53 +58,6 @@ const addUser = async (collectionName, data) => {
 
     await collection.insertOne(data);
     console.log(`User Added to ${collectionName} collection!`);
-  } catch (error) {
-    console.log("ERROR--", error);
-  } finally {
-    await connectedCollection.client.close();
-  }
-};
-
-// const addCustomer = async (collectionName, data) => {
-//   let connectedCollection;
-
-//   try {
-//     //Check if user Exist: If it does than return false
-//     connectedCollection = await collectionConnect(collectionName);
-//     const collection = connectedCollection.collection;
-//     const res = await findUser("logins", data.email);
-
-//     if (res) {
-//       console.log("User Exist");
-//       return false;
-//     }
-
-//     await collection.insertOne({
-//       firstName: data.firstName,
-//       lastName: data.lastName,
-//       email: data.email,
-//       city: data.city,
-//       state: data.state,
-//       phoneNumber: data.phoneNumber,
-//       userType: data.userType,
-//       // loginsColID: res._id,
-//     });
-//     console.log("Customer Added to Customers Collection!");
-//   } catch (error) {
-//     console.log("ERROR--", error);
-//   } finally {
-//     await connectedCollection.client.close();
-//   }
-// };
-
-const findUser = async (collectionName, email) => {
-  let connectedCollection;
-
-  try {
-    connectedCollection = await collectionConnect(collectionName);
-    const collection = connectedCollection.collection;
-    const res = await collection.findOne({ email: email });
-    return res;
   } catch (error) {
     console.log("ERROR--", error);
   } finally {

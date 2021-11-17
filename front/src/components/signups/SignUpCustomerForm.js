@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import Card from "../ui/Card";
 import classes from "./SignUpCustomerForm.module.css";
 
 function SignUpCustomerForm(props) {
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
   const cityRef = useRef();
   const stateRef = useRef();
   const phoneNumberRef = useRef();
@@ -19,22 +22,28 @@ function SignUpCustomerForm(props) {
     const customerLastName = lastNameRef.current.value;
     const customerEmail = emailRef.current.value;
     const customerPassword = passwordRef.current.value;
+    const customerConfirmPassword = confirmPasswordRef.current.value;
     const customerCity = cityRef.current.value;
     const customerState = stateRef.current.value;
     const customerPhoneNumber = phoneNumberRef.current.value;
 
-    const customerData = {
-      firstName: customerFirstName,
-      lastName: customerLastName,
-      email: customerEmail,
-      city: customerCity,
-      state: customerState,
-      phoneNumber: customerPhoneNumber,
-      password: customerPassword,
-      userType: "customer",
-    };
-
-    await props.onCreateCustomer(customerData);
+    if (customerPassword !== customerConfirmPassword) {
+      setPasswordErrorMessage("Passwords do not match!");
+      return;
+    } else {
+      setPasswordErrorMessage("");
+      const customerData = {
+        firstName: customerFirstName,
+        lastName: customerLastName,
+        email: customerEmail,
+        city: customerCity,
+        state: customerState,
+        phoneNumber: customerPhoneNumber,
+        password: customerPassword,
+        userType: "customer",
+      };
+      await props.onCreateCustomer(customerData);
+    }
   }
 
   return (
@@ -46,7 +55,7 @@ function SignUpCustomerForm(props) {
             type="text"
             placeholder="First Name"
             required
-            id={"firstname"}
+            name="firstname"
             ref={firstNameRef}
           />
         </div>
@@ -56,7 +65,7 @@ function SignUpCustomerForm(props) {
             type="text"
             placeholder="Last Name"
             required
-            id="lastname"
+            name="lastname"
             ref={lastNameRef}
           />
         </div>
@@ -66,7 +75,7 @@ function SignUpCustomerForm(props) {
             type="email"
             placeholder="email@email.com"
             required
-            id="email"
+            name="email"
             ref={emailRef}
           />
         </div>
@@ -76,9 +85,22 @@ function SignUpCustomerForm(props) {
             type="password"
             placeholder="Password"
             required
-            id="password"
+            name="password"
             ref={passwordRef}
           />
+        </div>
+        <div className={classes.control}>
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            placeholder="Re-enter Password"
+            required
+            name="confirmPassword"
+            ref={confirmPasswordRef}
+          />
+        </div>
+        <div className={classes.error}>
+          <p>{passwordErrorMessage}</p>
         </div>
         <div className={classes.control}>
           <label htmlFor="city">City</label>
@@ -86,7 +108,7 @@ function SignUpCustomerForm(props) {
             type="text"
             placeholder="City Name"
             required
-            id="city"
+            name="city"
             ref={cityRef}
           />
         </div>
@@ -94,9 +116,10 @@ function SignUpCustomerForm(props) {
           <label htmlFor="state">State</label>
           <input
             type="text"
-            placeholder="State Name"
+            pattern="(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|PA|RI|S[CD]|T[NX]|UT|V[AT]|W[AIVY])"
+            placeholder="State Abbreviation (eg. CA, NY, AZ, etc.)"
             required
-            id="state"
+            name="state"
             ref={stateRef}
           />
         </div>
@@ -107,7 +130,7 @@ function SignUpCustomerForm(props) {
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="123-456-7890"
             required
-            id="phone"
+            name="phone"
             ref={phoneNumberRef}
           />
         </div>
