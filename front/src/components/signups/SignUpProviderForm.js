@@ -4,13 +4,13 @@ import { useState } from "react";
 
 const SignUpProviderForm = ({ postProviderData }) => {
   const [providerInfo, setProviderInfo] = useState({
+    userType: "provider",
     companyName: "",
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
-    address1: "",
-    address2: "",
+    address: "",
     city: "",
     state: "",
     zipCode: "",
@@ -18,20 +18,16 @@ const SignUpProviderForm = ({ postProviderData }) => {
     confirmPassword: "",
   });
 
-  console.log("provider", providerInfo);
-
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-
     setProviderInfo({ ...providerInfo, [name]: value });
   };
 
   //Hanle submit
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log(event.target[0].value);
+    postProviderData(providerInfo);
   };
 
   return (
@@ -98,17 +94,10 @@ const SignUpProviderForm = ({ postProviderData }) => {
         <h2>Address</h2>
         <div>
           <div className="fullLengthIn">
-            <label htmlFor="address1">Address Line 1</label>
+            <label htmlFor="address">Address Line 1</label>
             <input
-              name="address1"
+              name="address"
               id="address1"
-              type="text"
-              onChange={handleChange}
-            />
-            <label htmlFor="address2">Address Line 2</label>
-            <input
-              name="address2"
-              id="address2"
               type="text"
               onChange={handleChange}
             />
