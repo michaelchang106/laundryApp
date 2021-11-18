@@ -34,7 +34,11 @@ function LoginForm(props) {
       localStorage.setItem("userType", response.userType);
       props.setLoginSuccess(true);
 
-      navigate("/");
+      if (response.userType === "customer") {
+        navigate("/CustomerRequestService");
+      } else {
+        navigate("/ProviderPage");
+      }
     }
   }
 

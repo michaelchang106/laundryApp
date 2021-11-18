@@ -4,10 +4,9 @@ import classes from "./MainNavigation.module.css";
 
 function MainNavigation(props) {
   // initialize hooks (loginState has Link)
-  const [userTypeNavigation, setUserTypeNavigation] = useState();
+  const [userLoginDetails, setUserLoginDetails] = useState();
   const [signOut, setSignOut] = useState();
-  const [actionPage, setActionPage] = useState();
-
+  const [servicePage, setServicePage] = useState();
   const navigate = useNavigate();
 
   // check localStorage for cached Login
@@ -17,21 +16,21 @@ function MainNavigation(props) {
   useEffect(() => {
     // reset states for logout and clear localStorage
     function logoutHandler(event) {
-      setUserTypeNavigation();
-      setActionPage();
-      localStorage.clear();
+      setUserLoginDetails();
+      setServicePage();
       props.setLoginSuccess(false);
+      localStorage.clear();
       navigate("/");
     }
 
     // if loginSuccess state is true replace Login Link to Customer/Provider Detail Page Link
     if (props.loginSuccess) {
       if (userType === "customer") {
-        setUserTypeNavigation(
+        setUserLoginDetails(
           <Link to="/CustomerDetailsPage">Customer Name</Link>
         );
       } else {
-        setUserTypeNavigation(
+        setUserLoginDetails(
           <Link to="/ProviderDetailsPage">Provider Name</Link>
         );
       }
@@ -49,13 +48,13 @@ function MainNavigation(props) {
       );
 
       if (userType === "customer") {
-        setActionPage(
+        setServicePage(
           <li>
             <Link to="/CustomerRequestService">Request Laundry</Link>
           </li>
         );
       } else {
-        setActionPage(
+        setServicePage(
           <li>
             <Link to="/ProviderPage">Provider Business Name</Link>
           </li>
@@ -64,7 +63,7 @@ function MainNavigation(props) {
 
       // else set default navigation bar
     } else {
-      setUserTypeNavigation(<Link to="/Login">Login</Link>);
+      setUserLoginDetails(<Link to="/Login">Login</Link>);
       setSignOut();
     }
   }, [navigate, props, userType]);
@@ -84,8 +83,8 @@ function MainNavigation(props) {
           <li>
             <Link to="/SignUp">Sign Up</Link>
           </li>
-          {actionPage}
-          <li>{userTypeNavigation}</li>
+          {servicePage}
+          <li>{userLoginDetails}</li>
           {signOut}
         </ul>
       </nav>
