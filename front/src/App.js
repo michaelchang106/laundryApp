@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Home from "./pages/Home";
 import RedirectHome from "./pages/RedirectHome.js";
 import SignUp from "./pages/SignUp";
@@ -12,31 +11,12 @@ import CustomerDetailsPage from "./pages/CustomerDetailsPage";
 import ProviderDetailsPage from "./pages/ProviderDetailsPage";
 
 function App() {
-  let [loginSuccess, setLoginSuccess] = useState(false);
-  let [userType, setUserType] = useState();
-
   return (
-    <Layout
-      loginSuccess={loginSuccess}
-      userType={userType}
-      setLoginSuccess={setLoginSuccess}
-      setUserType={setUserType}
-    >
+    <Layout>
       <Routes>
-        <Route
-          path="/"
-          element={<Home loginSuccess={loginSuccess} userType={userType} />}
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route
-          path="/Login"
-          element={
-            <Login
-              setLoginSuccess={setLoginSuccess}
-              setUserType={setUserType}
-            />
-          }
-        />
+        <Route path="/Login" element={<Login />} />
         <Route path="/signUpProviders" element={<SignUpProviders />} />
         <Route path="/signUpCustomers" element={<SignUpCustomers />} />
         <Route path="/CustomerDetailspage" element={<CustomerDetailsPage />} />

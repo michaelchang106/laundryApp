@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Card from "../ui/Card";
 import classes from "./LoginForm.module.css";
 
-function LoginForm({ onLogin, setLoginSuccess, setUserType }) {
+function LoginForm(props) {
   // initailize react hooks
   const [errorMessage, setErrorMessage] = useState("");
-
   const navigate = useNavigate();
-
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -25,17 +23,17 @@ function LoginForm({ onLogin, setLoginSuccess, setUserType }) {
       password: loginPassword,
     };
 
-    const response = await onLogin(loginData);
-    console.log(response.userType)
+    const response = await props.loginHandler(loginData);
+
     // if the response is an error
     if (response.error) {
       setErrorMessage(response.error);
     } else {
       // set localStorage with customer info
-      setLoginSuccess(true);
-      setUserType(response.userType);
+      localStorage.setItem("email", response.email);
+      localStorage.setItem("userType", response.userType);
+      localStorage.setItem("loginSuccess", true);
 
-      //------------Add setEmail
       navigate("/");
     }
   }

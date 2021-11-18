@@ -1,7 +1,11 @@
 import CustomerHomePage from "./CustomerHomePage";
 import ProviderPage from "./ProviderPage";
 
-function Home({ loginSuccess, userType }) {
+function Home() {
+  const userType = localStorage.getItem("userType");
+  const email = localStorage.getItem("email");
+  const loginSuccess = localStorage.getItem("email");
+
   const pageRender = () => {
     if (loginSuccess) {
       if (userType === "customer") {
