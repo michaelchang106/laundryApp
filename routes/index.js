@@ -16,7 +16,7 @@ router.post("/createCustomer", async function (req, res) {
     for (const [key, value] of Object.entries(rawData)) {
       if (key === "password") {
         loginCred[key] = value;
-      } else if (key === "email") {
+      } else if (key === "email" || key === "userType") {
         loginCred[key] = value;
         userData[key] = value;
       } else {
