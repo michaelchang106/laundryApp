@@ -32,7 +32,7 @@ function LoginForm(props) {
       // set localStorage with customer info
       localStorage.setItem("email", response.email);
       localStorage.setItem("userType", response.userType);
-      localStorage.setItem("loginSuccess", true);
+      props.setLoginSuccess(true);
 
       navigate("/");
     }

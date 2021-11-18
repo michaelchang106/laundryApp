@@ -1,6 +1,6 @@
 import LaundryRequestForm from "../components/customer/LaundryRequestForm";
 
-function CustomerHomePage() {
+function CustomerRequestService() {
   async function laundryRequestFetch(data) {
     console.log(data);
     const response = await fetch("/api/laundryRequest", {
@@ -16,10 +16,10 @@ function CustomerHomePage() {
 
   return (
     <div>
-      <h1>Customer Home Page</h1>
+      <h1>Customer Request Service</h1>
       <LaundryRequestForm laundryRequestFetch={laundryRequestFetch} />
     </div>
   );
 }
 
-export default CustomerHomePage;
+export default CustomerRequestService;
