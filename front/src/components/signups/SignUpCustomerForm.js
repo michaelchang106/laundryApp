@@ -39,7 +39,7 @@ function SignUpCustomerForm(props) {
   async function emailChangeHandler(event) {
     const email = emailRef.current.value;
 
-    const response = await props.onEmailChange(email);
+    const response = await props.findEmailFetch(email);
 
     if (response === null || response === undefined) {
       setEmailErrorMessage("");
@@ -79,7 +79,7 @@ function SignUpCustomerForm(props) {
         userType: "customer",
       };
 
-      const response = await props.onCreateCustomer(customerData);
+      const response = await props.createCustomerFetch(customerData);
 
       if (response) {
         setEmailErrorMessage("");

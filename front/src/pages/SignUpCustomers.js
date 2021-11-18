@@ -1,7 +1,7 @@
 import SignUpCustomerForm from "../components/signups/SignUpCustomerForm";
 
 function SignUpCustomers() {
-  async function createCustomerHandler(data) {
+  async function createCustomerFetch(data) {
     const response = await fetch("/api/createCustomer", {
       method: "POST",
       headers: {
@@ -13,7 +13,7 @@ function SignUpCustomers() {
     return await response.json();
   }
 
-  async function findEmailHandler(data) {
+  async function findEmailFetch(data) {
     const response = await fetch("/api/findEmail", {
       method: "POST",
       headers: {
@@ -28,8 +28,8 @@ function SignUpCustomers() {
     <div>
       <h1>Customers Sign Up Page</h1>
       <SignUpCustomerForm
-        onCreateCustomer={createCustomerHandler}
-        onEmailChange={findEmailHandler}
+        createCustomerFetch={createCustomerFetch}
+        findEmailFetch={findEmailFetch}
       />
     </div>
   );

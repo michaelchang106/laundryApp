@@ -24,28 +24,12 @@ router.post("/createCustomer", async function (req, res) {
       }
     }
 
-    // const customerData = {
-    //   firstName: rawData.firstName,
-    //   lastName: rawData.lastName,
-    //   email: rawData.email,
-    //   city: rawData.city,
-    //   zipCode: rawData.zipCode,
-    //   state: rawData.state,
-    //   phoneNumber: rawData.phoneNumber,
-    //   userType: rawData.userType,
-    // };
-
     await bcrypt.hash(loginCred.password, 10, async (error, hash) => {
       if (error) {
         throw new Error(error);
       }
       loginCred.password = hash; //Change the password to the hash form.
-      // const loginData = {
-      //   email: rawData.email,
-      //   password: hash,
-      //   userType: rawData.userType,
-      // };
-      // const response = await dbManager.addUser("loginCreds", loginData);
+
       const response = await dbManager.addUser("loginCreds", loginCred);
 
       if (response) {
@@ -112,6 +96,19 @@ router.post("/login", async function (req, res) {
     });
   } catch (error) {
     res.send({ error: "Email not found, please sign up!" });
+  }
+});
+
+/* POST laundryRequest. */
+router.post("/laundryRequest", async function (req, res) {
+  console.log("Got /laundryRequest POST request");
+  console.log(req.body);
+  try {
+    // const rawData = req.body;
+    // const response = await dbManager.findUser("loginCreds", rawData);
+    // res.json(response);
+  } catch (error) {
+    res.send(error);
   }
 });
 

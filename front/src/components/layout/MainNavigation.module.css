@@ -38,14 +38,14 @@
   color: darkblue;
 }
 
-button {
+.logout {
   color: white;
   background-color: darkred;
   opacity: 1;
 }
 
-button:hover,
-button:active,
-button.active {
+.logout:hover,
+.logout:active,
+.logout.active {
   background-color: palevioletred;
 }

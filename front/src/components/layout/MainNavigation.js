@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 
 function MainNavigation(props) {
-  // initialize hooks (loginState has default ahref)
+  // initialize hooks (loginState has Link)
   const [loginState, setloginState] = useState(<Link to="/Login">Login</Link>);
   const [signOut, setSignOut] = useState();
 
@@ -23,7 +23,7 @@ function MainNavigation(props) {
       }
       // create signout button
       setSignOut(
-        <button className="logout-btn" onClick={logoutHandler} type="button">
+        <button className={classes.logout} onClick={logoutHandler} type="button">
           Log out
         </button>
       );
