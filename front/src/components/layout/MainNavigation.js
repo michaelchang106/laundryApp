@@ -1,8 +1,14 @@
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
 
 function MainNavigation() {
+  const [navgationState, setNavgationState] = useState(
+    <Link to="/Login">Login</Link>
+  );
+
   return (
     <header className={classes.header}>
       <div className={classes.logo}>Laundry App</div>
@@ -14,9 +20,7 @@ function MainNavigation() {
           <li>
             <Link to="/SignUp">Sign Up</Link>
           </li>
-          <li>
-            <Link to="/Login">Login</Link>
-          </li>
+          <li>{navgationState}</li>
         </ul>
       </nav>
     </header>

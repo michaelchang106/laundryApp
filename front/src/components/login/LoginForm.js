@@ -5,6 +5,7 @@ import Card from "../ui/Card";
 import classes from "./LoginForm.module.css";
 
 function LoginForm(props) {
+  // initailize react hooks
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -32,9 +33,10 @@ function LoginForm(props) {
     } else {
       // set localStorage with customer info
       if (response.userType === "customer") {
-        localStorage.setItem("firstName", response.firstName);
-        localStorage.setItem("lastName", response.lastName);
-        localStorage.setItem("userType", response.userType);
+        localStorage.setItem("loginStatus", true);
+        localStorage.setItem("loginFirstName", response.firstName);
+        localStorage.setItem("loginLastName", response.lastName);
+        localStorage.setItem("loginUserType", response.userType);
         navigate("/");
         // set localStorage with provider info
       } else if (response.userType === "provider") {
