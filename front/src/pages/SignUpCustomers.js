@@ -14,7 +14,7 @@ function SignUpCustomers() {
   }
 
   async function findEmailFetch(data) {
-    const response = await fetch("/api/findEmail", {
+    const response = await fetch("/api/findEmailExists", {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",

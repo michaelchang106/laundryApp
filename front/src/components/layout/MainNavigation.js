@@ -11,7 +11,9 @@ function MainNavigation(props) {
 
   // check localStorage for cached Login
   const userType = localStorage.getItem("userType");
-  const email = localStorage.getItem("email");
+  
+
+  console.log(props.userData);
 
   useEffect(() => {
     // reset states for logout and clear localStorage
@@ -47,6 +49,7 @@ function MainNavigation(props) {
         </li>
       );
 
+      // create link for Customer Request Page or Provider Service page
       if (userType === "customer") {
         setServicePage(
           <li>
@@ -68,7 +71,7 @@ function MainNavigation(props) {
     }
   }, [navigate, props, userType]);
 
-  // navigation bar component
+  // MainNavgiation component
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -79,7 +82,6 @@ function MainNavigation(props) {
           <li>
             <Link to="/">Home</Link>
           </li>
-
           <li>
             <Link to="/SignUp">Sign Up</Link>
           </li>

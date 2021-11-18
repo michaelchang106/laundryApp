@@ -7,6 +7,7 @@ function Layout(props) {
       <MainNavigation
         loginSuccess={props.loginSuccess}
         setLoginSuccess={props.setLoginSuccess}
+        userData={props.userData}
       />
       <main className={classes.main}>{props.children}</main>
     </div>

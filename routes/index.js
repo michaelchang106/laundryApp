@@ -3,6 +3,7 @@ const router = express.Router();
 const dbManager = require("../database/dbManager.js");
 const bcrypt = require("bcrypt");
 
+/* ------------- SHARED ROUTES (CUSTOMER AND PROIVDER) --------- */
 /* POST createCustomer. */
 router.post("/createCustomer", async function (req, res) {
   console.log("Got /createCustomer POST request");
@@ -49,20 +50,6 @@ router.post("/createCustomer", async function (req, res) {
   }
 });
 
-/* POST findEmail. */
-router.post("/findEmail", async function (req, res) {
-  console.log("Got /findEmail POST request");
-  try {
-    const rawData = req.body;
-
-    const response = await dbManager.findUser("loginCreds", rawData);
-
-    res.json(response);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
 /* POST login. */
 router.post("/login", async function (req, res) {
   console.log("Got /login POST request");
@@ -99,6 +86,40 @@ router.post("/login", async function (req, res) {
   }
 });
 
+/* POST findEmailExists. */
+router.post("/findEmailExists", async function (req, res) {
+  console.log("Got /findEmailExists POST request");
+  try {
+    const rawData = req.body;
+
+    const response = await dbManager.findUser("loginCreds", rawData);
+
+    res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+/* POST findUserDetails. */
+router.post("/findUserDetails", async function (req, res) {
+  console.log("Got /findUserDetails POST request");
+  try {
+    const rawData = req.body;
+    let response;
+    console.log(rawData);
+    if (rawData.userType === "customer") {
+      response = await dbManager.findUser("customers", rawData.email);
+    } else if (rawData.userType === "provider") {
+      response = await dbManager.findUser("providers", rawData.email);
+    }
+    console.log(response);
+    res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+/* ----------------CUSTOMER ROUTES------------------------- */
 /* POST laundryRequest. */
 router.post("/laundryRequest", async function (req, res) {
   console.log("Got /laundryRequest POST request");
