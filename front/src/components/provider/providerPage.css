@@ -1,0 +1,29 @@
+.service {
+  border: solid #22202014;
+  width: 250px;
+  margin: 1px;
+  padding-left: 6px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  border-radius: 6px;
+}
+
+#service-display #serviceDetails {
+  width: 40px;
+  text-align: center;
+}
+
+.collapseBtn {
+  border: none;
+  background: none;
+  color: black;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 0px;
+  margin-left: 150px;
+}
+
+.deleteBtn,
+.editBtn {
+  width: 60px;
+}
