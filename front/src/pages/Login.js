@@ -1,6 +1,6 @@
 import LoginForm from "../components/login/LoginForm";
 
-function Login() {
+function Login({ setLoginSuccess, setUserType }) {
   async function loginHandler(data) {
     const response = await fetch("/api/login", {
       method: "POST",
@@ -16,7 +16,12 @@ function Login() {
   return (
     <div>
       <h1>Login Page</h1>
-      <LoginForm onLogin={loginHandler} />
+
+      <LoginForm
+        onLogin={loginHandler}
+        setLoginSuccess={setLoginSuccess}
+        setUserType={setUserType}
+      />
     </div>
   );
 }

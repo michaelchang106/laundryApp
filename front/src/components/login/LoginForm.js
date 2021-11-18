@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../ui/Card";
 import classes from "./LoginForm.module.css";
 
-function LoginForm(props) {
+function LoginForm({ onLogin, setLoginSuccess, setUserType }) {
   // initailize react hooks
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -25,23 +25,18 @@ function LoginForm(props) {
       password: loginPassword,
     };
 
-    const response = await props.onLogin(loginData);
+    const response = await onLogin(loginData);
 
     // if the response is an error
     if (response.error) {
       setErrorMessage(response.error);
     } else {
       // set localStorage with customer info
-      if (response.userType === "customer") {
-        localStorage.setItem("loginStatus", true);
-        localStorage.setItem("loginFirstName", response.firstName);
-        localStorage.setItem("loginLastName", response.lastName);
-        localStorage.setItem("loginUserType", response.userType);
-        navigate("/");
-        // set localStorage with provider info
-      } else if (response.userType === "provider") {
-        // !!!!!@Daniel localStorage whatever you want to keep here!!!!
-      }
+      setLoginSuccess(true);
+      setUserType(response.userType);
+
+      //------------Add setEmail
+      navigate("/");
     }
   }
 
