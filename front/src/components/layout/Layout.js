@@ -4,7 +4,7 @@ import classes from "./Layout.module.css";
 function Layout(props) {
   return (
     <div>
-      <MainNavigation />
+      <MainNavigation loginSuccess={props.loginSuccess} userType={props.userType}/>
       <main className={classes.main}>{props.children}</main>
     </div>
   );

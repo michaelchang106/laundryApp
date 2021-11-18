@@ -1,14 +1,11 @@
-import CustomerPage from "./CustomerPage";
+import CustomerHomePage from "./CustomerHomePage";
 import ProviderPage from "./ProviderPage";
 
-function Home({ loginSucess, userType }) {
-  console.log(loginSucess);
-  console.log(userType);
-
+function Home({ loginSuccess, userType }) {
   const pageRender = () => {
-    if (loginSucess) {
+    if (loginSuccess) {
       if (userType === "customer") {
-        return <CustomerPage />;
+        return <CustomerHomePage />;
       } else {
         return <ProviderPage />;
       }
