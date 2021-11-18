@@ -9,32 +9,52 @@ router.post("/createCustomer", async function (req, res) {
 
   try {
     const rawData = req.body;
+    let loginCred = {};
+    let userData = {};
 
-    const customerData = {
-      firstName: rawData.firstName,
-      lastName: rawData.lastName,
-      email: rawData.email,
-      city: rawData.city,
-      zipCode: rawData.zipCode,
-      state: rawData.state,
-      phoneNumber: rawData.phoneNumber,
-      userType: rawData.userType,
-    };
+    //Checks seperates login credentials and user info
+    for (const [key, value] of Object.entries(rawData)) {
+      if (key === "password") {
+        loginCred[key] = value;
+      } else if (key === "email") {
+        loginCred[key] = value;
+        userData[key] = value;
+      } else {
+        userData[key] = value;
+      }
+    }
 
-    await bcrypt.hash(rawData.password, 10, async (error, hash) => {
+    // const customerData = {
+    //   firstName: rawData.firstName,
+    //   lastName: rawData.lastName,
+    //   email: rawData.email,
+    //   city: rawData.city,
+    //   zipCode: rawData.zipCode,
+    //   state: rawData.state,
+    //   phoneNumber: rawData.phoneNumber,
+    //   userType: rawData.userType,
+    // };
+
+    await bcrypt.hash(loginCred.password, 10, async (error, hash) => {
       if (error) {
         throw new Error(error);
       }
-      const loginData = {
-        email: rawData.email,
-        password: hash,
-        userType: rawData.userType,
-      };
-      const response = await dbManager.addUser("loginCreds", loginData);
+      loginCred.password = hash; //Change the password to the hash form.
+      // const loginData = {
+      //   email: rawData.email,
+      //   password: hash,
+      //   userType: rawData.userType,
+      // };
+      // const response = await dbManager.addUser("loginCreds", loginData);
+      const response = await dbManager.addUser("loginCreds", loginCred);
 
       if (response) {
-        if (loginData.userType === "customer") {
-          await dbManager.addUser("customers", customerData);
+        if (loginCred.userType === "customer") {
+          await dbManager.addUser("customers", userData);
+        } else if (loginCred.userType === "provider") {
+          await dbManager.addUser("providers", userData);
+        } else {
+          console.log("Error adding user to database");
         }
       }
 
