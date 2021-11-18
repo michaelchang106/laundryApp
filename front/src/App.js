@@ -16,7 +16,12 @@ function App() {
   let [userType, setUserType] = useState();
 
   return (
-    <Layout loginSuccess={loginSuccess} userType={userType}>
+    <Layout
+      loginSuccess={loginSuccess}
+      userType={userType}
+      setLoginSuccess={setLoginSuccess}
+      setUserType={setUserType}
+    >
       <Routes>
         <Route
           path="/"
@@ -35,7 +40,7 @@ function App() {
         <Route path="/signUpProviders" element={<SignUpProviders />} />
         <Route path="/signUpCustomers" element={<SignUpCustomers />} />
         <Route path="/CustomerDetailspage" element={<CustomerDetailsPage />} />
-               <Route path="/ProviderDetailspage" element={<ProviderDetailsPage />} />
+        <Route path="/ProviderDetailspage" element={<ProviderDetailsPage />} />
         <Route path="/redirectHome" element={<RedirectHome />} />
       </Routes>
     </Layout>

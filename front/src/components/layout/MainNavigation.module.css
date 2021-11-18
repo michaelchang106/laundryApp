@@ -37,3 +37,15 @@
 .header a.active {
   color: darkblue;
 }
+
+button {
+  color: white;
+  background-color: darkred;
+  opacity: 1;
+}
+
+button:hover,
+button:active,
+button.active {
+  background-color: palevioletred;
+}

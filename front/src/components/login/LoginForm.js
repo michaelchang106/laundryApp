@@ -26,7 +26,7 @@ function LoginForm({ onLogin, setLoginSuccess, setUserType }) {
     };
 
     const response = await onLogin(loginData);
-
+    console.log(response.userType)
     // if the response is an error
     if (response.error) {
       setErrorMessage(response.error);
