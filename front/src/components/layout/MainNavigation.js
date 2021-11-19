@@ -11,25 +11,23 @@ function MainNavigation(props) {
 
   // check localStorage for cached Login
   const userType = localStorage.getItem("userType");
-  
-
-  console.log(props.userData);
 
   useEffect(() => {
     // reset states for logout and clear localStorage
-    function logoutHandler(event) {
+    const logoutHandler = (event) => {
       setUserLoginDetails();
       setServicePage();
       props.setLoginSuccess(false);
       localStorage.clear();
       navigate("/");
-    }
+    };
 
     // if loginSuccess state is true replace Login Link to Customer/Provider Detail Page Link
-    if (props.loginSuccess) {
+    if (props.loginSuccess && props.userData !== undefined) {
+      // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 3 times
       if (userType === "customer") {
         setUserLoginDetails(
-          <Link to="/CustomerDetailsPage">Customer Name</Link>
+          <Link to="/CustomerDetailsPage">{`${props.userData.firstName} ${props.userData.lastName}`}</Link>
         );
       } else {
         setUserLoginDetails(
@@ -69,7 +67,7 @@ function MainNavigation(props) {
       setUserLoginDetails(<Link to="/Login">Login</Link>);
       setSignOut();
     }
-  }, [navigate, props, userType]);
+  }, [navigate, userType, props]);
 
   // MainNavgiation component
   return (

@@ -12,7 +12,7 @@ function LoginForm(props) {
   const passwordRef = useRef();
 
   // onSubmit customer form handler
-  async function loginSubmitHandler(event) {
+  const loginSubmitHandler = async (event) => {
     event.preventDefault();
 
     const loginEmail = emailRef.current.value;
@@ -41,7 +41,7 @@ function LoginForm(props) {
         navigate("/ProviderPage");
       }
     }
-  }
+  };
 
   // form component
   return (

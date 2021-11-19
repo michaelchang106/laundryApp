@@ -21,7 +21,6 @@ function SignUpCustomers() {
       },
       body: data,
     });
-
     return await response.json();
   }
   return (

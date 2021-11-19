@@ -24,7 +24,7 @@ function SignUpCustomerForm(props) {
   const phoneNumberRef = useRef();
 
   // onChange password && confirmPassword input handler
-  async function passwordChangeHandler(event) {
+  const passwordChangeHandler = async (event) => {
     const password = passwordRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
 
@@ -33,10 +33,10 @@ function SignUpCustomerForm(props) {
     } else {
       setPasswordErrorMessage("");
     }
-  }
+  };
 
   // onChange email input handler
-  async function emailChangeHandler(event) {
+  const emailChangeHandler = async (event) => {
     const email = emailRef.current.value;
 
     const response = await props.findEmailFetch(email);
@@ -46,10 +46,10 @@ function SignUpCustomerForm(props) {
     } else {
       setEmailErrorMessage("Email already registered please login!");
     }
-  }
+  };
 
   // onSubmit customer form handler
-  async function customerSubmitHandler(event) {
+  const customerSubmitHandler = async (event) => {
     event.preventDefault();
 
     const customerFirstName = firstNameRef.current.value;
@@ -88,7 +88,7 @@ function SignUpCustomerForm(props) {
         setEmailErrorMessage("Email already registered please login!");
       }
     }
-  }
+  };
 
   // form component
   return (

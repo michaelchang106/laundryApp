@@ -106,14 +106,28 @@ router.post("/findUserDetails", async function (req, res) {
   try {
     const rawData = req.body;
     let response;
-    console.log(rawData);
+
     if (rawData.userType === "customer") {
       response = await dbManager.findUser("customers", rawData.email);
     } else if (rawData.userType === "provider") {
       response = await dbManager.findUser("providers", rawData.email);
     }
-    console.log(response);
+
     res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+/* POST updateUserDetails. */
+router.post("/updateUserDetails", async function (req, res) {
+  console.log("Got /updateUserDetails POST request");
+
+  try {
+    const rawData = req.body;
+    const collection = rawData.userType + "s";
+
+    await dbManager.updateUserDetails(collection, rawData);
   } catch (error) {
     res.send(error);
   }
@@ -123,7 +137,7 @@ router.post("/findUserDetails", async function (req, res) {
 /* POST laundryRequest. */
 router.post("/laundryRequest", async function (req, res) {
   console.log("Got /laundryRequest POST request");
-  console.log(req.body);
+
   try {
     // const rawData = req.body;
     // const response = await dbManager.findUser("loginCreds", rawData);

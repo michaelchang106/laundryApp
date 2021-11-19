@@ -1,7 +1,7 @@
 import LaundryRequestForm from "../components/customer/LaundryRequestForm";
 
 function CustomerRequestService() {
-  async function laundryRequestFetch(data) {
+  const laundryRequestFetch = async (data) => {
     console.log(data);
     const response = await fetch("/api/laundryRequest", {
       method: "POST",
@@ -12,7 +12,7 @@ function CustomerRequestService() {
     });
 
     return await response.json();
-  }
+  };
 
   return (
     <div>

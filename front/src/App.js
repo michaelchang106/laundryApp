@@ -21,7 +21,7 @@ function App() {
   const userType = localStorage.getItem("userType");
   const email = localStorage.getItem("email");
 
-  async function findUserDetailsFetch(data) {
+  const findUserDetails = async (data) => {
     const response = await fetch("/api/findUserDetails", {
       method: "POST",
       headers: {
@@ -29,28 +29,25 @@ function App() {
       },
       body: JSON.stringify(data),
     });
+    const json = await response.json();
+    setUserData(json);
+  };
 
-    return await response.json();
-  }
-
-  useEffect(async () => {
-    console.log("CALLING USE EFFECT");
+  useEffect(() => {
     if (localStorage.length > 0) {
-      console.log("USER IS LOGGED IN");
       setLoginSuccess(true);
-      const userDataResponse = await findUserDetailsFetch({
+      const userQuery = {
         email: email,
         userType: userType,
-      });
-      setUserData(userDataResponse);
+      };
+      findUserDetails(userQuery);
     } else {
-      console.log("NOT LOGGED IN");
       setLoginSuccess(false);
       setUserData();
     }
   }, [email, userType]);
 
-  console.log(userData);
+  console.log(userData); //WHY DOES THIS RUN 3 times?
 
   return (
     <Layout

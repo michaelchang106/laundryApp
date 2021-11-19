@@ -66,8 +66,29 @@ const addUser = async (collectionName, data) => {
   }
 };
 
+const updateUserDetails = async (collectionName, data) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect(collectionName);
+    const collection = connectedCollection.collection;
+    const filter = { email: data.email };
+
+    for (const [key, value] of Object.entries(data)) {
+      const update = { $set: { [key]: value } };
+      if (key !== "email" && key !== "userType") {
+        await collection.updateOne(filter, update);
+      }
+    }
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
 //-----------------Provider DB Manager--------------------//
 
 //-----------------Customer DB Manager--------------------//
 
-module.exports = { addUser, findUser };
+module.exports = { addUser, findUser, updateUserDetails };
