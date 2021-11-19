@@ -1,73 +1,72 @@
-import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 
 function MainNavigation(props) {
-  // initialize hooks (loginState has Link)
-  const [userLoginDetails, setUserLoginDetails] = useState();
-  const [signOut, setSignOut] = useState();
-  const [servicePage, setServicePage] = useState();
-  const navigate = useNavigate();
-
   // check localStorage for cached Login
   const userType = localStorage.getItem("userType");
 
-  useEffect(() => {
-    // reset states for logout and clear localStorage
-    const logoutHandler = (event) => {
-      setUserLoginDetails();
-      setServicePage();
-      props.setLoginSuccess(false);
-      localStorage.clear();
-      navigate("/");
-    };
+  // initialize hooks (loginState has Link)
+  const navigate = useNavigate();
 
-    // if loginSuccess state is true replace Login Link to Customer/Provider Detail Page Link
-    if (props.loginSuccess && props.userData !== undefined) {
-      // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 3 times
-      if (userType === "customer") {
-        setUserLoginDetails(
-          <Link to="/CustomerDetailsPage">{`${props.userData.firstName} ${props.userData.lastName}`}</Link>
-        );
-      } else {
-        setUserLoginDetails(
-          <Link to="/ProviderDetailsPage">Provider Name</Link>
-        );
-      }
-      // create signout button
-      setSignOut(
+  // reset states for logout and clear localStorage
+  const logoutHandler = (event) => {
+    localStorage.clear();
+    props.setLoginSuccessState("false");
+    navigate("/");
+  };
+
+  let linksRender = [];
+
+  const logoutLink = () => {
+    return (
+      <li>
+        <button
+          className={classes.logout}
+          onClick={logoutHandler}
+          type="button"
+        >
+          Log out
+        </button>
+      </li>
+    );
+  };
+
+  // if loginSuccess state is true replace Login Link to Customer/Provider Detail Page Link
+  if (props.loginSuccessState === "true" && props.userData !== undefined) {
+    // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 2 times
+    if (userType === "customer") {
+      linksRender.push(
         <li>
-          <button
-            className={classes.logout}
-            onClick={logoutHandler}
-            type="button"
-          >
-            Log out
-          </button>
+          <Link to="/CustomerRequestService">Request Laundry</Link>
         </li>
       );
-
-      // create link for Customer Request Page or Provider Service page
-      if (userType === "customer") {
-        setServicePage(
-          <li>
-            <Link to="/CustomerRequestService">Request Laundry</Link>
-          </li>
-        );
-      } else {
-        setServicePage(
-          <li>
-            <Link to="/ProviderPage">Provider Business Name</Link>
-          </li>
-        );
-      }
-
-      // else set default navigation bar
+      linksRender.push(
+        <li>
+          <Link to="/CustomerDetailsPage">{`${props.userData.firstName} ${props.userData.lastName}`}</Link>
+        </li>
+      );
     } else {
-      setUserLoginDetails(<Link to="/Login">Login</Link>);
-      setSignOut();
+      linksRender.push(
+        <li>
+          <Link to="/ProviderPage">Provider Business Name</Link>
+        </li>
+      );
+      linksRender.push(
+        <li>
+          <Link to="/ProviderDetailsPage">Provider Name</Link>
+        </li>
+      );
     }
-  }, [navigate, userType, props]);
+    linksRender.push(logoutLink());
+
+    // else set default navigation bar
+  } else {
+    linksRender.push(
+      <li>
+        <Link to="/Login">Login</Link>
+      </li>
+    );
+  }
 
   // MainNavgiation component
   return (
@@ -83,9 +82,7 @@ function MainNavigation(props) {
           <li>
             <Link to="/SignUp">Sign Up</Link>
           </li>
-          {servicePage}
-          <li>{userLoginDetails}</li>
-          {signOut}
+          {linksRender}
         </ul>
       </nav>
     </header>

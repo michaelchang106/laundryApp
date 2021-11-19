@@ -32,7 +32,8 @@ function LoginForm(props) {
       // set localStorage with customer info
       localStorage.setItem("email", response.email);
       localStorage.setItem("userType", response.userType);
-      props.setLoginSuccess(true);
+      localStorage.setItem("loginSuccess", true);
+      props.setLoginSuccessState("true");
 
       //navigate to Customer Request page or Provider Service Page
       if (response.userType === "customer") {

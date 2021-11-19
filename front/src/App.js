@@ -16,10 +16,9 @@ import ProviderPage from "./pages/ProviderPage";
 import ProviderDetailsPage from "./pages/ProviderDetailsPage";
 
 function App() {
-  const [loginSuccess, setLoginSuccess] = useState();
+  const loginSuccess = localStorage.getItem("loginSuccess");
   const [userData, setUserData] = useState();
-  const userType = localStorage.getItem("userType");
-  const email = localStorage.getItem("email");
+  const [loginSuccessState, setLoginSuccessState] = useState(loginSuccess);
 
   const findUserDetails = async (data) => {
     const response = await fetch("/api/findUserDetails", {
@@ -29,38 +28,36 @@ function App() {
       },
       body: JSON.stringify(data),
     });
-    const json = await response.json();
-    setUserData(json);
+    return await response.json();
   };
 
   useEffect(() => {
-    if (localStorage.length > 0) {
-      setLoginSuccess(true);
-      const userQuery = {
-        email: email,
-        userType: userType,
+    if (loginSuccessState === "true") {
+      const setData = async () => {
+        const userType = localStorage.getItem("userType");
+        const email = localStorage.getItem("email");
+        const credentials = { email: email, userType: userType };
+        setUserData(await findUserDetails(credentials));
       };
-      findUserDetails(userQuery);
-    } else {
-      setLoginSuccess(false);
-      setUserData();
+      setData();
     }
-  }, [email, userType]);
+    console.log("I AM IN THE USE EFFECT---");
+  }, [loginSuccessState]);
 
-  console.log(userData); //WHY DOES THIS RUN 3 times?
+  console.log(userData, "APP LEVEL DATA FETCH FROM DB"); //WHY DOES THIS RUN 2 times?
 
   return (
     <Layout
-      loginSuccess={loginSuccess}
-      setLoginSuccess={setLoginSuccess}
       userData={userData}
+      loginSuccessState={loginSuccessState}
+      setLoginSuccessState={setLoginSuccessState}
     >
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route
           path="/Login"
-          element={<Login setLoginSuccess={setLoginSuccess} />}
+          element={<Login setLoginSuccessState={setLoginSuccessState} />}
         />
         <Route path="/signUpProviders" element={<SignUpProviders />} />
         <Route path="/signUpCustomers" element={<SignUpCustomers />} />

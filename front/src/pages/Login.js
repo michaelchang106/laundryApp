@@ -19,7 +19,7 @@ function Login(props) {
 
       <LoginForm
         loginHandler={loginHandler}
-        setLoginSuccess={props.setLoginSuccess}
+        setLoginSuccessState={props.setLoginSuccessState}
       />
     </div>
   );
