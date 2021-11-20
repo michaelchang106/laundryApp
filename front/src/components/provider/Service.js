@@ -1,7 +1,6 @@
 import Button from "./Button.js";
 
 const Service = ({
-  key,
   serviceItem,
   modifyServiceDisplay,
   id,
@@ -36,15 +35,15 @@ const Service = ({
   );
 
   return (
-    <div key={key} className="service">
-      <h5>
-        <span className="serviceTitle">{serviceItem.service}</span>
-        <Button
-          serviceItem={serviceItem}
-          modifyServiceDisplay={modifyServiceDisplay}
-          id={id}
-        />
+    <div key={serviceItem.serviceID} className="service row">
+      <h5 className="serviceTitle col-8 pb-0">
+        <span>{serviceItem.service}</span>
       </h5>
+      <Button
+        serviceItem={serviceItem}
+        modifyServiceDisplay={modifyServiceDisplay}
+        id={id}
+      />
       {serviceItem.showDetails && details}
     </div>
   );

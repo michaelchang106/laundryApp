@@ -4,7 +4,7 @@ const Button = ({ serviceItem, modifyServiceDisplay, id }) => {
   };
 
   return (
-    <span>
+    <span className="col-4 d-flex justify-content-center align-items-center">
       {serviceItem.showDetails ? (
         <button id={id} onClick={handleClick} className="collapseBtn">
           &#8722;

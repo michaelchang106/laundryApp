@@ -19,20 +19,24 @@ const Service = ({
 
   const handleInputChange = (e) => {
     const target = e.target;
-    console.log(target.value);
+    let value;
     if (target.name === "perPound") {
       if (target.value === "true") {
-        target.value = false;
+        value = false;
       } else {
-        target.value = true;
+        value = true;
       }
+    } else {
+      value = target.value;
     }
-    onServiceEdit(serviceItem.serviceID, target.name, target.value);
+
+    console.log("Radio", target.value);
+    onServiceEdit(serviceItem.serviceID, target.name, value);
   };
 
   const handleOnDelete = () => {
-    console.log("Dlete");
     deleteService(serviceItem.serviceID);
+    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
   };
 
   //Used to render options from dropdown service
@@ -40,8 +44,9 @@ const Service = ({
     <option value={opt}> {opt}</option>
   ));
 
+  console.log("SertviceItm", serviceItem.perPound);
   return (
-    <form className="service" onSubmit={onSubmit}>
+    <form key={serviceItem.serviceID} className="service" onSubmit={onSubmit}>
       <div>
         <label htmlFor="">
           <span>Select Service:</span>
@@ -63,18 +68,32 @@ const Service = ({
           onChange={handleInputChange}
         />
       </div>
-      <div>
+
+      <div className="form-check form-switch">
         <input
+          className="form-check-input"
           type="checkbox"
-          className="custom-control-input"
           name="perPound"
+          id={
+            serviceItem.perPound
+              ? "flexSwitchCheckChecked"
+              : "flexSwitchCheckDefault"
+          }
           value={serviceItem.perPound}
           onChange={handleInputChange}
         />
-        <label id="perPoundCheckLbl" htmlFor="customSwitch1">
-          Price Per Pound
+        <label
+          className="form-check-label"
+          htmlFor={
+            serviceItem.perPound
+              ? "flexSwitchCheckChecked"
+              : "flexSwitchCheckDefault"
+          }
+        >
+          Charge per Pound?
         </label>
       </div>
+
       <button type="submit" value="Save" className="editBtn">
         Save
       </button>

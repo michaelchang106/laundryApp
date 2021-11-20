@@ -41,6 +41,7 @@ const ProviderPage = () => {
 
   //Handle Service Edits
   const onServiceEdit = (id, item, value) => {
+    console.log(typeof value);
     let updated = services.map((service) => {
       let update;
       if (service.serviceID === id) {

@@ -10,13 +10,18 @@ const Services = ({
 }) => {
   //Used to delete a service
   const deleteService = (id) => {
-    const deleted = services.forEach((s, i) => {
+    services.forEach((s, i) => {
       if (s.serviceID === id) {
         services.splice(i, 1);
       }
     });
 
-    console.log(deleted);
+    //Need to reset indexes or else keys will be off.
+    let updated = services.map((service, index) => {
+      return (service.serviceID = index);
+    });
+
+    setServices(updated);
   };
 
   const addService = () => {
@@ -32,6 +37,7 @@ const Services = ({
     setServices([...services, newService]);
   };
 
+  console.log(services);
   const renderServices = services.map((s, i) => {
     if (s.showEdit) {
       return (

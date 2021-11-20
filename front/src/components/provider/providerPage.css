@@ -20,8 +20,6 @@
   padding-left: 0px;
   padding-right: 0px;
   width: 0px;
-  margin-left: 60%;
-  /* position: absolute;*/
 }
 
 .deleteBtn,
@@ -35,5 +33,5 @@
 }
 
 .serviceTitle {
-  position: relative;
+  margin: auto;
 }
