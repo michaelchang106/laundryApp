@@ -1,16 +1,16 @@
-const Button = ({ displayServices, setDisplaySerivces }) => {
-  const handleClick = () => {
-    setDisplaySerivces(!displayServices);
+const Button = ({ serviceItem, modifyServiceDisplay, id }) => {
+  const handleClick = (e) => {
+    modifyServiceDisplay(serviceItem.serviceID, "showDetails");
   };
 
   return (
     <span>
-      {displayServices ? (
-        <button onClick={handleClick} className="collapseBtn">
+      {serviceItem.showDetails ? (
+        <button id={id} onClick={handleClick} className="collapseBtn">
           &#8722;
         </button>
       ) : (
-        <button onClick={handleClick} className="collapseBtn">
+        <button id={id} onClick={handleClick} className="collapseBtn">
           &#43;
         </button>
       )}

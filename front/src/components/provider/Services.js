@@ -2,44 +2,69 @@ import EditService from "./EditService.js";
 import "./providerPage.css";
 import Service from "./Service";
 
-const serviveItem = [
-  { Service: "Wash", Price: 2.5, perPound: "No" },
-  { Service: "Clean", Price: 2.0, perPound: "No" },
-];
-
 const Services = ({
-  displayServices,
-  setDisplaySerivces,
-  editServices,
-  setEditServices,
+  services,
+  setServices,
+  modifyServiceDisplay,
+  onServiceEdit,
 }) => {
-  const renderServices = serviveItem.map((s, i) => {
-    if (editServices) {
+  //Used to delete a service
+  const deleteService = (id) => {
+    const deleted = services.forEach((s, i) => {
+      if (s.serviceID === id) {
+        services.splice(i, 1);
+      }
+    });
+
+    console.log(deleted);
+  };
+
+  const addService = () => {
+    console.log("ID =>", services.length);
+    const newService = {
+      service: "Wash and Fold",
+      price: 0.0,
+      perPound: false,
+      serviceID: services.length,
+      showDetails: false,
+      showEdit: true,
+    };
+    setServices([...services, newService]);
+  };
+
+  const renderServices = services.map((s, i) => {
+    if (s.showEdit) {
       return (
         <EditService
-          key={i}
-          service={s.Service}
-          cost={s.Price}
-          displayServices={displayServices}
-          setEditServices={setEditServices}
+          key={s.serviceID}
+          serviceItem={s}
+          modifyServiceDisplay={modifyServiceDisplay}
+          onServiceEdit={onServiceEdit}
+          deleteService={deleteService}
         />
       );
     }
 
     return (
       <Service
-        key={i}
-        service={s.Service}
-        cost={s.Price}
-        displayServices={displayServices}
-        setDisplaySerivces={setDisplaySerivces}
-        editServices={editServices}
-        setEditServices={setEditServices}
+        key={s.serviceID}
+        id={i}
+        serviceItem={s}
+        modifyServiceDisplay={modifyServiceDisplay}
+        deleteService={deleteService}
       />
     );
   });
 
-  return <div>{renderServices}</div>;
+  return (
+    <div>
+      {renderServices}
+      <div>
+        <small> Services Remaining: {5 - services.length}</small>{" "}
+      </div>
+      {services.length < 5 && <button onClick={addService}>Add Service</button>}{" "}
+    </div>
+  );
 };
 
 export default Services;

@@ -1,28 +1,36 @@
 import Button from "./Button.js";
+
 const Service = ({
   key,
-  service,
-  cost,
-  displayServices,
-  setDisplaySerivces,
-  editServices,
-  setEditServices,
+  serviceItem,
+  modifyServiceDisplay,
+  id,
+  deleteService,
+  setServices,
 }) => {
-  //hanle edit button
+  // handle edit button
   const onEditClick = () => {
-    setEditServices(true);
+    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
   };
-  //Details to display
+
+  const handleOnDelete = () => {
+    deleteService(serviceItem.serviceID);
+    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
+  };
+
+  // //Details to display
   const details = (
     <div>
       <h5>
-        Cost: $<span>{cost}</span>
+        Cost: $<span>{serviceItem.price}</span>
       </h5>
       <div>
         <button className="editBtn" onClick={onEditClick}>
           Edit
         </button>
-        <button className="deleteBtn">Delete</button>
+        <button className="deleteBtn" onClick={handleOnDelete}>
+          Delete
+        </button>
       </div>
     </div>
   );
@@ -30,14 +38,14 @@ const Service = ({
   return (
     <div key={key} className="service">
       <h5>
-        {service}
+        <span className="serviceTitle">{serviceItem.service}</span>
         <Button
-          setDisplaySerivces={setDisplaySerivces}
-          displayServices={displayServices}
+          serviceItem={serviceItem}
+          modifyServiceDisplay={modifyServiceDisplay}
+          id={id}
         />
       </h5>
-
-      {displayServices && details}
+      {serviceItem.showDetails && details}
     </div>
   );
 };
