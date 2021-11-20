@@ -5,7 +5,6 @@ import classes from "./LaundryRequestForm.module.css";
 
 function LaundryRequestForm(props) {
   // initailize react hooks
-
   const poundsOfLaundryRef = useRef();
   const service1Ref = useRef();
   const service2Ref = useRef();

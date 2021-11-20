@@ -2,6 +2,11 @@ import LaundryRequestForm from "../components/customer/LaundryRequestForm";
 import { useState } from "react";
 import Card from "../components/ui/Card";
 
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
+
 let availableProviders = [];
 let servicesPrice = {};
 
@@ -48,7 +53,9 @@ function CustomerRequestService() {
           <li>Phone Number: {provider.phoneNumber}</li>
           <li>
             Cost for laundry:{" "}
-            {provider.services.pricePerPounds * servicesPrice.poundsOfLaundry}
+            {currencyFormatter.format(
+              provider.services.pricePerPounds * servicesPrice.poundsOfLaundry
+            )}
           </li>
         </ul>
       </Card>

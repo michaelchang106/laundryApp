@@ -1,17 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 
-function MainNavigation(props) {
-  // check localStorage for cached Login
-  const userType = localStorage.getItem("userType");
+import { useContext } from "react";
+import UserLoginContext from "../../store/UserLoginContext";
 
-  // initialize hooks (loginState has Link)
+function MainNavigation() {
   const navigate = useNavigate();
+
+  //intialize useContext
+  const userContext = useContext(UserLoginContext);
 
   // reset states for logout and clear localStorage
   const logoutHandler = (event) => {
     localStorage.clear();
-    props.setLoginSuccessState("false");
+    userContext.setLoginStatus(false);
     navigate("/");
   };
 
@@ -32,9 +34,10 @@ function MainNavigation(props) {
   };
 
   // if loginSuccess state is true replace Login Link to Customer/Provider Detail Page Link
-  if (props.loginSuccessState === "true" && props.userData !== undefined) {
-    // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 2 times
-    if (userType === "customer") {
+  // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 2 times
+
+  if (userContext.userDetails && userContext.loginStatus) {
+    if (userContext.userDetails.userType === "customer") {
       linksRender.push(
         <li key="customerRequestService">
           <Link to="/CustomerRequestService">Request Laundry</Link>
@@ -42,18 +45,18 @@ function MainNavigation(props) {
       );
       linksRender.push(
         <li key="customerDetailsPage">
-          <Link to="/CustomerDetailsPage">{`${props.userData.firstName} ${props.userData.lastName}`}</Link>
+          <Link to="/CustomerDetailsPage">{`${userContext.userDetails.firstName} ${userContext.userDetails.lastName}`}</Link>
         </li>
       );
     } else {
       linksRender.push(
         <li key="providerPage">
-          <Link to="/ProviderPage">Provider Business Name</Link>
+          <Link to="/ProviderPage">{`${userContext.userDetails.companyName}`}</Link>
         </li>
       );
       linksRender.push(
         <li key="providerDetailsPage">
-          <Link to="/ProviderDetailsPage">Provider Name</Link>
+          <Link to="/ProviderDetailsPage">{`${userContext.userDetails.firstName} ${userContext.userDetails.lastName}`}</Link>
         </li>
       );
     }

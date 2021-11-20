@@ -1,12 +1,17 @@
 import CustomerDetailsForm from "../components/customer/CustomerDetailsForm";
+import { useContext } from "react";
+import UserLoginContext from "../store/UserLoginContext";
 
-function CustomerDetailsPage(props) {
-  if (props.userData !== undefined) {
+function CustomerDetailsPage() {
+  //intialize useContext
+  const userContext = useContext(UserLoginContext);
+
+  if (userContext.userDetails !== undefined) {
     return (
       <div>
-        <h1>{`${props.userData.firstName} ${props.userData.lastName}`}</h1>
+        <h1>{`${userContext.userDetails.firstName} ${userContext.userDetails.lastName}`}</h1>
         <div>
-          <CustomerDetailsForm userData={props.userData}/>
+          <CustomerDetailsForm />
         </div>
       </div>
     );

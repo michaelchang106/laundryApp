@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import Card from "../ui/Card";
 import classes from "./LoginForm.module.css";
 
+import { useContext } from "react";
+import UserLoginContext from "../../store/UserLoginContext";
+
 function LoginForm(props) {
   // initailize react hooks
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  //intialize useContext
+  const userContext = useContext(UserLoginContext);
 
   // onSubmit customer form handler
   const loginSubmitHandler = async (event) => {
@@ -33,7 +39,17 @@ function LoginForm(props) {
       localStorage.setItem("email", response.email);
       localStorage.setItem("userType", response.userType);
       localStorage.setItem("loginSuccess", true);
-      props.setLoginSuccessState("true");
+
+      const setData = async () => {
+        const userType = localStorage.getItem("userType");
+        const email = localStorage.getItem("email");
+        const credentials = { email: email, userType: userType };
+        userContext.setUserDetails(
+          await userContext.findUserDetails(credentials)
+        );
+        userContext.setLoginStatus(true);
+      };
+      setData();
 
       //navigate to Customer Request page or Provider Service Page
       if (response.userType === "customer") {

@@ -2,7 +2,10 @@ import Card from "../ui/Card";
 import classes from "./CustomerDetailsForm.module.css";
 import { useState, useRef } from "react";
 
-function CustomerDetailsForm(props) {
+import { useContext } from "react";
+import UserLoginContext from "../../store/UserLoginContext";
+
+function CustomerDetailsForm() {
   const [formEdit, setFormEdit] = useState(true);
   const [buttonText, setButtonText] = useState("Edit");
   const firstNameRef = useRef();
@@ -12,6 +15,10 @@ function CustomerDetailsForm(props) {
   const stateRef = useRef();
   const phoneNumberRef = useRef();
 
+  //intialize useContext
+  const userContext = useContext(UserLoginContext);
+
+  // fetch to update userDetails in DB
   const updateUserDetailsFetch = async (data) => {
     await fetch("/api/updateUserDetails", {
       method: "POST",
@@ -40,11 +47,12 @@ function CustomerDetailsForm(props) {
         zipCode: customerZipCode,
         state: customerState,
         phoneNumber: customerPhoneNumber,
-        email: props.userData.email,
-        userType: props.userData.userType,
+        email: userContext.userDetails.email,
+        userType: userContext.userDetails.userType,
       };
 
       updateUserDetailsFetch(customerDataChanged);
+      userContext.setUserDetails({...userContext.userDetails, ...customerDataChanged})
     }
 
     if (formEdit) {
@@ -67,7 +75,7 @@ function CustomerDetailsForm(props) {
             placeholder="First Name"
             required
             name="firstname"
-            defaultValue={props.userData.firstName}
+            defaultValue={userContext.userDetails.firstName}
             disabled={formEdit}
             ref={firstNameRef}
           />
@@ -79,7 +87,7 @@ function CustomerDetailsForm(props) {
             placeholder="Last Name"
             required
             name="lastname"
-            defaultValue={props.userData.lastName}
+            defaultValue={userContext.userDetails.lastName}
             disabled={formEdit}
             ref={lastNameRef}
           />
@@ -91,7 +99,7 @@ function CustomerDetailsForm(props) {
             placeholder="City Name"
             required
             name="city"
-            defaultValue={props.userData.city}
+            defaultValue={userContext.userDetails.city}
             disabled={formEdit}
             ref={cityRef}
           />
@@ -104,7 +112,7 @@ function CustomerDetailsForm(props) {
             placeholder="Zip Code (eg. 12345)"
             required
             name="zipCode"
-            defaultValue={props.userData.zipCode}
+            defaultValue={userContext.userDetails.zipCode}
             disabled={formEdit}
             ref={zipCodeRef}
           />
@@ -117,7 +125,7 @@ function CustomerDetailsForm(props) {
             placeholder="State Abbreviation (eg. CA, NY, AZ, etc.)"
             required
             name="state"
-            defaultValue={props.userData.state}
+            defaultValue={userContext.userDetails.state}
             disabled={formEdit}
             ref={stateRef}
           />
@@ -130,7 +138,7 @@ function CustomerDetailsForm(props) {
             placeholder="123-456-7890"
             required
             name="phone"
-            defaultValue={props.userData.phoneNumber}
+            defaultValue={userContext.userDetails.phoneNumber}
             disabled={formEdit}
             ref={phoneNumberRef}
           />
