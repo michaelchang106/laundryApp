@@ -87,8 +87,33 @@ const updateUserDetails = async (collectionName, data) => {
   }
 };
 
+const laundryRequest = async (collectionName, data) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect(collectionName);
+    const collection = connectedCollection.collection;
+
+    // construct filter
+    let filter = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (key !== "poundsOfLaundry") {
+        filter[`services.${key}`] = { $exists: value };
+      }
+    }
+
+    const res = await collection.find(filter);
+    const allProviders = await res.toArray();
+    return allProviders;
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
 //-----------------Provider DB Manager--------------------//
 
 //-----------------Customer DB Manager--------------------//
 
-module.exports = { addUser, findUser, updateUserDetails };
+module.exports = { addUser, findUser, updateUserDetails, laundryRequest };

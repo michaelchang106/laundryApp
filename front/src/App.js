@@ -41,10 +41,9 @@ function App() {
       };
       setData();
     }
-    console.log("I AM IN THE USE EFFECT---");
   }, [loginSuccessState]);
 
-  console.log(userData, "APP LEVEL DATA FETCH FROM DB"); //WHY DOES THIS RUN 2 times?
+  // console.log(userData, "APP LEVEL DATA FETCH FROM DB"); //WHY DOES THIS RUN 2 times?
 
   return (
     <Layout

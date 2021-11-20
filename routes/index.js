@@ -137,11 +137,22 @@ router.post("/updateUserDetails", async function (req, res) {
 /* POST laundryRequest. */
 router.post("/laundryRequest", async function (req, res) {
   console.log("Got /laundryRequest POST request");
+  const rawData = req.body;
+
+  // construct query
+  let servicesRequested = {};
+  for (const [key, value] of Object.entries(rawData)) {
+    if (value !== false && key !== "date") {
+      servicesRequested[key] = value;
+    }
+  }
 
   try {
-    // const rawData = req.body;
-    // const response = await dbManager.findUser("loginCreds", rawData);
-    // res.json(response);
+    const response = await dbManager.laundryRequest(
+      "providers",
+      servicesRequested
+    );
+    res.json(response);
   } catch (error) {
     res.send(error);
   }

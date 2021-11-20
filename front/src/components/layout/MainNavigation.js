@@ -19,7 +19,7 @@ function MainNavigation(props) {
 
   const logoutLink = () => {
     return (
-      <li>
+      <li key="logout">
         <button
           className={classes.logout}
           onClick={logoutHandler}
@@ -36,23 +36,23 @@ function MainNavigation(props) {
     // !== undefined IS A HACK...REFER TO APP.js FETCH RUNS 2 times
     if (userType === "customer") {
       linksRender.push(
-        <li>
+        <li key="customerRequestService">
           <Link to="/CustomerRequestService">Request Laundry</Link>
         </li>
       );
       linksRender.push(
-        <li>
+        <li key="customerDetailsPage">
           <Link to="/CustomerDetailsPage">{`${props.userData.firstName} ${props.userData.lastName}`}</Link>
         </li>
       );
     } else {
       linksRender.push(
-        <li>
+        <li key="providerPage">
           <Link to="/ProviderPage">Provider Business Name</Link>
         </li>
       );
       linksRender.push(
-        <li>
+        <li key="providerDetailsPage">
           <Link to="/ProviderDetailsPage">Provider Name</Link>
         </li>
       );
@@ -62,7 +62,7 @@ function MainNavigation(props) {
     // else set default navigation bar
   } else {
     linksRender.push(
-      <li>
+      <li key="login">
         <Link to="/Login">Login</Link>
       </li>
     );
