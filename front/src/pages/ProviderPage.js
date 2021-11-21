@@ -31,7 +31,7 @@ const ProviderPage = () => {
       }
       return update;
     });
-    postService(updated); //Post to server
+
     setServices(updated);
   };
 
@@ -48,17 +48,6 @@ const ProviderPage = () => {
     const resJSON = await res.json();
 
     return resJSON;
-  };
-
-  const postService = async (services) => {
-    console.log("Posting", services);
-    const res = await fetch("/api/updateServices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ services: services }),
-    });
   };
 
   // //Display only on page
