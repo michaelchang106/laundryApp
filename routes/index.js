@@ -160,14 +160,43 @@ router.post("/laundryRequest", async function (req, res) {
 
 /*----------------Provider Routes ----------------------------*/
 
+/*----------------Provider Routes ----------------------------*/
+
+//Helper to conver service object to an array of objects
+
+const convertToServiceArr = (serviceObj) => {
+  let serviceArr = [];
+
+  for (let [key, value] of Object.entries(serviceObj)) {
+    if (key === "dryClean") {
+      key = "Dry Clean";
+    }
+
+    key = key[0].toUpperCase() + key.slice(1);
+
+    const tmp = {
+      service: key,
+      price: value.price,
+      perPound: value.perPound,
+      serviceID: value.serviceID,
+      showDetails: false,
+      showEdit: false,
+    };
+    serviceArr.push(tmp);
+  }
+  return serviceArr;
+};
+
 router.post("/getServices", async (req, res) => {
   console.log("Getting services");
   const rawData = req.body;
 
   try {
     const response = await dbManager.findUser("providers", rawData.email);
+    let serviceArr = convertToServiceArr(response.serviceObjects);
 
-    res.json(response.services);
+    console.log("arr", serviceArr);
+    res.json(serviceArr);
   } catch (error) {
     res.send(error);
   }

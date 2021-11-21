@@ -66,14 +66,16 @@ const ProviderPage = () => {
     <div>
       <div>
         <h1>Provider Page</h1>
-        <div className="serviceDetails">
-          <h3>Services By You:</h3>
-          <Services
-            services={services}
-            modifyServiceDisplay={modifyServiceDisplay}
-            onServiceEdit={onServiceEdit}
-            setServices={setServices}
-          />
+        <div className="row">
+          <div className="serviceDetails col-3">
+            <h3>Services By You:</h3>
+            <Services
+              services={services}
+              modifyServiceDisplay={modifyServiceDisplay}
+              onServiceEdit={onServiceEdit}
+              setServices={setServices}
+            />
+          </div>
         </div>
       </div>
     </div>

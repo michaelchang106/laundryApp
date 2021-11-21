@@ -118,42 +118,37 @@ const laundryRequest = async (collectionName, data) => {
 };
 
 //-----------------Provider DB Manager--------------------//
+//Helper to convert array to a
+const makeServiceObj = (serviceData) => {
+  let tmp = {};
 
-// const updateService = async (userEmail, serviceData) => {
-//   console.log("-------------------");
-//   console.log("EMail", userEmail);
-//   console.log("SERVICE DATE!!!!", serviceData);
+  serviceData.forEach((item) => {
+    let service = item.service;
 
-//   let connectedCollection;
+    service = service.split(" ").join("");
+    service = service[0].toLowerCase() + service.slice(1);
 
-//   try {
-//     //Check if user Exist: If it does than return false
-//     connectedCollection = await collectionConnect("providers");
-//     const collection = connectedCollection.collection;
-//     await collection.updateOne(
-//       { email: userEmail },
-//       { $set: { services: serviceData } }
-//     );
-//   } catch (error) {
-//     console.log("ERROR--", error);
-//   } finally {
-//     await connectedCollection.client.close();
-//   }
-// };
+    tmp[`${service}`] = {
+      price: item.price,
+      perPound: item.perPound,
+      serviceID: item.serviceID,
+    };
+  });
+
+  return tmp;
+};
 
 const updateService = async (serviceData, email) => {
   let connectedCollection;
 
-  console.log("UPDATING");
-  console.log(serviceData);
-  console.log(email);
+  let serviceDataObj = makeServiceObj(serviceData);
 
   try {
     connectedCollection = await collectionConnect("providers");
     const collection = connectedCollection.collection;
     await collection.updateOne(
       { email: email },
-      { $set: { services: serviceData } }
+      { $set: { serviceObjects: serviceDataObj } }
     );
   } catch (error) {
     console.log("ERROR--", error);

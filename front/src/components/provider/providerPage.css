@@ -22,10 +22,15 @@
   width: 0px;
 }
 
-.deleteBtn,
 .editBtn {
   width: 60px;
-  font-size: 20px;
+  font-size: 15px;
+}
+
+.deleteBtn {
+  width: 70px;
+  font-size: 15px;
+  background-color: #a61414;
 }
 
 #perPoundCheckLbl {
@@ -34,4 +39,10 @@
 
 .serviceTitle {
   margin: auto;
+}
+
+.Layout_main__auk_r {
+  margin: 3rem auto;
+  width: 100%;
+  max-width: 75rem;
 }

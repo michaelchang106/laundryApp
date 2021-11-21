@@ -4,14 +4,9 @@ const EditService = ({
   onServiceEdit,
   deleteService,
   submitEdit,
+  services,
 }) => {
-  const serviceOptions = [
-    "Wash and Fold",
-    "Dress Pants",
-    "Dresses",
-    "Skirts",
-    "Comforter/Duvet",
-  ];
+  const serviceOptions = ["Wash", "Dry Clean", "Fold", "Delivery"];
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +28,6 @@ const EditService = ({
       value = target.value;
     }
 
-    console.log("Radio", target.value);
     onServiceEdit(serviceItem.serviceID, target.name, value);
   };
 
@@ -43,11 +37,57 @@ const EditService = ({
   };
 
   //Used to render options from dropdown service
-  const renderOptions = serviceOptions.map((opt, i) => (
-    <option value={opt}> {opt}</option>
-  ));
+  const renderOptions = () => {
+    let options = [];
+    let used = new Set();
 
-  console.log("SertviceItm", serviceItem.perPound);
+    // for (let item of services) {
+    //   used.add(item.service);
+    // }
+
+    console.log("USED", used);
+
+    serviceOptions.forEach((service) => {
+      if (!used.has(service)) {
+        options.push(<option value={service}>{service}</option>);
+      }
+    });
+
+    return options;
+  };
+
+  const renderPerPoundBox = () => {
+    if (serviceItem.service === "Dry Clean" || serviceItem.service === "Wash") {
+      return (
+        <div className="form-check form-switch">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            name="perPound"
+            id={
+              serviceItem.perPound
+                ? "flexSwitchCheckChecked"
+                : "flexSwitchCheckDefault"
+            }
+            value={serviceItem.perPound}
+            onChange={handleInputChange}
+          />
+          <label
+            className="form-check-label"
+            htmlFor={
+              serviceItem.perPound
+                ? "flexSwitchCheckChecked"
+                : "flexSwitchCheckDefault"
+            }
+          >
+            Charge per Pound?
+          </label>
+        </div>
+      );
+    }
+    return "";
+  };
+
   return (
     <form key={serviceItem.serviceID} className="service" onSubmit={onSubmit}>
       <div>
@@ -59,8 +99,11 @@ const EditService = ({
           onChange={handleInputChange}
           value={serviceItem.service}
         >
-          {renderOptions}
+          {renderOptions()}
         </select>
+        <div className="d-flex justify-content-center">
+          {renderPerPoundBox()}
+        </div>
       </div>
       <div>
         <label htmlFor="">Fee:</label>
@@ -70,31 +113,6 @@ const EditService = ({
           placeholder={serviceItem.price}
           onChange={handleInputChange}
         />
-      </div>
-
-      <div className="form-check form-switch">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          name="perPound"
-          id={
-            serviceItem.perPound
-              ? "flexSwitchCheckChecked"
-              : "flexSwitchCheckDefault"
-          }
-          value={serviceItem.perPound}
-          onChange={handleInputChange}
-        />
-        <label
-          className="form-check-label"
-          htmlFor={
-            serviceItem.perPound
-              ? "flexSwitchCheckChecked"
-              : "flexSwitchCheckDefault"
-          }
-        >
-          Charge per Pound?
-        </label>
       </div>
 
       <button type="submit" value="Save" className="editBtn">

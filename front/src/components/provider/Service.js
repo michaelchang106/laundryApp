@@ -23,13 +23,15 @@ const Service = ({
       <h5>
         Cost: $<span>{serviceItem.price}</span>
       </h5>
-      <div>
-        <button className="editBtn" onClick={onEditClick}>
-          Edit
-        </button>
-        <button className="deleteBtn" onClick={handleOnDelete}>
-          Delete
-        </button>
+      <div colName="row ">
+        <div className="col-12 d-flex justify-content-center">
+          <button className="editBtn" onClick={onEditClick}>
+            Edit
+          </button>
+          <button className="deleteBtn" onClick={handleOnDelete}>
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ const Services = ({
   const addService = () => {
     console.log("ID =>", services.length);
     const newService = {
-      service: "Wash and Fold",
+      service: "",
       price: 0.0,
       perPound: false,
       serviceID: services.length,
@@ -58,6 +58,7 @@ const Services = ({
       return (
         <EditService
           key={s.serviceID}
+          services={services}
           serviceItem={s}
           modifyServiceDisplay={modifyServiceDisplay}
           onServiceEdit={onServiceEdit}
@@ -84,7 +85,11 @@ const Services = ({
       <div>
         <small> Services Remaining: {5 - services.length}</small>{" "}
       </div>
-      {services.length < 5 && <button onClick={addService}>Add Service</button>}{" "}
+      <div className="d-flex justify-content-center">
+        {services.length < 4 && (
+          <button onClick={addService}>Add Service</button>
+        )}{" "}
+      </div>
     </div>
   );
 };
