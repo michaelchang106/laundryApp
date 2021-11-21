@@ -30,7 +30,7 @@ const Service = ({
           {serviceItem.perPound && <h6>Per lb.</h6>}
         </div>
       </div>
-      <div colName="row ">
+      <div className="row ">
         <div className="col-12 d-flex justify-content-center">
           <button className="editBtn" onClick={onEditClick}>
             Edit

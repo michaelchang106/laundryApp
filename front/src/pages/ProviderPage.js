@@ -22,12 +22,12 @@ const ProviderPage = () => {
 
   //Handle Service Edits
   const onServiceEdit = (id, item, value) => {
-    let updated = services.map((service) => {
+    let updated = services.map((serviceItem) => {
       let update;
-      if (service.serviceID === id) {
-        update = { ...service, [item]: value };
+      if (serviceItem.serviceID === id) {
+        update = { ...serviceItem, [item]: value };
       } else {
-        update = service;
+        update = serviceItem;
       }
       return update;
     });

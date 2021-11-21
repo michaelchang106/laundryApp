@@ -6,12 +6,14 @@ const EditService = ({
   submitEdit,
   services,
 }) => {
+  //Set up default service Options
   const serviceOptions = ["Wash", "Dry Clean", "Fold", "Delivery"];
 
   const onSubmit = (e) => {
     e.preventDefault();
     modifyServiceDisplay(serviceItem.serviceID, "showEdit");
     serviceItem.showEdit = false;
+
     submitEdit(serviceItem);
   };
 
@@ -30,8 +32,6 @@ const EditService = ({
       value = target.value;
     }
 
-    console.log("TARGET", value);
-
     onServiceEdit(serviceItem.serviceID, target.name, value);
   };
 
@@ -43,21 +43,11 @@ const EditService = ({
   //Used to render options from dropdown service
   const renderOptions = () => {
     let options = new Set();
-    let used = new Set();
-
-    // for (let item of services) {
-    //   used.add(item.service);
-    // }
-
-    console.log("USED", used);
+    //Filter options that are already being useing
 
     serviceOptions.forEach((serviceOpt) => {
-      if (!used.has(serviceOpt)) {
-        options.add(<option value={serviceOpt}>{serviceOpt}</option>);
-      }
+      options.add(<option value={serviceOpt}>{serviceOpt}</option>);
     });
-
-    console.log("OPTION", options);
 
     return options;
   };
@@ -134,7 +124,7 @@ const EditService = ({
         <select
           name="service"
           onChange={handleInputChange}
-          value={serviceItem.service}
+          // value={serviceItem.service}
         >
           {renderOptions()}
         </select>

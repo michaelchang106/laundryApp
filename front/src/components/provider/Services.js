@@ -1,6 +1,7 @@
 import EditService from "./EditService.js";
 import "./providerPage.css";
 import Service from "./Service";
+// import { useRef } from "react";
 
 const Services = ({
   services,
@@ -38,8 +39,8 @@ const Services = ({
     setServices([...services, newService]);
   };
 
-  const submitEdit = (service) => {
-    postService([...services, service]);
+  const submitEdit = async (service) => {
+    await postService([...services, service]);
   };
 
   const postService = async (services) => {
