@@ -1,8 +1,9 @@
-const Service = ({
+const EditService = ({
   serviceItem,
   modifyServiceDisplay,
   onServiceEdit,
   deleteService,
+  submitEdit,
 }) => {
   const serviceOptions = [
     "Wash and Fold",
@@ -15,6 +16,8 @@ const Service = ({
   const onSubmit = (e) => {
     e.preventDefault();
     modifyServiceDisplay(serviceItem.serviceID, "showEdit");
+    serviceItem.showEdit = false;
+    submitEdit(serviceItem);
   };
 
   const handleInputChange = (e) => {
@@ -104,4 +107,4 @@ const Service = ({
   );
 };
 
-export default Service;
+export default EditService;

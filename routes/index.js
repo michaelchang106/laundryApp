@@ -158,4 +158,30 @@ router.post("/laundryRequest", async function (req, res) {
   }
 });
 
+/*----------------Provider Routes ----------------------------*/
+
+router.post("/getServices", async (req, res) => {
+  console.log("Getting services");
+  const rawData = req.body;
+
+  try {
+    const response = await dbManager.findUser("providers", rawData.email);
+
+    res.json(response.services);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.post("/updateServices", async (req, res) => {
+  console.log("updating services");
+  const rawData = req.body;
+
+  try {
+    await dbManager.updateService(rawData.services, rawData.email);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

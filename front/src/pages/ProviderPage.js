@@ -1,25 +1,6 @@
 import { useState, useEffect } from "react";
 import Services from "../components/provider/Services.js";
 
-const serviveItems = [
-  {
-    service: "Dresses",
-    price: 2.5,
-    perPound: false,
-    serviceID: 0,
-    showDetails: false,
-    showEdit: false,
-  },
-  {
-    service: "Skirts",
-    price: 2.0,
-    perPound: false,
-    serviceID: 1,
-    showDetails: false,
-    showEdit: false,
-  },
-];
-
 const ProviderPage = () => {
   let [services, setServices] = useState([]);
 
@@ -41,7 +22,6 @@ const ProviderPage = () => {
 
   //Handle Service Edits
   const onServiceEdit = (id, item, value) => {
-    console.log(typeof value);
     let updated = services.map((service) => {
       let update;
       if (service.serviceID === id) {
@@ -49,19 +29,46 @@ const ProviderPage = () => {
       } else {
         update = service;
       }
-
       return update;
     });
-
+    postService(updated); //Post to server
     setServices(updated);
   };
+
+  //----------Handling Post-----------------//
+  const getProviderServices = async (email) => {
+    const res = await fetch("/api/getServices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email }),
+    });
+
+    const resJSON = await res.json();
+
+    return resJSON;
+  };
+
+  const postService = async (services) => {
+    console.log("Posting", services);
+    const res = await fetch("/api/updateServices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ services: services }),
+    });
+  };
+
   // //Display only on page
   useEffect(() => {
     //Get services offered -> set display to false
-    const loadServices = (services) => {
+    const loadServices = async () => {
+      let services = await getProviderServices(localStorage.email);
       setServices(services);
     };
-    loadServices(serviveItems);
+    loadServices();
   }, []);
 
   // Sending and Recieving services

@@ -8,6 +8,7 @@ const collectionConnect = async (documents) => {
   const dbName = "laundryApp";
 
   //Connect to url
+
   const url = uri || "mongodb://localhost:27017";
   const client = await new MongoClient(url, {
     useUnifiedTopology: true,
@@ -30,6 +31,8 @@ const collectionConnect = async (documents) => {
 const findUser = async (collectionName, email) => {
   let connectedCollection;
 
+  console.log("finding");
+
   try {
     connectedCollection = await collectionConnect(collectionName);
     const collection = connectedCollection.collection;
@@ -41,6 +44,8 @@ const findUser = async (collectionName, email) => {
     await connectedCollection.client.close();
   }
 };
+
+//wash  dryclean(perPound) delivery fold (flat)
 
 const addUser = async (collectionName, data) => {
   let connectedCollection;
@@ -114,6 +119,55 @@ const laundryRequest = async (collectionName, data) => {
 
 //-----------------Provider DB Manager--------------------//
 
+// const updateService = async (userEmail, serviceData) => {
+//   console.log("-------------------");
+//   console.log("EMail", userEmail);
+//   console.log("SERVICE DATE!!!!", serviceData);
+
+//   let connectedCollection;
+
+//   try {
+//     //Check if user Exist: If it does than return false
+//     connectedCollection = await collectionConnect("providers");
+//     const collection = connectedCollection.collection;
+//     await collection.updateOne(
+//       { email: userEmail },
+//       { $set: { services: serviceData } }
+//     );
+//   } catch (error) {
+//     console.log("ERROR--", error);
+//   } finally {
+//     await connectedCollection.client.close();
+//   }
+// };
+
+const updateService = async (serviceData, email) => {
+  let connectedCollection;
+
+  console.log("UPDATING");
+  console.log(serviceData);
+  console.log(email);
+
+  try {
+    connectedCollection = await collectionConnect("providers");
+    const collection = connectedCollection.collection;
+    await collection.updateOne(
+      { email: email },
+      { $set: { services: serviceData } }
+    );
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
 //-----------------Customer DB Manager--------------------//
 
-module.exports = { addUser, findUser, updateUserDetails, laundryRequest };
+module.exports = {
+  addUser,
+  findUser,
+  updateUserDetails,
+  laundryRequest,
+  updateService,
+};
