@@ -14,6 +14,7 @@ const Services = ({
       if (s.serviceID === id) {
         services.splice(i, 1);
       }
+      postService(services);
     });
 
     //Need to reset indexes or else keys will be off.
@@ -37,7 +38,21 @@ const Services = ({
     setServices([...services, newService]);
   };
 
-  console.log(services);
+  const submitEdit = (service) => {
+    postService([...services, service]);
+  };
+
+  const postService = async (services) => {
+    console.log("Posting", services);
+    const res = await fetch("/api/updateServices", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: localStorage.email, services: services }),
+    });
+  };
+
   const renderServices = services.map((s, i) => {
     if (s.showEdit) {
       return (
@@ -47,6 +62,7 @@ const Services = ({
           modifyServiceDisplay={modifyServiceDisplay}
           onServiceEdit={onServiceEdit}
           deleteService={deleteService}
+          submitEdit={submitEdit}
         />
       );
     }
