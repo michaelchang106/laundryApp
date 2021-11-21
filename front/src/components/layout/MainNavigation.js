@@ -79,10 +79,10 @@ function MainNavigation() {
       </Link>
       <nav>
         <ul>
-          <li>
+          <li key="home">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li key="signup">
             <Link to="/SignUp">Sign Up</Link>
           </li>
           {linksRender}

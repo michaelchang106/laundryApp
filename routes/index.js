@@ -142,7 +142,7 @@ router.post("/laundryRequest", async function (req, res) {
   // construct query
   let servicesRequested = {};
   for (const [key, value] of Object.entries(rawData)) {
-    if (value !== false && key !== "date") {
+    if (key !== "date" && value) {
       servicesRequested[key] = value;
     }
   }
