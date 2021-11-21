@@ -143,6 +143,7 @@ const updateService = async (serviceData, email) => {
 
   let serviceDataObj = makeServiceObj(serviceData);
 
+  console.log("RAW DATE", serviceData);
   try {
     connectedCollection = await collectionConnect("providers");
     const collection = connectedCollection.collection;

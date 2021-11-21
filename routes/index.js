@@ -203,9 +203,7 @@ router.post("/getServices", async (req, res) => {
 });
 
 router.post("/updateServices", async (req, res) => {
-  console.log("updating services");
   const rawData = req.body;
-
   try {
     await dbManager.updateService(rawData.services, rawData.email);
   } catch (error) {

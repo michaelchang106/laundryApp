@@ -20,9 +20,16 @@ const Service = ({
   // //Details to display
   const details = (
     <div>
-      <h5>
-        Cost: $<span>{serviceItem.price}</span>
-      </h5>
+      <div className="row">
+        <div className="col-7 pl-0">
+          <h6>
+            Cost: $<span>{serviceItem.price}</span>
+          </h6>
+        </div>
+        <div className="col-5 d-flex justify-content-end">
+          {serviceItem.perPound && <h6>Per lb.</h6>}
+        </div>
+      </div>
       <div colName="row ">
         <div className="col-12 d-flex justify-content-center">
           <button className="editBtn" onClick={onEditClick}>

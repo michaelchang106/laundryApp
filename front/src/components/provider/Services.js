@@ -28,7 +28,7 @@ const Services = ({
   const addService = () => {
     console.log("ID =>", services.length);
     const newService = {
-      service: "",
+      service: "Wash",
       price: 0.0,
       perPound: false,
       serviceID: services.length,
@@ -83,7 +83,7 @@ const Services = ({
     <div>
       {renderServices}
       <div>
-        <small> Services Remaining: {5 - services.length}</small>{" "}
+        <small> Services Remaining: {4 - services.length}</small>{" "}
       </div>
       <div className="d-flex justify-content-center">
         {services.length < 4 && (
