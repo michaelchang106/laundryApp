@@ -140,7 +140,7 @@ function LaundryRequestForm(props) {
           <input
             type="text"
             required
-            placeholder="01/31/2021"
+            placeholder="eg. 01/31/2021"
             name="date"
             ref={dateRef}
           />
