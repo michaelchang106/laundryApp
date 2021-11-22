@@ -108,6 +108,39 @@ function LaundryRequestForm(props) {
     }
   }
 
+  function showSortOptions() {
+    if (props.providerCards.length > 0) {
+      return (
+        <div className={classes.checkBoxControl}>
+          <div>Sort By:</div>
+          <input
+            type="radio"
+            id="priceLowHigh"
+            name="sort"
+            onChange={props.setSortPriceLowHighFunc}
+          />
+          <label htmlFor="priceAsc">Price Low-High</label>
+          <input
+            type="radio"
+            id="priceHighLow"
+            name="sort"
+            onChange={props.setSortPriceHighLowFunc}
+          />
+          <label htmlFor="priceDesc">Price High-Low</label>
+          <input
+            type="radio"
+            id="distance"
+            name="sort"
+            onChange={props.setSortDistanceFunc}
+          />
+          <label htmlFor="distance">Distance (not functional yet)</label>
+        </div>
+      );
+    } else {
+      return;
+    }
+  }
+
   // form component
   return (
     <Card>
@@ -127,12 +160,12 @@ function LaundryRequestForm(props) {
         </div>
         {showDryCleanForm()}
         <span className={classes.checkBoxControl}>
-          <label htmlFor="fold">Need Fold? (fixed rate)</label>
+          <label htmlFor="fold">Folded</label>
           <input type="checkbox" name="fold" ref={foldRef} />
         </span>
 
         <span className={classes.checkBoxControl}>
-          <label htmlFor="delivery">Need Delivery? (fixed rate)</label>
+          <label htmlFor="delivery">Delivered</label>
           <input type="checkbox" name="delivery" ref={deliveryRef} />
         </span>
         <div className={classes.textControl}>
@@ -151,6 +184,7 @@ function LaundryRequestForm(props) {
         <div className={classes.actions}>
           <button>Ready to Wash!</button>
         </div>
+        {showSortOptions()}
       </form>
     </Card>
   );

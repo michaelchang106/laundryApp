@@ -15,6 +15,27 @@ function CustomerRequestService() {
   let providerCards = [];
 
   const [gotProivders, setGotProivders] = useState();
+  const [sortPriceLowHigh, setSortPriceLowHigh] = useState(false);
+  const [sortPriceHighLow, setSortPriceHighLow] = useState(false);
+  const [sortDistance, setSortDistance] = useState(false);
+
+  function setSortPriceLowHighFunc() {
+    setSortPriceLowHigh(true);
+    setSortPriceHighLow(false);
+    setSortDistance(false);
+  }
+
+  function setSortPriceHighLowFunc() {
+    setSortPriceLowHigh(false);
+    setSortPriceHighLow(true);
+    setSortDistance(false);
+  }
+
+  function setSortDistanceFunc() {
+    setSortPriceLowHigh(false);
+    setSortPriceHighLow(false);
+    setSortDistance(true);
+  }
 
   const laundryRequestFetch = async (data) => {
     const response = await fetch("/api/laundryRequest", {
@@ -32,26 +53,24 @@ function CustomerRequestService() {
     setGotProivders(!gotProivders);
   };
 
-  // push cards into an array
+  // loop through the providers returned from backend
   availableProviders.forEach((provider) => {
+    // calculate each costs
     const laundryCost = servicesRequested.wash
       ? provider.serviceObjects.wash.price * servicesRequested.wash
       : 0;
-
     const dryCleanCost = servicesRequested.dryClean
       ? provider.serviceObjects.dryClean.price * servicesRequested.dryClean
       : 0;
-
     const foldingCost = servicesRequested.fold
       ? provider.serviceObjects.fold.price
       : 0;
-
     const deliveryCost = servicesRequested.delivery
       ? provider.serviceObjects.delivery.price
       : 0;
-
     const totalCost = laundryCost + dryCleanCost + foldingCost + deliveryCost;
 
+    // push into providerCards array
     providerCards.push([
       <div className="mt-2">
         <Card>
@@ -119,21 +138,55 @@ function CustomerRequestService() {
     ]);
   });
 
-  console.log(providerCards);
+  if (sortPriceLowHigh) {
+    providerCards.sort((a, b) => a[2] - b[2]);
+  } else if (sortPriceHighLow) {
+    providerCards.sort((a, b) => b[2] - a[2]);
+  } else if (sortDistance) {
+    //put in code to sort by zipCode....how to calculate absolute value of zipCode difference
+  }
 
+  //providerCards - [0] is provider Object [1] is date [2] is cost [3] is zipCode
   // push cards[0] into an array to render in the react component
   providerCards.forEach((card) => {
     providerCardRender.push(card[0]);
   });
 
+  console.log(
+    sortDistance,
+    "-Distance",
+    sortPriceHighLow,
+    "-HighLow",
+    sortPriceLowHigh,
+    "-LowHigh"
+  );
+
+  function showCards() {
+    if (providerCardRender.length > 0) {
+      return providerCardRender;
+    } else {
+      return (
+        <h2 className="d-flex h-100 align-items-center justify-content-center">
+          Go have fun! Let us do the chores! Request Today!!
+        </h2>
+      );
+    }
+  }
+
   return (
     <div>
-      <h1>Request Laundry Service Now!</h1>
+      <h1>Request Laundry Service</h1>
       <div className="row">
         <div className="col-4">
-          <LaundryRequestForm laundryRequestFetch={laundryRequestFetch} />
+          <LaundryRequestForm
+            laundryRequestFetch={laundryRequestFetch}
+            providerCards={providerCards}
+            setSortPriceLowHighFunc={setSortPriceLowHighFunc}
+            setSortPriceHighLowFunc={setSortPriceHighLowFunc}
+            setSortDistanceFunc={setSortDistanceFunc}
+          />
         </div>
-        <div className="col-8">{providerCardRender}</div>
+        <div className="col-8">{showCards()}</div>
       </div>
     </div>
   );
