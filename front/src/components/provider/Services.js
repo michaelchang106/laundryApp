@@ -1,7 +1,7 @@
 import EditService from "./EditService.js";
 import "./providerPage.css";
 import Service from "./Service";
-// import { useRef } from "react";
+// import { useState } from "react";
 
 const Services = ({
   services,
@@ -29,7 +29,7 @@ const Services = ({
   const addService = () => {
     console.log("ID =>", services.length);
     const newService = {
-      service: "Wash",
+      service: "",
       price: 0.0,
       perPound: false,
       serviceID: services.length,
