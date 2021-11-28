@@ -2,7 +2,7 @@
   "name": "laundryapp",
   "author": "Michael Chang & Daniel Lisko",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "1.22.17",
   "private": true,
   "scripts": {
     "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www"
