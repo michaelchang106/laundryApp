@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 const EditService = ({
   serviceItem,
   modifyServiceDisplay,
@@ -7,13 +9,36 @@ const EditService = ({
   services,
 }) => {
   //Set up default service Options
-  const serviceOptions = ["Wash", "Dry Clean", "Fold", "Delivery"];
+  let [serviceOptions, setServiceOptions] = useState(new Set());
+
+  //This will render every time we open create or decide to edit a service.
+  useEffect(() => {
+    let serviceOpt = new Set(["Wash", "Dry Clean", "Fold", "Delivery"]);
+
+    //Remove services that we're already submitted to the database.
+    updateServices(serviceOpt);
+    console.log("SERVICES", serviceOpt);
+    setServiceOptions(serviceOpt);
+  }, []);
+
+  const updateServices = (serivceOpt) => {
+    services.forEach((service) => {
+      if (serivceOpt.has(service.service)) {
+        serivceOpt.delete(service.service);
+      }
+    });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
-    serviceItem.showEdit = false;
 
+    //Prevents user from submitting the default display.
+    if (serviceItem.service === "") {
+      return;
+    }
+    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
+    console.log("SUBMIT", serviceItem);
+    serviceItem.showEdit = false;
     submitEdit(serviceItem);
   };
 
@@ -21,7 +46,6 @@ const EditService = ({
     const target = e.target;
     let value;
 
-    console.log("VALUE", e.target.value);
     if (target.name === "perPound") {
       if (target.value === "true") {
         value = false;
@@ -45,6 +69,11 @@ const EditService = ({
     let options = new Set();
     //Filter options that are already being useing
 
+    options.add(
+      <option value="" disabled selected>
+        Select a service
+      </option>
+    );
     serviceOptions.forEach((serviceOpt) => {
       options.add(<option value={serviceOpt}>{serviceOpt}</option>);
     });
@@ -124,7 +153,7 @@ const EditService = ({
         <select
           name="service"
           onChange={handleInputChange}
-          // value={serviceItem.service}
+          value={serviceItem.service}
         >
           {renderOptions()}
         </select>
