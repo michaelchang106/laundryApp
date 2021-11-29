@@ -1,7 +1,10 @@
 // MICHAEL CHANG
 import classes from "./LaundryCustomerConfirm.module.css";
+import { useState } from "react";
 
 function LaundryCustomerConfirm(props) {
+
+  // data fetch
   const laundryCustomerConfirmFetch = async (data) => {
     await fetch("/api/laundryCustomerConfirm", {
       method: "POST",
@@ -12,10 +15,14 @@ function LaundryCustomerConfirm(props) {
     });
   };
 
+  // submit handler
   const laundryCustomerConfirmSubmitHandler = async (event) => {
     event.preventDefault();
     laundryCustomerConfirmFetch(requestObject);
+    setButtonText("Pending");
   };
+
+  const [buttonText, setButtonText] = useState("Choose Provider!");
 
   let washPrice;
   let poundsRequestedWash;
@@ -78,7 +85,7 @@ function LaundryCustomerConfirm(props) {
         className={classes.actions}
         onSubmit={laundryCustomerConfirmSubmitHandler}
       >
-        <button>Choose Proivder!</button>
+        <button>{buttonText}</button>
       </form>
     </div>
   );

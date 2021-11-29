@@ -12,13 +12,14 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 function CustomerLaundryRequestDetails() {
-  let customerRequestsCards = [];
+  // array for card render
   let customerRequestsRender = [];
+
   //intialize useContext
   const userContext = useContext(UserLoginContext);
   const customerEmail = { customerEmail: userContext.userDetails.email };
 
-  // fetch requeests from DB
+  // fetch requests from DB
   const allCustomerLaundryRequestsFetch = async (data) => {
     const response = await fetch("/api/allCustomerLaundryRequest", {
       method: "POST",
@@ -31,21 +32,31 @@ function CustomerLaundryRequestDetails() {
     allCustomerRequests = await response.json();
   };
 
+  // this should be AWAITed....
   allCustomerLaundryRequestsFetch(customerEmail);
+  console.log(allCustomerRequests);
+  // sort the cards from latest to earliest
+  allCustomerRequests.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
   allCustomerRequests.forEach((request) => {
-    customerRequestsCards.push([
+    customerRequestsRender.push([
       <div className="mt-2">
         <Card>
           <h3 className="d-flex justify-content-center">
             {request.providerEmail}
           </h3>
           <div className="row">
-            <span className="col-12">
+            <span className="col-6">
               <strong>Date: </strong> {request.date}
             </span>
-          </div>
-          <div className="row">
+            <span className="col-6">
+              <strong>Provider Accepted: </strong>{" "}
+              {request.providerAccepted.toString()}
+            </span>
+            <span className="col-6">
+              <strong>Job Completed: </strong>{" "}
+              {request.serviceComplete.toString()}
+            </span>
             <span className="col-6">
               <strong>Total Cost: </strong>
               {currencyFormatter.format(request.totalCost)}
@@ -53,16 +64,7 @@ function CustomerLaundryRequestDetails() {
           </div>
         </Card>
       </div>,
-      request.date,
     ]);
-  });
-
-  // sort the cards from latest to earliest
-  customerRequestsCards.sort((a, b) => b[1] - a[1]);
-
-  // push to render array
-  customerRequestsCards.forEach((card) => {
-    customerRequestsRender.push(card[0]);
   });
 
   // form component

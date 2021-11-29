@@ -214,6 +214,10 @@ CustomerRequestService.propTypes = {
   setSortPriceHighLowFunc: PropTypes.func,
   setSortDistanceFunc: PropTypes.func,
   providerCards: PropTypes.array,
+  provider: PropTypes.object,
+  customer: PropTypes.object,
+  servicesRequested: PropTypes.object,
+  totalCost: PropTypes.number,
 };
 
 export default CustomerRequestService;
