@@ -1,6 +1,6 @@
 // MICHAEL CHANG
 
-import CustomerDetailsForm from "../components/customer/CustomerDetailsForm";
+import CustomerDetailsForm from "../components/customer/customerDetailsAndRequests/CustomerDetailsForm";
 import { useContext } from "react";
 import UserLoginContext from "../store/UserLoginContext";
 

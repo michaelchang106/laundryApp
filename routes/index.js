@@ -158,7 +158,29 @@ router.post("/laundryRequest", async function (req, res) {
   }
 });
 
-/*----------------Provider Routes ----------------------------*/
+router.post("/laundryCustomerConfirm", async function (req, res) {
+  console.log("Got /laundryCustomerConfirm POST request");
+  const rawData = req.body;
+
+  try {
+    await dbManager.addLaundryRequest(rawData);
+    res.status(200);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.post("/allCustomerLaundryRequest", async function (req, res) {
+  console.log("Got /allCustomerLaundryRequest POST request");
+  const rawData = req.body;
+
+  try {
+    const response = await dbManager.allCustomerLaundryRequest(rawData);
+    res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 /*----------------Provider Routes ----------------------------*/
 

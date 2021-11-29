@@ -26,7 +26,7 @@ function SignUp() {
                 style={{
                   height: "100%",
                   width: "100%",
-                  "object-fit": "contain",
+                  objectFit: "contain",
                 }}
                 src={laundryProvider}
                 alt="Worker holding freshly cleaned towels at a laundry provider business"
@@ -53,7 +53,7 @@ function SignUp() {
                 style={{
                   height: "100%",
                   width: "100%",
-                  "object-fit": "contain",
+                  objectFit: "contain",
                 }}
                 src={laundryUser}
                 alt="Woman doing laundry with a smile"

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-import Card from "../ui/Card";
+import Card from "../../ui/Card";
 import classes from "./LaundryRequestForm.module.css";
 
 function LaundryRequestForm(props) {
@@ -46,6 +46,7 @@ function LaundryRequestForm(props) {
     await props.laundryRequestFetch(laundryRequestData);
   }
 
+  // define functions to pass down as props
   function setDryCleanFormFunc() {
     setDryCleanForm(!dryCleanForm);
   }

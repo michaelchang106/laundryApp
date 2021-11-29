@@ -161,6 +161,35 @@ const updateService = async (serviceData, email) => {
 };
 
 //-----------------Customer DB Manager--------------------//
+const addLaundryRequest = async (request) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect("customerServiceRequest");
+    const collection = connectedCollection.collection;
+    await collection.insertOne(request);
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
+const allCustomerLaundryRequest = async (email) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect("customerServiceRequest");
+    const collection = connectedCollection.collection;
+    const response = await collection.find(email);
+    const allRequests = await response.toArray();
+    return allRequests;
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
 
 module.exports = {
   addUser,
@@ -168,4 +197,6 @@ module.exports = {
   updateUserDetails,
   laundryRequest,
   updateService,
+  addLaundryRequest,
+  allCustomerLaundryRequest,
 };

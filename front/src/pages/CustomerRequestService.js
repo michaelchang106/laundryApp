@@ -1,7 +1,8 @@
 /* MICHAEL CHANG */
 
 import PropTypes from "prop-types";
-import LaundryRequestForm from "../components/customer/LaundryRequestForm";
+import LaundryRequestForm from "../components/customer/newLaundryRequests/LaundryRequestForm";
+import LaundryCustomerConfirm from "../components/customer/newLaundryRequests/LaundryCustomerConfirm";
 import { useState, useContext } from "react";
 import UserLoginContext from "../store/UserLoginContext";
 import Card from "../components/ui/Card";
@@ -26,6 +27,7 @@ function CustomerRequestService() {
   const [sortPriceHighLow, setSortPriceHighLow] = useState(false);
   const [sortDistance, setSortDistance] = useState(false);
 
+  // set booleans for which sort is selected
   function setSortPriceLowHighFunc() {
     setSortPriceLowHigh(true);
     setSortPriceHighLow(false);
@@ -76,6 +78,10 @@ function CustomerRequestService() {
       ? provider.serviceObjects.delivery.price
       : 0;
     const totalCost = laundryCost + dryCleanCost + foldingCost + deliveryCost;
+
+    // console.log(provider, "THIS IS THE PROVIDER");
+    // console.log(userContext.userDetails, "THIS IS THE USER");
+    // console.log(servicesRequested);
 
     // push into providerCards array
     providerCards.push([
@@ -137,6 +143,12 @@ function CustomerRequestService() {
               </span>
             </div>
           </div>
+          <LaundryCustomerConfirm
+            provider={provider}
+            customer={userContext.userDetails}
+            servicesRequested={servicesRequested}
+            totalCost={totalCost}
+          />
         </Card>
       </div>,
       servicesRequested.date,
