@@ -65,7 +65,7 @@ As a registered provider you can individually add which laundry services you wis
 
 ### [Michael Chang](https://github.com/michaelchang106)
 
-- Users
+- Users (customers)
 - Login
 
 ### [Daniel Lisko](https://github.com/djlisko01)
