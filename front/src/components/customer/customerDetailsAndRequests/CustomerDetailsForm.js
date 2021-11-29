@@ -1,5 +1,6 @@
 /* MICHAEL CHANG */
 
+import PropTypes from "prop-types";
 import Card from "../../ui/Card";
 import classes from "./CustomerDetailsForm.module.css";
 import { useState, useRef } from "react";
@@ -8,6 +9,7 @@ import UserLoginContext from "../../../store/UserLoginContext";
 import CustomerLaundryRequestDetails from "./CustomerLaundryRequestDetails";
 
 function CustomerDetailsForm() {
+  const [getLaundryData, setGetLaundryData] = useState(false);
   const [formEdit, setFormEdit] = useState(true);
   const [buttonText, setButtonText] = useState("Edit");
   const firstNameRef = useRef();
@@ -68,6 +70,10 @@ function CustomerDetailsForm() {
       setButtonText("Edit");
     }
   };
+
+  function setGetLaundryDataFunc(){
+    setGetLaundryData(!getLaundryData);
+  }
 
   // form component
   return (
@@ -161,10 +167,18 @@ function CustomerDetailsForm() {
           {userContext.userDetails.firstName} {userContext.userDetails.lastName}{" "}
           Laundry Requests
         </h5>
-        <CustomerLaundryRequestDetails />
+        <span>
+          <button onClick={setGetLaundryDataFunc}>Refresh</button>
+        </span>
+        <CustomerLaundryRequestDetails getLaundryData={getLaundryData} />
       </div>
     </div>
   );
 }
+
+CustomerDetailsForm.propTypes = {
+  getLaundryData: PropTypes.bool,
+
+};
 
 export default CustomerDetailsForm;
