@@ -1,3 +1,5 @@
+// MICHAEL CHANG & DANIEL LISKO
+
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
 
@@ -75,7 +77,7 @@ function MainNavigation() {
   return (
     <header className={classes.header}>
       <Link to="/">
-        <div className={classes.logo}>Laundry App</div>
+        <div className={classes.logo}>Hamper Dash</div>
       </Link>
       <nav>
         <ul>

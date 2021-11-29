@@ -1,3 +1,5 @@
+/* MICHAEL CHANG & DANIEL LISKO */
+
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;

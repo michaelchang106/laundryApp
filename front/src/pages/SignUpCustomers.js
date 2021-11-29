@@ -1,3 +1,5 @@
+/* MICHAEL CHANG */
+
 import SignUpCustomerForm from "../components/signups/SignUpCustomerForm";
 
 function SignUpCustomers() {

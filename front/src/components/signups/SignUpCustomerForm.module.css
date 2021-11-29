@@ -1,5 +1,10 @@
+/* MICHAEL CHANG */
+
 .form {
   padding: 1rem;
+  width: 50%;
+  margin:  auto;
+  position: relative;
 }
 
 .error {

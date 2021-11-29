@@ -1,3 +1,5 @@
+/* MICHAEL CHANG */
+
 import { useNavigate } from "react-router-dom";
 
 function RedirectHome() {
