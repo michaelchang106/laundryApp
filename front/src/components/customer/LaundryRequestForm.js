@@ -135,7 +135,7 @@ function LaundryRequestForm(props) {
             name="sort"
             onChange={props.setSortDistanceFunc}
           />
-          <label htmlFor="distance">Distance (not functional yet)</label>
+          <label htmlFor="distance">Distance</label>
         </div>
       );
     } else {

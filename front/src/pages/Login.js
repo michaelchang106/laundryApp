@@ -1,5 +1,5 @@
 /* MICHAEL CHANG */
-
+import PropTypes from "prop-types";
 import LoginForm from "../components/login/LoginForm";
 
 function Login() {
@@ -23,5 +23,9 @@ function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  loginHandler: PropTypes.func.isRequired,
+};
 
 export default Login;

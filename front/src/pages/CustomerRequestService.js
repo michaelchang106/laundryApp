@@ -1,7 +1,9 @@
 /* MICHAEL CHANG */
 
+import PropTypes from "prop-types";
 import LaundryRequestForm from "../components/customer/LaundryRequestForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserLoginContext from "../store/UserLoginContext";
 import Card from "../components/ui/Card";
 
 const currencyFormatter = new Intl.NumberFormat("en-US", {
@@ -13,6 +15,9 @@ let availableProviders = [];
 let servicesRequested = {};
 
 function CustomerRequestService() {
+  //intialize useContext
+  const userContext = useContext(UserLoginContext);
+
   let providerCardRender = [];
   let providerCards = [];
 
@@ -145,7 +150,13 @@ function CustomerRequestService() {
   } else if (sortPriceHighLow) {
     providerCards.sort((a, b) => b[2] - a[2]);
   } else if (sortDistance) {
-    //put in code to sort by zipCode....how to calculate absolute value of zipCode difference
+    //assuming min(zipCode difference means closer by distance)
+    // 91754 - 91753 is closer than 91754 - 91640
+    providerCards.sort(
+      (a, b) =>
+        Math.abs(a[3] - userContext.userDetails.zipCode) -
+        Math.abs(b[3] - userContext.userDetails.zipCode)
+    );
   }
 
   //providerCards - [0] is provider Object [1] is date [2] is cost [3] is zipCode
@@ -153,6 +164,9 @@ function CustomerRequestService() {
   providerCards.forEach((card) => {
     providerCardRender.push(card[0]);
   });
+
+  console.log(providerCards, "PROVIDER CARDS");
+  console.log(servicesRequested, "SERVICES REQUESTED");
 
   console.log(
     sortDistance,
@@ -193,5 +207,13 @@ function CustomerRequestService() {
     </div>
   );
 }
+
+CustomerRequestService.propTypes = {
+  laundryRequestFetch: PropTypes.func.isRequired,
+  setSortPriceLowHighFunc: PropTypes.func.isRequired,
+  setSortPriceHighLowFunc: PropTypes.func.isRequired,
+  setSortDistanceFunc: PropTypes.func.isRequired,
+  providerCards: PropTypes.array,
+};
 
 export default CustomerRequestService;

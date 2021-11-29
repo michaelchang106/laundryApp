@@ -1,5 +1,6 @@
 /* MICHAEL CHANG */
 
+import PropTypes from "prop-types";
 import SignUpCustomerForm from "../components/signups/SignUpCustomerForm";
 
 function SignUpCustomers() {
@@ -35,5 +36,11 @@ function SignUpCustomers() {
     </div>
   );
 }
+
+SignUpCustomers.propTypes = {
+  createCustomerFetch: PropTypes.func.isRequired,
+  findEmailFetch: PropTypes.func.isRequired,
+
+};
 
 export default SignUpCustomers;

@@ -41,12 +41,16 @@ function SignUpCustomerForm(props) {
   const emailChangeHandler = async (event) => {
     const email = emailRef.current.value;
 
-    const response = await props.findEmailFetch(email);
+    if (email.includes("@") && email.includes(".")) {
+      const response = await props.findEmailFetch(email);
 
-    if (response === null || response === undefined) {
-      setEmailErrorMessage("");
+      if (response === null || response === undefined) {
+        setEmailErrorMessage("");
+      } else {
+        setEmailErrorMessage("Email already registered please login!");
+      }
     } else {
-      setEmailErrorMessage("Email already registered please login!");
+      return;
     }
   };
 
