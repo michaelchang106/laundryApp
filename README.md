@@ -71,3 +71,11 @@ As a registered provider you can individually add which laundry services you wis
 ### [Daniel Lisko](https://github.com/djlisko01)
 
 - Providers
+
+## Test User Accounts
+### Customer Test Account
+- Email: john_doe@email.com Password: 123
+
+### Provider Test Account
+- Email: dirtybiz@gmail.com Password: 123
+
