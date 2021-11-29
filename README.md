@@ -49,7 +49,13 @@ As a registered provider you can individually add which laundry services you wis
 ### src
 
 - Contains the different directories organized by:
-  - components - the different React components built and organized by customer, layout, login, provider, signups, ui
+  - components - the different React components built and organized by 
+    - customer 
+    - layout 
+    - login 
+    - provider
+    - signups 
+    - ui
   - images - images used in the different components and pages
   - pages - the page components that are the face of what the user sees and houses other sub-components
   - store - the data store that is used for delivering context throughout components
