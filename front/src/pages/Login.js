@@ -25,7 +25,7 @@ function Login() {
 }
 
 Login.propTypes = {
-  loginHandler: PropTypes.func.isRequired,
+  loginHandler: PropTypes.func,
 };
 
 export default Login;

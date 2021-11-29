@@ -165,18 +165,6 @@ function CustomerRequestService() {
     providerCardRender.push(card[0]);
   });
 
-  console.log(providerCards, "PROVIDER CARDS");
-  console.log(servicesRequested, "SERVICES REQUESTED");
-
-  console.log(
-    sortDistance,
-    "-Distance",
-    sortPriceHighLow,
-    "-HighLow",
-    sortPriceLowHigh,
-    "-LowHigh"
-  );
-
   function showCards() {
     if (providerCardRender.length > 0) {
       return providerCardRender;
@@ -209,10 +197,10 @@ function CustomerRequestService() {
 }
 
 CustomerRequestService.propTypes = {
-  laundryRequestFetch: PropTypes.func.isRequired,
-  setSortPriceLowHighFunc: PropTypes.func.isRequired,
-  setSortPriceHighLowFunc: PropTypes.func.isRequired,
-  setSortDistanceFunc: PropTypes.func.isRequired,
+  laundryRequestFetch: PropTypes.func,
+  setSortPriceLowHighFunc: PropTypes.func,
+  setSortPriceHighLowFunc: PropTypes.func,
+  setSortDistanceFunc: PropTypes.func,
   providerCards: PropTypes.array,
 };
 

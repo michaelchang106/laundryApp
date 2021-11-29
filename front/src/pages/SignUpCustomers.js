@@ -38,8 +38,8 @@ function SignUpCustomers() {
 }
 
 SignUpCustomers.propTypes = {
-  createCustomerFetch: PropTypes.func.isRequired,
-  findEmailFetch: PropTypes.func.isRequired,
+  createCustomerFetch: PropTypes.func,
+  findEmailFetch: PropTypes.func,
 
 };
 
