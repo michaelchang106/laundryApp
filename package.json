@@ -14,10 +14,10 @@
     "express": "~4.16.1",
     "mongodb": "^4.1.4",
     "morgan": "~1.9.1",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "bcrypt": "^5.0.1"
   },
   "devDependencies": {
-    "bcrypt": "^5.0.1",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "nodemon": "^2.0.15",
