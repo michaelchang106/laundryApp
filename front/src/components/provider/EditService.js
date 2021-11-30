@@ -15,20 +15,18 @@ const EditService = ({
 
   //This will render every time we open create or decide to edit a service.
   useEffect(() => {
-    let serviceOpt = new Set(["Wash", "Dry Clean", "Fold", "Delivery"]);
-
-    //Remove services that we're already submitted to the database.
-    updateServices(serviceOpt);
-    console.log("SERVICES", serviceOpt);
-    setServiceOptions(serviceOpt);
+    updateServices();
   }, []);
 
-  const updateServices = (serivceOpt) => {
+  const updateServices = () => {
+    let serviceOpt = new Set(["Wash", "Dry Clean", "Fold", "Delivery"]);
     services.forEach((service) => {
-      if (serivceOpt.has(service.service)) {
-        serivceOpt.delete(service.service);
+      if (serviceOpt.has(service.service)) {
+        serviceOpt.delete(service.service);
       }
     });
+    setServiceOptions(serviceOpt);
+    console.log("=======>", serviceOptions);
   };
 
   const onSubmit = (e) => {
@@ -39,7 +37,6 @@ const EditService = ({
       return;
     }
     modifyServiceDisplay(serviceItem.serviceID, "showEdit");
-    console.log("SUBMIT", serviceItem);
     serviceItem.showEdit = false;
     submitEdit(serviceItem);
   };
@@ -76,6 +73,13 @@ const EditService = ({
         Select a service
       </option>
     );
+
+    if (serviceItem.service && !serviceOptions.has(serviceItem.service)) {
+      options.add(
+        <option value={serviceItem.service}>{serviceItem.service}</option>
+      );
+    }
+
     serviceOptions.forEach((serviceOpt) => {
       options.add(<option value={serviceOpt}>{serviceOpt}</option>);
     });

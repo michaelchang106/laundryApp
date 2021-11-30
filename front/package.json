@@ -49,8 +49,6 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.4.1"
   },
   "proxy": "http://localhost:3001"
