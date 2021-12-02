@@ -1,3 +1,10 @@
+Matthew Vargas Code Review:
+1. Your project is organized quite well, it's quite clear what each component is for and all the styling for each component.
+2. I saw the built in validations for the form worked well, I even tested not inputting correct data
+3. I think some of your styling, particularly for images, is not sized symmetrically, so it looks a little strange.
+4. I tried to request laundry services, and i didn't fill in any checkboxes, but put in a valid date in the future (1/31/2022), and got an error of "can't choose date in the past".  I think the error fired when I didn't fill anything in, but the response error on the front end doesn't make sense.  
+5. I actually tried the form again, and am not sure what I'm doing wrong or if it's not fully implemented yet.  It still isn't working for me.
+
 # [Hamper Dash - Laundry App](https://hamperdash.herokuapp.com/)
 
 ## Objective:
