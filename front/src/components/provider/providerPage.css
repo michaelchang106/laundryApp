@@ -48,3 +48,7 @@
   width: 100%;
   max-width: 75rem;
 }
+
+.acptRejBtn {
+  width: 80px;
+}

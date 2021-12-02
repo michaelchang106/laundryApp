@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Services from "../components/provider/Services.js";
+import CustomerReqDetails from "../components/provider/customerRequests/CustomerReqDetails.js";
 
 const ProviderPage = () => {
   let [services, setServices] = useState([]);
@@ -77,6 +78,14 @@ const ProviderPage = () => {
               onServiceEdit={onServiceEdit}
               setServices={setServices}
             />
+          </div>
+          <div className="col-8" id="requestedServices">
+            <div className="container">
+              <p style={{ margin: 0 }}>
+                <strong>Sort By: </strong>
+              </p>
+            </div>
+            <CustomerReqDetails />
           </div>
         </div>
       </div>

@@ -26,7 +26,6 @@ const EditService = ({
       }
     });
     setServiceOptions(serviceOpt);
-    console.log("=======>", serviceOptions);
   };
 
   const onSubmit = (e) => {
