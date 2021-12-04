@@ -90,6 +90,7 @@ function SignUpCustomerForm(props) {
       if (response) {
         setEmailErrorMessage("");
         navigate("/redirectHome");
+        //redict to login page or homepage with authenticated user
       } else {
         setEmailErrorMessage("Email already registered please login!");
       }
