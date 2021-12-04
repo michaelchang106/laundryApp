@@ -30,6 +30,7 @@ function LaundryRequestForm(props) {
     const today = new Date();
     if (date < today.toLocaleDateString()) {
       setDateErrorMesssage("Date can not be in the past");
+      //Shujun: see comment
       return;
     } else {
       setDateErrorMesssage();
