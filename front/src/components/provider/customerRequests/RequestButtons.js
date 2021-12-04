@@ -1,31 +1,44 @@
 import React from "react";
 
-const RequestButtons = ({ request, setRequest, customersRequests }) => {
+const RequestButtons = ({ request, setCustomerRequest, customersRequests }) => {
   /*Helper function to modify displays when a button is pressed*/
-  const buttonModifiers = (_id, toModify) => {
+  const buttonModifiers = async (_id, toModify) => {
     let updated = customersRequests.map((req) => {
       let update;
       if (req._id === _id) {
         update = { ...req, [toModify]: !req[toModify] };
+        pushRequestUpdate({ ...req, [toModify]: !req[toModify] }); //Send response to the database.
       } else {
         update = req;
       }
-
       return update;
     });
-    setRequest(updated);
+
+    customersRequests = updated;
+    setCustomerRequest(customersRequests);
   };
 
-  const hangleAcceptClick = () => {
-    buttonModifiers(request._id, "providerAccepted");
+  const pushRequestUpdate = async (toUpdate) => {
+    await fetch("/api/updateCustomerRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toUpdate),
+    });
   };
 
-  const hangleRejectClick = () => {
-    buttonModifiers(request._id, "serviceRejected");
+  /*----------Buttons obitoins for hanlding Customer Request-------------*/
+  const handleAcceptClick = async () => {
+    await buttonModifiers(request._id, "providerAccepted");
   };
 
-  const hangleServCompleteClick = () => {
-    buttonModifiers(request._id, "serviceComplete");
+  const handleRejectClick = async () => {
+    await buttonModifiers(request._id, "serviceRejected");
+  };
+
+  const handleServCompleteClick = async () => {
+    await buttonModifiers(request._id, "serviceComplete");
   };
 
   const renderButtons = () => {
@@ -34,7 +47,7 @@ const RequestButtons = ({ request, setRequest, customersRequests }) => {
         <button
           className="submitCompletedSrv"
           type="button"
-          onClick={hangleServCompleteClick}
+          onClick={handleServCompleteClick}
         >
           Service Complete
         </button>
@@ -45,7 +58,7 @@ const RequestButtons = ({ request, setRequest, customersRequests }) => {
           <button
             className="acptRejBtn"
             type="button"
-            onClick={hangleAcceptClick}
+            onClick={handleAcceptClick}
           >
             Accept
           </button>
@@ -54,7 +67,7 @@ const RequestButtons = ({ request, setRequest, customersRequests }) => {
           <button
             className="acptRejBtn"
             type="button"
-            onClick={hangleRejectClick}
+            onClick={handleRejectClick}
           >
             Reject
           </button>

@@ -1,7 +1,7 @@
 // DANIEL LISKO
 
 import { useState, useEffect } from "react";
-import Services from "../components/provider/Services.js";
+import Services from "../components/provider/providerServices/Services.js";
 import CustomerReqDetails from "../components/provider/customerRequests/CustomerReqDetails.js";
 
 const ProviderPage = () => {

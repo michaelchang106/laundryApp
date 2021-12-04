@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import CustomerReqCard from "./requestCard.js";
 
 const CustomerReqDetails = () => {
-  let [customersRequests, setCusomerRequest] = useState([]);
+  let [customersRequests, setCustomerRequest] = useState([]);
   //Fetch all cusomter requests
   //Requires a String of the providers email.
-  const fetchCusomterRequest = async (emailStr) => {
+  const fetchCustomerRequest = async (emailStr) => {
     const emailObj = { providerEmail: emailStr };
     const res = await fetch("/api/allCustomerLaundryRequest", {
       method: "POST",
@@ -27,7 +27,7 @@ const CustomerReqDetails = () => {
         <CustomerReqCard
           key={request._id}
           request={request}
-          setRequest={setCusomerRequest}
+          setCustomerRequest={setCustomerRequest}
           customersRequests={customersRequests}
         />
       );
@@ -40,8 +40,8 @@ const CustomerReqDetails = () => {
     let tmpCustomerRequest;
 
     const getReq = async () => {
-      tmpCustomerRequest = await fetchCusomterRequest(localStorage.email);
-      setCusomerRequest(tmpCustomerRequest);
+      tmpCustomerRequest = await fetchCustomerRequest(localStorage.email);
+      setCustomerRequest(tmpCustomerRequest);
     };
 
     getReq();
