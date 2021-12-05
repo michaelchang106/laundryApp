@@ -20,6 +20,7 @@ function SignUpCustomerForm(props) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
+  const addressRef = useRef();
   const cityRef = useRef();
   const zipCodeRef = useRef();
   const stateRef = useRef();
@@ -37,6 +38,22 @@ function SignUpCustomerForm(props) {
     }
   };
 
+  //https://stackoverflow.com/questions/8358084/regular-expression-to-reformat-a-us-phone-number-in-javascript
+  // onChange phoneNumber input handler
+  const phoneNumberChangeHandler = async (event) => {
+    const phoneNumber = phoneNumberRef.current.value;
+    const cleaned = ("" + phoneNumber).replace(/\D/g, "");
+    const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      phoneNumberRef.current.value = [
+        match[2],
+        "-",
+        match[3],
+        "-",
+        match[4],
+      ].join("");
+    }
+  };
   // onChange email input handler
   const emailChangeHandler = async (event) => {
     const email = emailRef.current.value;
@@ -63,6 +80,7 @@ function SignUpCustomerForm(props) {
     const customerEmail = emailRef.current.value;
     const customerPassword = passwordRef.current.value;
     const customerConfirmPassword = confirmPasswordRef.current.value;
+    const customerAddress = addressRef.current.value;
     const customerCity = cityRef.current.value;
     const customerZipCode = zipCodeRef.current.value;
     const customerState = stateRef.current.value;
@@ -77,6 +95,7 @@ function SignUpCustomerForm(props) {
         firstName: customerFirstName,
         lastName: customerLastName,
         email: customerEmail,
+        address: customerAddress,
         city: customerCity,
         zipCode: customerZipCode,
         state: customerState,
@@ -159,6 +178,17 @@ function SignUpCustomerForm(props) {
         <div className={classes.error}>
           <p>{passwordErrorMessage}</p>
         </div>
+
+        <div className={classes.control}>
+          <label htmlFor="addreess">City</label>
+          <input
+            type="text"
+            placeholder="123 Address Street"
+            required
+            name="address"
+            ref={addressRef}
+          />
+        </div>
         <div className={classes.control}>
           <label htmlFor="city">City</label>
           <input
@@ -194,12 +224,14 @@ function SignUpCustomerForm(props) {
         <div className={classes.control}>
           <label htmlFor="phone">Phone Number</label>
           <input
+            id="phoneNumber"
             type="tel"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="123-456-7890"
             required
             name="phone"
             ref={phoneNumberRef}
+            onChange={phoneNumberChangeHandler}
           />
         </div>
         <div className={classes.actions}>

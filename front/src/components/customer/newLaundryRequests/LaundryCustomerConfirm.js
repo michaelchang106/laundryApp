@@ -3,7 +3,6 @@ import classes from "./LaundryCustomerConfirm.module.css";
 import { useState } from "react";
 
 function LaundryCustomerConfirm(props) {
-
   // data fetch
   const laundryCustomerConfirmFetch = async (data) => {
     await fetch("/api/laundryCustomerConfirm", {
@@ -80,7 +79,7 @@ function LaundryCustomerConfirm(props) {
 
   // form component
   return (
-    <div className="d-flex justify-content-end">
+    <div className="d-flex justify-content-end m-0">
       <form
         className={classes.actions}
         onSubmit={laundryCustomerConfirmSubmitHandler}

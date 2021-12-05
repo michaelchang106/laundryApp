@@ -14,6 +14,7 @@ function CustomerDetailsForm() {
   const [buttonText, setButtonText] = useState("Edit");
   const firstNameRef = useRef();
   const lastNameRef = useRef();
+  const addressRef = useRef();
   const cityRef = useRef();
   const zipCodeRef = useRef();
   const stateRef = useRef();
@@ -38,6 +39,7 @@ function CustomerDetailsForm() {
 
     const customerFirstName = firstNameRef.current.value;
     const customerLastName = lastNameRef.current.value;
+    const customerAddress = addressRef.current.value;
     const customerCity = cityRef.current.value;
     const customerZipCode = zipCodeRef.current.value;
     const customerState = stateRef.current.value;
@@ -47,6 +49,7 @@ function CustomerDetailsForm() {
       const customerDataChanged = {
         firstName: customerFirstName,
         lastName: customerLastName,
+        address: customerAddress,
         city: customerCity,
         zipCode: customerZipCode,
         state: customerState,
@@ -71,7 +74,7 @@ function CustomerDetailsForm() {
     }
   };
 
-  function setGetLaundryDataFunc(){
+  function setGetLaundryDataFunc() {
     setGetLaundryData(!getLaundryData);
   }
 
@@ -103,6 +106,18 @@ function CustomerDetailsForm() {
                 defaultValue={userContext.userDetails.lastName}
                 disabled={formEdit}
                 ref={lastNameRef}
+              />
+            </div>
+            <div className={classes.control}>
+              <label htmlFor="address">Address</label>
+              <input
+                type="text"
+                placeholder="123 Address Street"
+                required
+                name="address"
+                defaultValue={userContext.userDetails.address}
+                disabled={formEdit}
+                ref={addressRef}
               />
             </div>
             <div className={classes.control}>
@@ -178,7 +193,6 @@ function CustomerDetailsForm() {
 
 CustomerDetailsForm.propTypes = {
   getLaundryData: PropTypes.bool,
-
 };
 
 export default CustomerDetailsForm;

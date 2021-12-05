@@ -5,17 +5,18 @@
   "version": "1.22.17",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
     "express": "~4.16.1",
     "mongodb": "^4.1.4",
-    "morgan": "~1.9.1",
-    "dotenv": "^10.0.0",
-    "bcrypt": "^5.0.1"
+    "morgan": "~1.9.1"
   },
   "devDependencies": {
     "eslint": "^8.2.0",

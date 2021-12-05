@@ -104,7 +104,11 @@ const laundryRequest = async (collectionName, data) => {
     // construct filter
     let filter = {};
     for (const [key, value] of Object.entries(data)) {
-      if (key !== "poundsOfLaundry") {
+      if (key === "wash" || key === "dryClean") {
+        filter[`serviceObjects.${key}`] = { $exists: true };
+      } else if (key === "state") {
+        filter["state"] = data.state;
+      } else {
         filter[`serviceObjects.${key}`] = { $exists: value };
       }
     }

@@ -1,9 +1,10 @@
 // MICHAEL CHANG
 
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 
 import Card from "../../ui/Card";
 import classes from "./LaundryRequestForm.module.css";
+import UserLoginContext from "../../../store/UserLoginContext";
 
 function LaundryRequestForm(props) {
   // initailize react hooks
@@ -12,7 +13,9 @@ function LaundryRequestForm(props) {
   const poundsOfDryCleanRef = useRef();
   const deliveryRef = useRef();
   const dateRef = useRef();
+  const userContext = useContext(UserLoginContext);
 
+  const [readyToWashButton, setReadyToWashButton] = useState("Ready to Wash!");
   const [dateErrorMessage, setDateErrorMesssage] = useState();
   const [dryCleanForm, setDryCleanForm] = useState(false);
   const [washForm, setWashForm] = useState(false);
@@ -28,7 +31,7 @@ function LaundryRequestForm(props) {
     const date = dateRef.current.value;
 
     const today = new Date();
-    if (date < today.toLocaleDateString()) {
+    if (Date.parse(date) < Date.parse(today)) {
       setDateErrorMesssage("Date can not be in the past");
       return;
     } else {
@@ -41,9 +44,12 @@ function LaundryRequestForm(props) {
       fold: fold,
       delivery: delivery,
       date: date,
+      state: userContext.userDetails.state,
     };
 
+    setReadyToWashButton("Loading...");
     await props.laundryRequestFetch(laundryRequestData);
+    setReadyToWashButton("Ready to Wash!");
   }
 
   // define functions to pass down as props
@@ -59,9 +65,7 @@ function LaundryRequestForm(props) {
     if (washForm) {
       return (
         <div className={classes.textControl}>
-          <label htmlFor="poundsOfLaundry">
-            Estimated Pounds of Laundry for Wash
-          </label>
+          <label htmlFor="poundsOfLaundry">Estimated lbs. of laundry</label>
           <input
             type="number"
             placeholder="Estimated pounds"
@@ -87,9 +91,7 @@ function LaundryRequestForm(props) {
     if (dryCleanForm) {
       return (
         <div className={classes.textControl}>
-          <label htmlFor="poundsOfDryClean">
-            Estimated Pounds of Laundry for Dry Clean
-          </label>
+          <label htmlFor="poundsOfDryClean">Estimated lbs. of Dry Clean</label>
           <input
             type="number"
             placeholder="Estimated pounds"
@@ -116,27 +118,34 @@ function LaundryRequestForm(props) {
       return (
         <div className={classes.checkBoxControl}>
           <div>Sort By:</div>
-          <input
-            type="radio"
-            id="priceLowHigh"
-            name="sort"
-            onChange={props.setSortPriceLowHighFunc}
-          />
-          <label htmlFor="priceAsc">Price Low-High</label>
-          <input
-            type="radio"
-            id="priceHighLow"
-            name="sort"
-            onChange={props.setSortPriceHighLowFunc}
-          />
-          <label htmlFor="priceDesc">Price High-Low</label>
-          <input
-            type="radio"
-            id="distance"
-            name="sort"
-            onChange={props.setSortDistanceFunc}
-          />
-          <label htmlFor="distance">Distance</label>
+          <div>
+            <input
+              type="radio"
+              id="priceLowHigh"
+              name="sort"
+              onChange={props.setSortPriceLowHighFunc}
+            />
+            <label htmlFor="priceAsc">Price Low-High</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="priceHighLow"
+              name="sort"
+              onChange={props.setSortPriceHighLowFunc}
+            />
+            <label htmlFor="priceDesc">Price High-Low</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="distance"
+              name="sort"
+              onChange={props.setSortDistanceFunc}
+            />
+            <label htmlFor="distance">Distance</label>
+          </div>
         </div>
       );
     } else {
@@ -149,12 +158,12 @@ function LaundryRequestForm(props) {
     <Card>
       <form className={classes.form} onSubmit={laundryRequestHandler}>
         <div className={classes.checkBoxControl}>
-          <label htmlFor="wash">Need Laundry Wash (per lbs.)?</label>
+          <label htmlFor="wash">Laundry (per lbs.)</label>
           <input type="checkbox" name="wash" onChange={setWashFormFunc} />
         </div>
         {showWashForm()}
         <div className={classes.checkBoxControl}>
-          <label htmlFor="dryClean">Need Dry Clean? (per lbs.)</label>
+          <label htmlFor="dryClean">Dry Clean? (per lbs.)</label>
           <input
             type="checkbox"
             name="dryClean"
@@ -185,7 +194,7 @@ function LaundryRequestForm(props) {
           <p>{dateErrorMessage}</p>
         </div>
         <div className={classes.actions}>
-          <button>Ready to Wash!</button>
+          <button>{readyToWashButton}</button>
         </div>
         {showSortOptions()}
       </form>

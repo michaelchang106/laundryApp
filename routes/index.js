@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const dbManager = require("../database/dbManager.js");
 const bcrypt = require("bcrypt");
+const axios = require("axios");
+require("dotenv").config();
 
 /* ------------- SHARED ROUTES (CUSTOMER AND PROIVDER) --------- */
 /* POST createCustomer. */
@@ -24,6 +26,17 @@ router.post("/createCustomer", async function (req, res) {
         userData[key] = value;
       }
     }
+
+    // https://developers.google.com/maps/documentation/geocoding/overview
+    // add google geocode
+    const googleAPI = [
+      "https://maps.googleapis.com/maps/api/geocode/json?address=",
+      rawData.address.replace(" ", "+"),
+      `+${rawData.city.replace(" ", "+")}+${rawData.state}&key=`,
+      process.env.GOOGLE_API_KEY,
+    ].join("");
+    const geoCode = await axios.get(googleAPI);
+    userData["geoCode"] = geoCode.data;
 
     await bcrypt.hash(loginCred.password, 10, async (error, hash) => {
       if (error) {
@@ -158,7 +171,6 @@ router.post("/laundryRequest", async function (req, res) {
       servicesRequested[key] = value;
     }
   }
-
   try {
     const response = await dbManager.laundryRequest(
       "providers",

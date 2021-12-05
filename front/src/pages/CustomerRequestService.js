@@ -3,6 +3,8 @@
 import PropTypes from "prop-types";
 import LaundryRequestForm from "../components/customer/newLaundryRequests/LaundryRequestForm";
 import LaundryCustomerConfirm from "../components/customer/newLaundryRequests/LaundryCustomerConfirm";
+import GoogleMaps from "../components/api/GoogleMaps.js";
+
 import { useState, useContext } from "react";
 import UserLoginContext from "../store/UserLoginContext";
 import Card from "../components/ui/Card";
@@ -21,6 +23,7 @@ function CustomerRequestService() {
 
   let providerCardRender = [];
   let providerCards = [];
+  let providerCoordinates = [];
 
   const [gotProivders, setGotProivders] = useState();
   const [sortPriceLowHigh, setSortPriceLowHigh] = useState(false);
@@ -63,7 +66,7 @@ function CustomerRequestService() {
   };
 
   // loop through the providers returned from backend
-  availableProviders.forEach((provider) => {
+  availableProviders.forEach((provider, index) => {
     // calculate each costs
     const laundryCost = servicesRequested.wash
       ? provider.serviceObjects.wash.price * servicesRequested.wash
@@ -79,17 +82,13 @@ function CustomerRequestService() {
       : 0;
     const totalCost = laundryCost + dryCleanCost + foldingCost + deliveryCost;
 
-    // console.log(provider, "THIS IS THE PROVIDER");
-    // console.log(userContext.userDetails, "THIS IS THE USER");
-    // console.log(servicesRequested);
-
     // push into providerCards array
     providerCards.push([
       <div className="mt-2">
         <Card>
-          <div className="row p-4">
+          <div className="row pt-4 ps-4">
             <h3 className="d-flex justify-content-center">
-              {provider.companyName}
+              {index + 1}) {provider.companyName}
             </h3>
             <div className="row">
               <span className="col-12">
@@ -97,13 +96,13 @@ function CustomerRequestService() {
               </span>
             </div>
             <div className="row">
-              <span className="col-6">
+              <span className="col-12 mt-2">
                 <strong>Email: </strong> {provider.email}
               </span>
-              <span className="col-6">
+              <span className="col-12">
                 <strong>Phone Number: </strong> {provider.phoneNumber}
               </span>
-              <span className="col-6">
+              <span className="col-12 mt-2">
                 <strong>Address: </strong> {provider.address}
               </span>
               <span className="col-6">
@@ -117,11 +116,11 @@ function CustomerRequestService() {
               </span>
             </div>
             <div className="row">
-              <span className="col-6">
+              <span className="col-6 mt-2">
                 <strong>Laundry Cost: </strong>
                 {currencyFormatter.format(laundryCost)}
               </span>
-              <span className="col-6">
+              <span className="col-6 mt-2">
                 <strong>Dry Cleaning Cost: </strong>
                 {currencyFormatter.format(dryCleanCost)}
               </span>
@@ -135,7 +134,7 @@ function CustomerRequestService() {
               </span>
             </div>
             <div className="row">
-              <span className="d-flex justify-content-end">
+              <span className="d-flex justify-content-end mt-2">
                 <strong>
                   Total Costs:
                   {currencyFormatter.format(totalCost)}
@@ -155,6 +154,8 @@ function CustomerRequestService() {
       totalCost,
       provider.zipCode,
     ]);
+
+    providerCoordinates.push(provider.geoCode.results[0].geometry.location);
   });
 
   if (sortPriceLowHigh) {
@@ -193,7 +194,7 @@ function CustomerRequestService() {
     <div>
       <h1>Request Laundry Service</h1>
       <div className="row">
-        <div className="col-4">
+        <div className="col-3">
           <LaundryRequestForm
             laundryRequestFetch={laundryRequestFetch}
             providerCards={providerCards}
@@ -202,7 +203,10 @@ function CustomerRequestService() {
             setSortDistanceFunc={setSortDistanceFunc}
           />
         </div>
-        <div className="col-8">{showCards()}</div>
+        <div className="col-5">{showCards()}</div>
+        <div className="col-4">
+          <GoogleMaps providerCoordinates={providerCoordinates} />
+        </div>
       </div>
     </div>
   );
