@@ -2,24 +2,27 @@ import React from "react";
 import { useState, useEffect } from "react";
 import CustomerReqCard from "./requestCard.js";
 
-const CustomerReqDetails = () => {
-  let [customersRequests, setCusomerRequest] = useState([]);
+const CustomerReqDetails = ({
+  sortRequests,
+  customersRequests,
+  setCustomerRequest,
+}) => {
   //Fetch all cusomter requests
   //Requires a String of the providers email.
-  const fetchCusomterRequest = async (emailStr) => {
-    const emailObj = { providerEmail: emailStr };
-    const res = await fetch("/api/allCustomerLaundryRequest", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(emailObj),
-    });
+  // const fetchCustomerRequest = async (emailStr) => {
+  //   const emailObj = { providerEmail: emailStr };
+  //   const res = await fetch("/api/allCustomerLaundryRequest", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(emailObj),
+  //   });
 
-    const allCustomerRequests = await res.json();
+  //   const allCustomerRequests = await res.json();
 
-    return allCustomerRequests;
-  };
+  //   return allCustomerRequests;
+  // };
 
   const renderRequest = customersRequests.map((request, i) => {
     if (request.serviceRejected === undefined && !request.serviceComplete) {
@@ -27,7 +30,7 @@ const CustomerReqDetails = () => {
         <CustomerReqCard
           key={request._id}
           request={request}
-          setRequest={setCusomerRequest}
+          setCustomerRequest={setCustomerRequest}
           customersRequests={customersRequests}
         />
       );
@@ -36,16 +39,16 @@ const CustomerReqDetails = () => {
     }
   });
 
-  useEffect(() => {
-    let tmpCustomerRequest;
+  // useEffect(() => {
+  //   let tmpCustomerRequest;
+  //   const getReq = async () => {
+  //     tmpCustomerRequest = await fetchCustomerRequest(localStorage.email);
+  //     sortRequests(tmpCustomerRequest);
+  //     setCustomerRequest(tmpCustomerRequest);
+  //   };
 
-    const getReq = async () => {
-      tmpCustomerRequest = await fetchCusomterRequest(localStorage.email);
-      setCusomerRequest(tmpCustomerRequest);
-    };
-
-    getReq();
-  }, []);
+  //   getReq();
+  // }, []);
 
   return <div className="row">{renderRequest}</div>;
 };

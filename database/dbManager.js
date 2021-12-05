@@ -1,6 +1,8 @@
 /* MICHAEL CHANG & DANIEL LISKO */
 
 const { MongoClient } = require("mongodb");
+const { ObjectId } = require("mongodb");
+
 require("dotenv").config();
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
@@ -149,7 +151,6 @@ const updateService = async (serviceData, email) => {
 
   let serviceDataObj = makeServiceObj(serviceData);
 
-  console.log("RAW DATE", serviceData);
   try {
     connectedCollection = await collectionConnect("providers");
     const collection = connectedCollection.collection;
@@ -157,6 +158,24 @@ const updateService = async (serviceData, email) => {
       { email: email },
       { $set: { serviceObjects: serviceDataObj } }
     );
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
+const responseToServReq = async (response) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect("customerServiceRequest");
+    const collection = connectedCollection.collection;
+    //Update request status on mongodb
+    const objID = new ObjectId(response._id);
+    delete response._id; // Need to delete b/c ObjecctId is immutable
+    const result = await collection.replaceOne({ _id: objID }, response);
+    console.log("REsults", result);
   } catch (error) {
     console.log("ERROR--", error);
   } finally {
@@ -203,4 +222,5 @@ module.exports = {
   updateService,
   addLaundryRequest,
   allCustomerLaundryRequest,
+  responseToServReq,
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import RequestButtons from "./RequestButtons.js";
 
-const requestCard = ({ request, setRequest, customersRequests }) => {
+const requestCard = ({ request, setCustomerRequest, customersRequests }) => {
   const servicesRequested = request.servicesRequested;
 
   const renderServices = () => {
@@ -44,7 +44,7 @@ const requestCard = ({ request, setRequest, customersRequests }) => {
         </p>
         <RequestButtons
           request={request}
-          setRequest={setRequest}
+          setCustomerRequest={setCustomerRequest}
           customersRequests={customersRequests}
         />
       </div>

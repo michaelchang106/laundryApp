@@ -1,9 +1,8 @@
 // DANIEL LISKO
 
 import EditService from "./EditService.js";
-import "./providerPage.css";
+import "../providerPage.css";
 import Service from "./Service";
-// import { useState } from "react";
 
 const Services = ({
   services,
