@@ -3,9 +3,65 @@
 import { useState, useEffect } from "react";
 import Services from "../components/provider/providerServices/Services.js";
 import CustomerReqDetails from "../components/provider/customerRequests/CustomerReqDetails.js";
+import SortBar from "../components/provider/sortBar/SortBar.js";
 
 const ProviderPage = () => {
   let [services, setServices] = useState([]);
+  let [customersRequests, setCustomerRequest] = useState([]);
+
+  /*------------Set Display Options----------*/
+  let [displayOptions, setDisplayOptions] = useState({
+    displayBy: "requestDate",
+  });
+  let [ascendingOrder, setAscendingOrder] = useState(false);
+
+  //Load storted services and requested services
+  useEffect(() => {
+    let tmpCustomerRequest;
+    //Get services offered -> set display to false
+    const loadServices = async () => {
+      let services = await getProviderServices(localStorage.email);
+      setServices(services);
+    };
+
+    const getReq = async () => {
+      tmpCustomerRequest = await fetchCustomerRequest(localStorage.email);
+      sortRequests(tmpCustomerRequest);
+      setCustomerRequest(tmpCustomerRequest);
+    };
+
+    getReq();
+    loadServices();
+  }, []);
+
+  const sortRequests = (requests) => {
+    switch (displayOptions.displayBy) {
+      case "requestDate":
+        if (ascendingOrder) {
+          requests.sort((a, b) =>
+            new Date(a.date) > new Date(b.date) ? 1 : -1
+          );
+        } else {
+          requests.sort((a, b) =>
+            new Date(a.date) < new Date(b.date) ? 1 : -1
+          );
+        }
+        break;
+      case "totalCharge":
+        if (ascendingOrder) {
+          requests.sort((a, b) => (a.totalCost > b.totalCost ? 1 : -1));
+        } else {
+          requests.sort((a, b) => (a.totalCost < b.totalCost ? 1 : -1));
+        }
+        break;
+
+      default:
+        console.log("No Case");
+        break;
+    }
+
+    console.log("DISPLAYINH", requests);
+  };
 
   //Changes the displays to either being visibile or not visibile
   const modifyServiceDisplay = (id, toModify) => {
@@ -52,16 +108,22 @@ const ProviderPage = () => {
 
     return resJSON;
   };
+  // Fetch all cusomter requests
+  // Requires a String of the providers email.
+  const fetchCustomerRequest = async (emailStr) => {
+    const emailObj = { providerEmail: emailStr };
+    const res = await fetch("/api/allCustomerLaundryRequest", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(emailObj),
+    });
 
-  // //Display only on page
-  useEffect(() => {
-    //Get services offered -> set display to false
-    const loadServices = async () => {
-      let services = await getProviderServices(localStorage.email);
-      setServices(services);
-    };
-    loadServices();
-  }, []);
+    const allCustomerRequests = await res.json();
+
+    return allCustomerRequests;
+  };
 
   // Sending and Recieving services
 
@@ -79,13 +141,20 @@ const ProviderPage = () => {
               setServices={setServices}
             />
           </div>
+
           <div className="col-8" id="requestedServices">
-            <div className="container">
-              <p style={{ margin: 0 }}>
-                <strong>Sort By: </strong>
-              </p>
-            </div>
-            <CustomerReqDetails />
+            <SortBar
+              setDisplayOptions={setDisplayOptions}
+              displayOptions={displayOptions}
+              sortRequests={sortRequests}
+              setCustomerRequest={setCustomerRequest}
+              customersRequests={customersRequests}
+            />
+            <CustomerReqDetails
+              sortRequests={sortRequests}
+              customersRequests={customersRequests}
+              setCustomerRequest={setCustomerRequest}
+            />
           </div>
         </div>
       </div>
