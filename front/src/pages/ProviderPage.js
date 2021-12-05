@@ -13,9 +13,11 @@ const ProviderPage = () => {
   let [displayOptions, setDisplayOptions] = useState({
     displayBy: "requestDate",
   });
-  let [ascendingOrder, setAscendingOrder] = useState(false);
 
-  //Load storted services and requested services
+  //Sort by ascending or descending order
+  let [orderDirection, setOrderDirection] = useState(false);
+
+  /*-----------Load Service Requests----------*/ //Load storted services and requested services
   useEffect(() => {
     let tmpCustomerRequest;
     //Get services offered -> set display to false
@@ -29,7 +31,6 @@ const ProviderPage = () => {
       sortRequests(tmpCustomerRequest);
       setCustomerRequest(tmpCustomerRequest);
     };
-
     getReq();
     loadServices();
   }, []);
@@ -37,7 +38,7 @@ const ProviderPage = () => {
   const sortRequests = (requests) => {
     switch (displayOptions.displayBy) {
       case "requestDate":
-        if (ascendingOrder) {
+        if (orderDirection) {
           requests.sort((a, b) =>
             new Date(a.date) > new Date(b.date) ? 1 : -1
           );
@@ -48,7 +49,7 @@ const ProviderPage = () => {
         }
         break;
       case "totalCharge":
-        if (ascendingOrder) {
+        if (orderDirection) {
           requests.sort((a, b) => (a.totalCost > b.totalCost ? 1 : -1));
         } else {
           requests.sort((a, b) => (a.totalCost < b.totalCost ? 1 : -1));
@@ -59,8 +60,6 @@ const ProviderPage = () => {
         console.log("No Case");
         break;
     }
-
-    console.log("DISPLAYINH", requests);
   };
 
   //Changes the displays to either being visibile or not visibile
@@ -149,6 +148,9 @@ const ProviderPage = () => {
               sortRequests={sortRequests}
               setCustomerRequest={setCustomerRequest}
               customersRequests={customersRequests}
+              orderDirection={orderDirection}
+              setOrderDirection={setOrderDirection}
+              fetchCustomerRequest={fetchCustomerRequest}
             />
             <CustomerReqDetails
               sortRequests={sortRequests}
