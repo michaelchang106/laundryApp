@@ -20,59 +20,87 @@ const allCustomerLaundryRequestsFetch = async (data) => {
     body: JSON.stringify(data),
   });
 
-  allCustomerRequests = await response.json();
+  return await response.json();
+};
+
+const getProviderDetails = async (data) => {
+  const response = await fetch("/api/findUserDetails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return await response.json();
 };
 
 // component function
 function CustomerLaundryRequestDetails(props) {
   //intialize useContext
   const userContext = useContext(UserLoginContext);
+  const customerEmail = { customerEmail: userContext.userDetails.email };
+
+  const getLaundryRequestData = async () => {
+    allCustomerRequests = await allCustomerLaundryRequestsFetch(customerEmail);
+  };
+  getLaundryRequestData();
+
+  // sort the cards from latest to earliest
+  allCustomerRequests.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+  allCustomerRequests.forEach(async (request) => {
+    const temp = await getProviderDetails({
+      userType: "provider",
+      email: request.providerEmail,
+    });
+
+    customerRequestsRender.push(
+      <div className="mt-2">
+        <Card>
+          <h3 className="d-flex justify-content-center">{temp.companyName}</h3>
+          <div className="row">
+            <span className="col-12">
+              <strong>Date: </strong> {request.date}
+            </span>
+            <span className="col-6">
+              <strong>Email: </strong> {request.providerEmail}
+            </span>
+            <span className="col-6">
+              <strong>Phone: </strong> {temp.phoneNumber}
+            </span>
+            <span className="col-6">
+              <strong>Address: </strong> {temp.address}
+            </span>
+            <span className="col-6">
+              <strong>City: </strong> {temp.city}
+            </span>
+            <span className="col-6">
+              <strong>Provider Accepted: </strong>{" "}
+              {request.providerAccepted.toString()}
+            </span>
+            <span className="col-6">
+              <strong>Job Completed: </strong>{" "}
+              {request.serviceComplete.toString()}
+            </span>
+            <span className="col-6">
+              <strong>Total Cost: </strong>
+              {currencyFormatter.format(request.totalCost)}
+            </span>
+          </div>
+        </Card>
+      </div>
+    );
+  });
 
   useEffect(() => {
-    const customerEmail = { customerEmail: userContext.userDetails.email };
-
     // reset array for card render
     customerRequestsRender = [];
-
-    const getData = async () => {
-      await allCustomerLaundryRequestsFetch(customerEmail);
-    };
-    getData();
-
-    // sort the cards from latest to earliest
-    allCustomerRequests.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-
-    allCustomerRequests.forEach((request) => {
-      customerRequestsRender.push([
-        <div className="mt-2">
-          <Card>
-            <h3 className="d-flex justify-content-center">
-              {request.providerEmail}
-            </h3>
-            <div className="row">
-              <span className="col-6">
-                <strong>Date: </strong> {request.date}
-              </span>
-              <span className="col-6">
-                <strong>Provider Accepted: </strong>{" "}
-                {request.providerAccepted.toString()}
-              </span>
-              <span className="col-6">
-                <strong>Job Completed: </strong>{" "}
-                {request.serviceComplete.toString()}
-              </span>
-              <span className="col-6">
-                <strong>Total Cost: </strong>
-                {currencyFormatter.format(request.totalCost)}
-              </span>
-            </div>
-          </Card>
-        </div>,
-      ]);
-    });
   }, [props.getLaundryData, userContext.userDetails.email]);
 
-  // form component
+  console.log(customerRequestsRender);
+
+  // request details component
   return <div>{customerRequestsRender}</div>;
 }
 

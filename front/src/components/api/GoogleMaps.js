@@ -27,9 +27,12 @@ function GoogleMaps(props) {
   }
 
   props.providerCoordinates.forEach((coordinate, index) => {
-    console.log(index+1);
+    console.log(index + 1);
     googleMapMarkers.push(
-      <Marker label={`${index+1}`} position={{ lat: coordinate.lat, lng: coordinate.lng }} />
+      <Marker
+        label={`${index + 1}`}
+        position={{ lat: coordinate.lat, lng: coordinate.lng }}
+      />
     );
   });
 
