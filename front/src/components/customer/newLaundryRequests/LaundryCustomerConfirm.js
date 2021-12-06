@@ -1,8 +1,12 @@
 // MICHAEL CHANG
 import classes from "./LaundryCustomerConfirm.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LaundryCustomerConfirm(props) {
+  const navigate = useNavigate();
+  const [buttonText, setButtonText] = useState("Choose Provider!");
+
   // data fetch
   const laundryCustomerConfirmFetch = async (data) => {
     await fetch("/api/laundryCustomerConfirm", {
@@ -19,9 +23,8 @@ function LaundryCustomerConfirm(props) {
     event.preventDefault();
     laundryCustomerConfirmFetch(requestObject);
     setButtonText("Pending");
+    navigate("/CustomerDetailsPage")
   };
-
-  const [buttonText, setButtonText] = useState("Choose Provider!");
 
   let washPrice;
   let poundsRequestedWash;

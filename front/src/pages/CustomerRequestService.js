@@ -42,6 +42,31 @@ function CustomerRequestService() {
     setSortDistance(true);
   }
 
+  // https://cloud.google.com/blog/products/maps-platform/how-calculate-distances-map-maps-javascript-api
+  // arbitrary distance since addresses are from mockaroo date (not real)
+  function haversine_distance(mk1, mk2) {
+    const R = 3958.8; // Radius of the Earth in miles
+    const rlat1 = mk1.lat * (Math.PI / 180); // Convert degrees to radians
+    const rlat2 = mk2.lat * (Math.PI / 180); // Convert degrees to radians
+    const difflat = rlat2 - rlat1; // Radian difference (latitudes)
+    const difflon = mk2.lng - mk1.lng * (Math.PI / 180); // Radian difference (longitudes)
+
+    const d =
+      2 *
+      R *
+      Math.asin(
+        Math.sqrt(
+          Math.sin(difflat / 2) * Math.sin(difflat / 2) +
+            Math.cos(rlat1) *
+              Math.cos(rlat2) *
+              Math.sin(difflon / 2) *
+              Math.sin(difflon / 2)
+        )
+      );
+    return d.toFixed(2);
+  }
+
+  // laudnry request fetch
   const laundryRequestFetch = async (data) => {
     const response = await fetch("/api/laundryRequest", {
       method: "POST",
@@ -53,6 +78,15 @@ function CustomerRequestService() {
 
     availableProviders = await response.json();
     servicesRequested = data;
+
+    // const destination = provider.geoCode.results[0].geometry.location;
+    const origin = userContext.userDetails.geoCode.results[0].geometry.location;
+
+    availableProviders.sort(
+      (a, b) =>
+        haversine_distance(a.geoCode.results[0].geometry.location, origin) -
+        haversine_distance(b.geoCode.results[0].geometry.location, origin)
+    );
 
     //I'm just setting true false back and forth for component to re-render
     setGotProivders(!gotProivders);
@@ -75,6 +109,12 @@ function CustomerRequestService() {
       : 0;
     const totalCost = laundryCost + dryCleanCost + foldingCost + deliveryCost;
 
+    // used for haversine_distance calc
+    // arbitrary distance since addresses are from mockaroo date (not real)
+    const destination = provider.geoCode.results[0].geometry.location;
+    const origin = userContext.userDetails.geoCode.results[0].geometry.location;
+    const distance = haversine_distance(destination, origin);
+
     providerCards.push([
       <ProviderCards
         index={index}
@@ -85,26 +125,22 @@ function CustomerRequestService() {
         foldingCost={foldingCost}
         deliveryCost={deliveryCost}
         totalCost={totalCost}
+        distance={distance}
       />,
-      servicesRequested.date,
       totalCost,
-      provider.zipCode,
+      distance,
     ]);
     providerCoordinates.push(provider.geoCode.results[0].geometry.location);
   });
 
+  // optional radio button sort
   if (sortPriceLowHigh) {
-    providerCards.sort((a, b) => a[2] - b[2]);
+    providerCards.sort((a, b) => a[1] - b[1]);
   } else if (sortPriceHighLow) {
-    providerCards.sort((a, b) => b[2] - a[2]);
+    providerCards.sort((a, b) => b[1] - a[1]);
   } else if (sortDistance) {
-    //assuming min(zipCode difference means closer by distance)
-    // 91754 - 91753 is closer than 91754 - 91640
-    providerCards.sort(
-      (a, b) =>
-        Math.abs(a[3] - userContext.userDetails.zipCode) -
-        Math.abs(b[3] - userContext.userDetails.zipCode)
-    );
+    // using haversine_distance calculation
+    providerCards.sort((a, b) => a[2] - b[2]);
   }
 
   //providerCards - [0] is provider Object [1] is date [2] is cost [3] is zipCode
@@ -162,6 +198,7 @@ CustomerRequestService.propTypes = {
   foldingCost: PropTypes.number,
   deliveryCost: PropTypes.number,
   totalCost: PropTypes.number,
+  distance: PropTypes.number,
   providerCoordinates: PropTypes.array,
 };
 

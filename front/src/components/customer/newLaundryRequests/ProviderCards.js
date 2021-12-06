@@ -17,6 +17,7 @@ function ProviderCards({
   dryCleanCost,
   deliveryCost,
   totalCost,
+  distance,
 }) {
   const userContext = useContext(UserLoginContext);
 
@@ -50,6 +51,9 @@ function ProviderCards({
             </span>
             <span className="col-6">
               <strong>Zip Code: </strong> {provider.zipCode}
+            </span>
+            <span className="col-6">
+              <strong>Distance: </strong> {distance}
             </span>
           </div>
           <div className="row">

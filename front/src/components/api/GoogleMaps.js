@@ -1,4 +1,3 @@
-import { useState, useCallback } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 require("dotenv").config();
 const googleMapsKey = process.env.GOOGLE_MAPS_KEY;
@@ -27,7 +26,6 @@ function GoogleMaps(props) {
   }
 
   props.providerCoordinates.forEach((coordinate, index) => {
-    console.log(index + 1);
     googleMapMarkers.push(
       <Marker
         label={`${index + 1}`}
@@ -41,26 +39,8 @@ function GoogleMaps(props) {
     googleMapsApiKey: googleMapsKey,
   });
 
-  const [map, setMap] = useState(null);
-
-  const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
-    setMap(map);
-  }, []);
-
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
+    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
       {googleMapMarkers}
     </GoogleMap>
   ) : (

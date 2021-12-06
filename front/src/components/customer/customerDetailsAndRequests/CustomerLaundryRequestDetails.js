@@ -1,14 +1,7 @@
 /* MICHAEL CHANG */
-import Card from "../../ui/Card";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserLoginContext from "../../../store/UserLoginContext";
-const currencyFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
-
-let allCustomerRequests = [];
-let customerRequestsRender = [];
+import CustomerLaundryRequestCards from "./CustomerLaundryRequestCards";
 
 // fetch requests from DB
 const allCustomerLaundryRequestsFetch = async (data) => {
@@ -39,66 +32,55 @@ const getProviderDetails = async (data) => {
 function CustomerLaundryRequestDetails(props) {
   //intialize useContext
   const userContext = useContext(UserLoginContext);
-  const customerEmail = { customerEmail: userContext.userDetails.email };
-
-  const getLaundryRequestData = async () => {
-    allCustomerRequests = await allCustomerLaundryRequestsFetch(customerEmail);
-  };
-  getLaundryRequestData();
-
-  // sort the cards from latest to earliest
-  allCustomerRequests.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-
-  allCustomerRequests.forEach(async (request) => {
-    const temp = await getProviderDetails({
-      userType: "provider",
-      email: request.providerEmail,
-    });
-
-    customerRequestsRender.push(
-      <div className="mt-2">
-        <Card>
-          <h3 className="d-flex justify-content-center">{temp.companyName}</h3>
-          <div className="row">
-            <span className="col-12">
-              <strong>Date: </strong> {request.date}
-            </span>
-            <span className="col-6">
-              <strong>Email: </strong> {request.providerEmail}
-            </span>
-            <span className="col-6">
-              <strong>Phone: </strong> {temp.phoneNumber}
-            </span>
-            <span className="col-6">
-              <strong>Address: </strong> {temp.address}
-            </span>
-            <span className="col-6">
-              <strong>City: </strong> {temp.city}
-            </span>
-            <span className="col-6">
-              <strong>Provider Accepted: </strong>{" "}
-              {request.providerAccepted.toString()}
-            </span>
-            <span className="col-6">
-              <strong>Job Completed: </strong>{" "}
-              {request.serviceComplete.toString()}
-            </span>
-            <span className="col-6">
-              <strong>Total Cost: </strong>
-              {currencyFormatter.format(request.totalCost)}
-            </span>
-          </div>
-        </Card>
-      </div>
-    );
-  });
+  // const customerEmail = { customerEmail: userContext.userDetails.email };
+  const [allCustomerRequests, setAllCustomerRequests] = useState([]);
 
   useEffect(() => {
-    // reset array for card render
-    customerRequestsRender = [];
-  }, [props.getLaundryData, userContext.userDetails.email]);
+    const getLaundryRequestData = async () => {
+      const temp = await allCustomerLaundryRequestsFetch({
+        customerEmail: userContext.userDetails.email,
+      });
+      // sort the cards from latest to earliest
+      temp.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-  console.log(customerRequestsRender);
+      temp.forEach(async (request) => {
+        const response = await getProviderDetails({
+          userType: "provider",
+          email: request.providerEmail,
+        });
+
+        request.providerDetails = await response;
+      });
+
+      setAllCustomerRequests([...temp]);
+    };
+
+    getLaundryRequestData();
+  }, [userContext.userDetails.email]);
+
+  const customerRequestsRender = allCustomerRequests.map((request) => {
+    console.log(request, "ENTIRE REQUEST OBJECT");
+    console.log(request, "ENTIRE REQUEST OBJECT 2222");
+    console.log(
+      request.servicesRequested,
+      "SERVICES REQUESTED FIELD, WHICH IS AN OBJECT"
+    );
+    console.log(
+      request.providerDetails,
+      "PROVIDER DETAILS FIELD, WHICH IS AN OBJECT"
+    );
+
+    return (
+      <CustomerLaundryRequestCards
+        providerDetails={request.providerDetails} // WHY IS THIS CAUSING ISSUES?
+        date={request.date}
+        providerEmail={request.providerEmail}
+        providerAccepted={request.providerAccepted}
+        serviceComplete={request.serviceComplete}
+        totalCost={request.totalCost}
+      />
+    );
+  });
 
   // request details component
   return <div>{customerRequestsRender}</div>;
