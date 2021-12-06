@@ -43,6 +43,7 @@ const requestCard = ({ request, setCustomerRequest, customersRequests }) => {
           <strong>Total Cost:</strong> ${request.totalCost}
         </p>
         <RequestButtons
+          key={request._id}
           request={request}
           setCustomerRequest={setCustomerRequest}
           customersRequests={customersRequests}

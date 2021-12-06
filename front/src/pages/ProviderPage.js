@@ -26,6 +26,7 @@ const ProviderPage = () => {
       setServices(services);
     };
 
+    //Get Customer Request
     const getReq = async () => {
       tmpCustomerRequest = await fetchCustomerRequest(localStorage.email);
       sortRequests(tmpCustomerRequest);

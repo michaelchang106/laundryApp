@@ -14,8 +14,7 @@ const RequestButtons = ({ request, setCustomerRequest, customersRequests }) => {
       return update;
     });
 
-    customersRequests = updated;
-    setCustomerRequest([...customersRequests]);
+    setCustomerRequest([...updated]);
   };
 
   const pushRequestUpdate = async (toUpdate) => {

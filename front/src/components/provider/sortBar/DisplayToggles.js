@@ -12,11 +12,12 @@ const DisplayToggles = ({
 
   useEffect(() => {
     filterRequest();
-  }, [showRequest]);
+  }, [showRequest, customersRequests]);
 
   const handleChange = async (e) => {
     setShowRequest(e.target.value);
   };
+
   const filterRequest = async () => {
     let reqData = await fetchCustomerRequest(localStorage.email);
 
@@ -55,7 +56,7 @@ const DisplayToggles = ({
           value="needResponse"
           id="btnDisplay1"
           checked={showRequest === "needResponse" ? true : false}
-          autocomplete="off"
+          autoComplete="off"
         />
         <label className="btn btn-outline-primary" htmlFor="btnDisplay1">
           Need Response
@@ -67,7 +68,7 @@ const DisplayToggles = ({
           value="accepted"
           id="btnDisplay2"
           checked={showRequest === "accepted" ? true : false}
-          autocomplete="off"
+          autoComplete="off"
         />
         <label className="btn btn-outline-primary" htmlFor="btnDisplay2">
           Accepted
@@ -79,7 +80,7 @@ const DisplayToggles = ({
           id="btnDisplay3"
           value="showAll"
           checked={showRequest === "showAll" ? true : false}
-          autocomplete="off"
+          autoComplete="off"
         />
         <label className="btn btn-outline-primary" htmlFor="btnDisplay3">
           Show All

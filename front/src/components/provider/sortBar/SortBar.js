@@ -40,7 +40,7 @@ const SortBar = ({
 
   return (
     <div className="row">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
         <label className="navbar-brand">Sort By:</label>
         <div className="col-2.5">
           <select
@@ -51,7 +51,7 @@ const SortBar = ({
             <option value="requestDate">Date Requested</option>
             <option value="totalCharge">Total Cost</option>
           </select>
-          <div onClick={handleRadio}>
+          <div onChange={handleRadio}>
             <div className="row">
               <div className="col-6 p-0">
                 <input type="radio" value={true} name="sortBy" />
