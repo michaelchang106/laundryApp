@@ -5,7 +5,7 @@
   "version": "1.22.17",
   "private": true,
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon.js ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "axios": "^0.24.0",
