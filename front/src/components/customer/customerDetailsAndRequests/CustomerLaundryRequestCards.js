@@ -7,39 +7,39 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 function CustomerLaundryRequestCards(props) {
-  console.log(props.providerDetails);
   return (
     <div className="mt-2">
       <Card>
-        {/*        <h3 className="d-flex justify-content-center">
-          {props.providerDetails.companyName}
-        </h3>*/}
         <div className="row">
+          <h1 className="d-flex justify-content-center">
+            {props.request.providerDetails.companyName}
+          </h1>
           <span className="col-12">
-            <strong>Date: </strong> {props.date}
+            <strong>Date: </strong> {props.request.date}
           </span>
           <span className="col-6">
-            <strong>Email: </strong> {props.providerEmail}
-          </span>
-          {/*<span className="col-6">
-            <strong>Phone: </strong> {props.providerDetails.phoneNumber}
+            <strong>Phone: </strong> {props.request.providerDetails.phoneNumber}
           </span>
           <span className="col-6">
-            <strong>Address: </strong> {props.providerDetails.address}
+            <strong>Email: </strong> {props.request.providerEmail}
           </span>
           <span className="col-6">
-            <strong>City: </strong> {props.providerDetails.city}
-          </span>*/}
+            <strong>Address: </strong> {props.request.providerDetails.address}
+          </span>
+          <span className="col-6">
+            <strong>City: </strong> {props.request.providerDetails.city}
+          </span>
           <span className="col-6">
             <strong>Provider Accepted: </strong>{" "}
-            {props.providerAccepted.toString()}
+            {props.request.providerAccepted.toString()}
           </span>
           <span className="col-6">
-            <strong>Job Completed: </strong> {props.serviceComplete.toString()}
+            <strong>Job Completed: </strong>{" "}
+            {props.request.serviceComplete.toString()}
           </span>
           <span className="col-6">
             <strong>Total Cost: </strong>
-            {currencyFormatter.format(props.totalCost)}
+            {currencyFormatter.format(props.request.totalCost)}
           </span>
         </div>
       </Card>

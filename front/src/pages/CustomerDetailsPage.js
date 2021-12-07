@@ -1,18 +1,13 @@
 // MICHAEL CHANG
 
 import CustomerDetailsForm from "../components/customer/customerDetailsAndRequests/CustomerDetailsForm";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import UserLoginContext from "../store/UserLoginContext";
 import CustomerLaundryRequestDetails from "../components/customer/customerDetailsAndRequests/CustomerLaundryRequestDetails";
 
 function CustomerDetailsPage() {
   //intialize useContext
   const userContext = useContext(UserLoginContext);
-  const [getLaundryData, setGetLaundryData] = useState(false);
-
-  function setGetLaundryDataFunc() {
-    setGetLaundryData(!getLaundryData);
-  }
 
   if (userContext.userDetails !== undefined) {
     return (
@@ -23,14 +18,11 @@ function CustomerDetailsPage() {
             <CustomerDetailsForm />
           </div>
           <div className="col-6">
-            <h5>
+            <h2>
               {userContext.userDetails.firstName}{" "}
               {userContext.userDetails.lastName} Laundry Requests
-            </h5>
-            <span>
-              <button onClick={setGetLaundryDataFunc}>Refresh</button>
-            </span>
-            <CustomerLaundryRequestDetails getLaundryData={getLaundryData} />
+            </h2>
+            <CustomerLaundryRequestDetails />
           </div>
         </div>
       </div>

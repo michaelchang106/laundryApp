@@ -1,5 +1,5 @@
 /* MICHAEL CHANG */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import UserLoginContext from "../../../store/UserLoginContext";
 import CustomerLaundryRequestCards from "./CustomerLaundryRequestCards";
 
@@ -28,63 +28,67 @@ const getProviderDetails = async (data) => {
   return await response.json();
 };
 
+// default loading when first rendering page
+let refreshButton = "Loading...";
+
 // component function
 function CustomerLaundryRequestDetails(props) {
   //intialize useContext
   const userContext = useContext(UserLoginContext);
-  // const customerEmail = { customerEmail: userContext.userDetails.email };
   const [allCustomerRequests, setAllCustomerRequests] = useState([]);
+  const [fetchData, setFetchData] = useState(false);
+
+  function refreshData() {
+    setAllCustomerRequests([]);
+    setFetchData(!fetchData);
+  }
 
   useEffect(() => {
     const getLaundryRequestData = async () => {
-      const temp = await allCustomerLaundryRequestsFetch({
-        customerEmail: userContext.userDetails.email,
-      });
-      // sort the cards from latest to earliest
-      temp.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-
-      temp.forEach(async (request) => {
-        const response = await getProviderDetails({
-          userType: "provider",
-          email: request.providerEmail,
+      if (userContext.userDetails.email !== undefined) {
+        const temp = await allCustomerLaundryRequestsFetch({
+          customerEmail: userContext.userDetails.email,
         });
+        // sort the cards from latest to earliest
+        temp.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-        request.providerDetails = await response;
-      });
-
-      setAllCustomerRequests([...temp]);
+        for (let request of temp) {
+          const response = await getProviderDetails({
+            userType: "provider",
+            email: request.providerEmail,
+          });
+          request.providerDetails = await response;
+        }
+        setAllCustomerRequests(temp);
+      }
     };
-
     getLaundryRequestData();
-  }, [userContext.userDetails.email]);
+  }, [userContext.userDetails.email, fetchData]);
 
-  const customerRequestsRender = allCustomerRequests.map((request) => {
-    console.log(request, "ENTIRE REQUEST OBJECT");
-    console.log(request, "ENTIRE REQUEST OBJECT 2222");
-    console.log(
-      request.servicesRequested,
-      "SERVICES REQUESTED FIELD, WHICH IS AN OBJECT"
-    );
-    console.log(
-      request.providerDetails,
-      "PROVIDER DETAILS FIELD, WHICH IS AN OBJECT"
-    );
+  const customerRequestsRender = [];
 
-    return (
-      <CustomerLaundryRequestCards
-        providerDetails={request.providerDetails} // WHY IS THIS CAUSING ISSUES?
-        date={request.date}
-        providerEmail={request.providerEmail}
-        providerAccepted={request.providerAccepted}
-        serviceComplete={request.serviceComplete}
-        totalCost={request.totalCost}
-      />
+  for (let request of allCustomerRequests) {
+    customerRequestsRender.push(
+      <CustomerLaundryRequestCards request={request} />
     );
-  });
+  }
+
+  // load button text
+  if (allCustomerRequests.length > 0) {
+    refreshButton = "Refresh";
+  } else {
+    refreshButton = "Loading...";
+  }
 
   // request details component
-  return <div>{customerRequestsRender}</div>;
+  return (
+    <div>
+      <div>
+        <button onClick={refreshData}>{refreshButton}</button>
+      </div>
+      {customerRequestsRender}
+    </div>
+  );
 }
 
 export default CustomerLaundryRequestDetails;
-export { allCustomerLaundryRequestsFetch };
