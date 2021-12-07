@@ -14,7 +14,7 @@ function SignUp() {
         <div className="col-6 d-flex justify-content-center">
           <Card>
             <div className="d-flex justify-content-center">
-              <h4>I am a laundry provider! I can wash!</h4>
+              <h2>I am a laundry provider! I can wash!</h2>
             </div>
             <div className="d-flex justify-content-center">
               <Link to="/signUpProviders">
@@ -41,7 +41,7 @@ function SignUp() {
         <div className="col-6 ">
           <Card>
             <div className="d-flex justify-content-center">
-              <h4>I like my laundry clean and spotless!</h4>
+              <h2>I like my laundry clean and spotless!</h2>
             </div>
             <div className="d-flex justify-content-center">
               <Link to="/signUpCustomers">

@@ -35,8 +35,8 @@ button {
     height: 38px;
     font-weight: bold;
     font-size: 14px;
-    color: white;
-    background-color: lightskyblue;
+    color: #000C66;
+    background-color: #7EC8E3;
 }
 
 .flex-parent {

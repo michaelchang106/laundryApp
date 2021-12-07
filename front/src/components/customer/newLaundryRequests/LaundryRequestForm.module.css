@@ -49,9 +49,9 @@
 
 .actions button {
   cursor: pointer;
-  background-color: lightskyblue;
-  color: white;
-  border: 1px solid lightskyblue;
+  background-color: #7EC8E3;
+  color: #000C66;
+  border: 1px solid #7EC8E3;
   border-radius: 4px;
   font-weight: bold;
 }

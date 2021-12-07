@@ -119,32 +119,38 @@ function LaundryRequestForm(props) {
         <div className={classes.checkBoxControl}>
           <div>Sort By:</div>
           <div>
-            <input
-              type="radio"
-              id="priceLowHigh"
-              name="sort"
-              onChange={props.setSortPriceLowHighFunc}
-            />
-            <label htmlFor="priceAsc">Price Low-High</label>
+            <label htmlFor="priceAsc">
+              <input
+                type="radio"
+                id="priceLowHigh"
+                name="sort"
+                onChange={props.setSortPriceLowHighFunc}
+              />
+              Price Low-High
+            </label>
           </div>
           <div>
-            <input
-              type="radio"
-              id="priceHighLow"
-              name="sort"
-              onChange={props.setSortPriceHighLowFunc}
-            />
-            <label htmlFor="priceDesc">Price High-Low</label>
+            <label htmlFor="priceDesc">
+              <input
+                type="radio"
+                id="priceHighLow"
+                name="sort"
+                onChange={props.setSortPriceHighLowFunc}
+              />
+              Price High-Low
+            </label>
           </div>
 
           <div>
-            <input
-              type="radio"
-              id="distance"
-              name="sort"
-              onChange={props.setSortDistanceFunc}
-            />
-            <label htmlFor="distance">Distance</label>
+            <label htmlFor="distance">
+              <input
+                type="radio"
+                id="distance"
+                name="sort"
+                onChange={props.setSortDistanceFunc}
+              />
+              Distance
+            </label>
           </div>
         </div>
       );
@@ -158,37 +164,47 @@ function LaundryRequestForm(props) {
     <Card>
       <form className={classes.form} onSubmit={laundryRequestHandler}>
         <div className={classes.checkBoxControl}>
-          <label htmlFor="wash">Laundry (per lbs.)</label>
-          <input type="checkbox" name="wash" onChange={setWashFormFunc} />
+          <label htmlFor="wash">
+            Laundry (per lbs.)
+            <input type="checkbox" name="wash" onChange={setWashFormFunc} />
+          </label>
         </div>
         {showWashForm()}
         <div className={classes.checkBoxControl}>
-          <label htmlFor="dryClean">Dry Clean? (per lbs.)</label>
-          <input
-            type="checkbox"
-            name="dryClean"
-            onChange={setDryCleanFormFunc}
-          />
+          <label htmlFor="dryClean">
+            Dry Clean? (per lbs.)
+            <input
+              type="checkbox"
+              name="dryClean"
+              onChange={setDryCleanFormFunc}
+            />
+          </label>
         </div>
         {showDryCleanForm()}
         <span className={classes.checkBoxControl}>
-          <label htmlFor="fold">Folded</label>
-          <input type="checkbox" name="fold" ref={foldRef} />
+          <label htmlFor="fold">
+            Folded
+            <input type="checkbox" name="fold" ref={foldRef} />
+          </label>
         </span>
 
         <span className={classes.checkBoxControl}>
-          <label htmlFor="delivery">Delivered</label>
-          <input type="checkbox" name="delivery" ref={deliveryRef} />
+          <label htmlFor="delivery">
+            Delivered
+            <input type="checkbox" name="delivery" ref={deliveryRef} />
+          </label>
         </span>
         <div className={classes.textControl}>
-          <label htmlFor="date">Date</label>
-          <input
-            type="text"
-            required
-            placeholder="eg. 01/31/2021"
-            name="date"
-            ref={dateRef}
-          />
+          <label htmlFor="date">
+            Date
+            <input
+              type="text"
+              required
+              placeholder="eg. 01/31/2021"
+              name="date"
+              ref={dateRef}
+            />
+          </label>
         </div>
         <div className={classes.error}>
           <p>{dateErrorMessage}</p>

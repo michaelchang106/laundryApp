@@ -1,5 +1,5 @@
 /* MICHAEL CHANG */
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserLoginContext from "../../../store/UserLoginContext";
 import CustomerLaundryRequestCards from "./CustomerLaundryRequestCards";
 

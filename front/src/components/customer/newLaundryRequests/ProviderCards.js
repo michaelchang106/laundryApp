@@ -25,9 +25,9 @@ function ProviderCards({
     <div className="mt-2">
       <Card>
         <div className="row pt-4 ps-4">
-          <h3 className="d-flex justify-content-center">
+          <h2 className="d-flex justify-content-center">
             {index + 1}) {provider.companyName}
-          </h3>
+          </h2>
           <div className="row">
             <span className="col-12">
               <strong>Date: </strong> {servicesRequested.date}
