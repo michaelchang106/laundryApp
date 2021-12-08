@@ -2,10 +2,11 @@
 
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@laundryappcluster0.7qka0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = process.env.DB_URL; // it may be better to just hide the whole thing instead of hiding only the credentials? The code is easier too
 
 //This connects to the collections
-const collectionConnect = async (documents) => {
+const collectionConnect = async (documents) => { // the argument name is slightly confusing lol
   //Database Name
   const dbName = "laundryApp";
 
