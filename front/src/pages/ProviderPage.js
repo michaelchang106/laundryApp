@@ -24,6 +24,10 @@ const ProviderPage = () => {
     //Get services offered -> set display to false
     const loadServices = async () => {
       let services = await getProviderServices(localStorage.email);
+
+      if (Object.keys(services).length === 0) {
+        services = [];
+      }
       setServices(services);
     };
 
