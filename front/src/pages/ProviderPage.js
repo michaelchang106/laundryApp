@@ -8,6 +8,7 @@ import SortBar from "../components/provider/sortBar/SortBar.js";
 const ProviderPage = () => {
   let [services, setServices] = useState([]);
   let [customersRequests, setCustomerRequest] = useState([]);
+  let [accpetedRequest, setAcceptRequest] = useState(false);
 
   /*------------Set Display Options----------*/
   let [displayOptions, setDisplayOptions] = useState({
@@ -126,7 +127,6 @@ const ProviderPage = () => {
   };
 
   // Sending and Recieving services
-
   return (
     <div>
       <div>
@@ -152,11 +152,14 @@ const ProviderPage = () => {
               orderDirection={orderDirection}
               setOrderDirection={setOrderDirection}
               fetchCustomerRequest={fetchCustomerRequest}
+              accpetedRequest={accpetedRequest}
             />
             <CustomerReqDetails
               sortRequests={sortRequests}
               customersRequests={customersRequests}
               setCustomerRequest={setCustomerRequest}
+              accpetedRequest={accpetedRequest}
+              setAcceptRequest={setAcceptRequest}
             />
           </div>
         </div>

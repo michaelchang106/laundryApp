@@ -6,24 +6,27 @@ const DisplayToggles = ({
   setCustomerRequest,
   fetchCustomerRequest,
   sortRequests,
+  accpetedRequest,
 }) => {
   //Display all, only accepted, or need responded requests
   let [showRequest, setShowRequest] = useState("showAll");
 
+  console.log("Outside Render");
   useEffect(() => {
     filterRequest();
-  }, [showRequest, customersRequests]);
+    console.log("Inside Effect");
+  }, [showRequest, accpetedRequest]);
 
   const handleChange = async (e) => {
     setShowRequest(e.target.value);
   };
 
   const filterRequest = async () => {
+    console.log("Running Filter");
     let reqData = await fetchCustomerRequest(localStorage.email);
 
     switch (showRequest) {
       case "needResponse":
-        console.log("--->", reqData);
         reqData = reqData.filter(
           (a) => a.providerAccepted === false && a.serviceRejected === undefined
         );

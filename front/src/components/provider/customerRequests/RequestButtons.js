@@ -1,18 +1,25 @@
 import React from "react";
 
-const RequestButtons = ({ request, setCustomerRequest, customersRequests }) => {
+const RequestButtons = ({
+  request,
+  setCustomerRequest,
+  customersRequests,
+  accpetedRequest,
+  setAcceptRequest,
+}) => {
   /*Helper function to modify displays when a button is pressed*/
   const buttonModifiers = async (_id, toModify) => {
-    let updated = customersRequests.map((req) => {
-      let update;
+    let updated = [];
+    for (const req of customersRequests) {
       if (req._id === _id) {
-        update = { ...req, [toModify]: !req[toModify] };
-        pushRequestUpdate({ ...req, [toModify]: !req[toModify] }); //Send response to the database.
+        updated.push({ ...req, [toModify]: !req[toModify] });
+
+        await pushRequestUpdate({ ...req, [toModify]: !req[toModify] });
+        await setAcceptRequest(!accpetedRequest);
       } else {
-        update = req;
+        updated.push(req);
       }
-      return update;
-    });
+    }
 
     setCustomerRequest([...updated]);
   };

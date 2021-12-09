@@ -11,6 +11,8 @@ const SortBar = ({
   setOrderDirection,
   orderDirection,
   fetchCustomerRequest,
+  accpetedRequest,
+  setAcceptRequest,
 }) => {
   const handleChange = (e) => {
     displayOptions.displayBy = e.target.value;
@@ -74,6 +76,7 @@ const SortBar = ({
           setCustomerRequest={setCustomerRequest}
           fetchCustomerRequest={fetchCustomerRequest}
           sortRequests={sortRequests}
+          accpetedRequest={accpetedRequest}
         />
       </nav>
     </div>
