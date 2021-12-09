@@ -3,6 +3,7 @@
 import PropTypes from "prop-types";
 import LaundryRequestForm from "../components/customer/newLaundryRequests/LaundryRequestForm";
 import GoogleMaps from "../components/api/GoogleMaps.js";
+import GoogleMapReact from "../components/api/GoogleMapReact.js";
 import ProviderCards from "../components/customer/newLaundryRequests/ProviderCards";
 import UserLoginContext from "../store/UserLoginContext";
 import { useState, useContext } from "react";
@@ -117,6 +118,7 @@ function CustomerRequestService() {
 
     providerCards.push([
       <ProviderCards
+        key={`provider-card-${index}`}
         index={index}
         provider={provider}
         servicesRequested={servicesRequested}
@@ -176,7 +178,7 @@ function CustomerRequestService() {
         </div>
         <div className="col-5">{showCards()}</div>
         <div className="col-4">
-          <GoogleMaps providerCoordinates={providerCoordinates} />
+          <GoogleMapReact providerCoordinates={providerCoordinates} />
         </div>
       </div>
     </div>
