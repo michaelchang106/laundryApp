@@ -2,7 +2,6 @@
 
 import PropTypes from "prop-types";
 import LaundryRequestForm from "../components/customer/newLaundryRequests/LaundryRequestForm";
-import GoogleMaps from "../components/api/GoogleMaps.js";
 import GoogleMapReact from "../components/api/GoogleMapReact.js";
 import ProviderCards from "../components/customer/newLaundryRequests/ProviderCards";
 import UserLoginContext from "../store/UserLoginContext";
