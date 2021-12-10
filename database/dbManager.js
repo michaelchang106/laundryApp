@@ -49,6 +49,26 @@ const findUser = async (collectionName, email) => {
   }
 };
 
+//-----------------Customer/Provider Shared Features-------//
+const findAllUsers = async (collectionName, email) => {
+  let connectedCollection;
+
+  try {
+    connectedCollection = await collectionConnect(collectionName);
+    const collection = connectedCollection.collection;
+
+    const query = { email: { $in: email } };
+
+    const res = await collection.find(query);
+
+    return await res.toArray();
+  } catch (error) {
+    console.log("ERROR--", error);
+  } finally {
+    await connectedCollection.client.close();
+  }
+};
+
 //wash  dryclean(perPound) delivery fold (flat)
 
 const addUser = async (collectionName, data) => {
@@ -223,4 +243,5 @@ module.exports = {
   addLaundryRequest,
   allCustomerLaundryRequest,
   responseToServReq,
+  findAllUsers,
 };

@@ -132,6 +132,25 @@ router.post("/findUserDetails", async function (req, res) {
   }
 });
 
+/* POST findAllUserDetails. */
+router.post("/findAllUserDetails", async function (req, res) {
+  console.log("Got /findAllUserDetails POST request");
+  try {
+    const rawData = req.body;
+    
+    let response;
+    if (rawData.userType === "customer") {
+      response = await dbManager.findAllUsers("customers", rawData.email);
+    } else if (rawData.userType === "provider") {
+      response = await dbManager.findAllUsers("providers", rawData.email);
+    }
+
+    res.json(response);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 /* POST updateUserDetails. */
 router.post("/updateUserDetails", async function (req, res) {
   console.log("Got /updateUserDetails POST request");

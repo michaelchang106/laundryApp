@@ -17,7 +17,7 @@ const allCustomerLaundryRequestsFetch = async (data) => {
 };
 
 const getProviderDetails = async (data) => {
-  const response = await fetch("/api/findUserDetails", {
+  const response = await fetch("/api/findAllUserDetails", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,13 +52,30 @@ function CustomerLaundryRequestDetails(props) {
         // sort the cards from latest to earliest
         temp.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
+        // create set for duplicate handling
+        let listOfProviderEmails = new Set();
         for (let request of temp) {
-          const response = await getProviderDetails({
-            userType: "provider",
-            email: request.providerEmail,
-          });
-          request.providerDetails = await response;
+          listOfProviderEmails.add(request.providerEmail);
         }
+
+        // convert the set to list
+        listOfProviderEmails = Array.from(listOfProviderEmails);
+
+        // get all the providers details from mongo
+        const response = await getProviderDetails({
+          userType: "provider",
+          email: listOfProviderEmails,
+        });
+
+        // add the details to each request
+        temp.forEach((request) => {
+          for (let provider of response) {
+            if (provider.email === request.providerEmail) {
+              request.providerDetails = provider;
+            }
+          }
+        });
+
         setAllCustomerRequests(temp);
       }
     };
