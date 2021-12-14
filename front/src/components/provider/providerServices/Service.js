@@ -6,8 +6,9 @@ const Service = ({
   serviceItem,
   modifyServiceDisplay,
   id,
-  deleteService,
+  handlePromp,
   setServices,
+  setDeleteID,
 }) => {
   // handle edit button
   const onEditClick = () => {
@@ -15,8 +16,8 @@ const Service = ({
   };
 
   const handleOnDelete = () => {
-    deleteService(serviceItem.serviceID);
-    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
+    handlePromp(id);
+    setDeleteID(id);
   };
 
   // //Details to display

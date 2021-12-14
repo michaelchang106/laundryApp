@@ -6,9 +6,10 @@ const EditService = ({
   serviceItem,
   modifyServiceDisplay,
   onServiceEdit,
-  deleteService,
+  handlePromp,
   submitEdit,
   services,
+  setDeleteID,
 }) => {
   //Set up default service Options
   let [serviceOptions, setServiceOptions] = useState(new Set());
@@ -28,7 +29,7 @@ const EditService = ({
     setServiceOptions(serviceOpt);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     //Prevents user from submitting the default display.
@@ -37,7 +38,7 @@ const EditService = ({
     }
     modifyServiceDisplay(serviceItem.serviceID, "showEdit");
     serviceItem.showEdit = false;
-    submitEdit(serviceItem);
+    await submitEdit(serviceItem);
   };
 
   const handleInputChange = (e) => {
@@ -58,8 +59,8 @@ const EditService = ({
   };
 
   const handleOnDelete = () => {
-    deleteService(serviceItem.serviceID);
-    modifyServiceDisplay(serviceItem.serviceID, "showEdit");
+    handlePromp();
+    setDeleteID(serviceItem.serviceID);
   };
 
   //Used to render options from dropdown service

@@ -1,11 +1,7 @@
-// DANIEL LISKO
+import React from "react";
 
-function ProviderDetailsPage() {
-  return (
-    <div>
-      <h1>Proivder Details Page</h1>
-    </div>
-  );
-}
+const ProviderDetailsPage = () => {
+  return <div>Coming Soon...</div>;
+};
 
 export default ProviderDetailsPage;

@@ -6,6 +6,12 @@ import CustomerReqDetails from "../components/provider/customerRequests/Customer
 import SortBar from "../components/provider/sortBar/SortBar.js";
 
 const ProviderPage = () => {
+  //Used to delete items
+  const [show, setShow] = useState(false);
+  const [deleteID, setDeleteID] = useState();
+  const [whichModal, setWhichModal] = useState();
+
+  //Initalize Customer Requests
   let [services, setServices] = useState([]);
   let [customersRequests, setCustomerRequest] = useState([]);
   let [accpetedRequest, setAcceptRequest] = useState(false);
@@ -69,13 +75,14 @@ const ProviderPage = () => {
   };
 
   //Changes the displays to either being visibile or not visibile
-  const modifyServiceDisplay = (id, toModify) => {
+  const modifyServiceDisplay = (id, toModify, setBoolean) => {
+    console.log("To Modifiy", toModify);
     let updated = services.map((service) => {
       let update;
-      if (service.serviceID === id) {
+      if (service.serviceID === id && setBoolean === undefined) {
         update = { ...service, [toModify]: !service[toModify] };
       } else {
-        update = service;
+        update = update = { ...service, [toModify]: service[setBoolean] };
       }
 
       return update;
@@ -134,7 +141,7 @@ const ProviderPage = () => {
   return (
     <div>
       <div>
-        <h1>Provider Page</h1>
+        <h1>Your Service Request Headquarters...</h1>
         <div className="row">
           <div className="serviceDetails col-3">
             <h3>Services By You:</h3>
@@ -143,6 +150,12 @@ const ProviderPage = () => {
               modifyServiceDisplay={modifyServiceDisplay}
               onServiceEdit={onServiceEdit}
               setServices={setServices}
+              show={show}
+              setShow={setShow}
+              deleteID={deleteID}
+              setDeleteID={setDeleteID}
+              whichModal={whichModal}
+              setWhichModal={setWhichModal}
             />
           </div>
 
@@ -164,6 +177,12 @@ const ProviderPage = () => {
               setCustomerRequest={setCustomerRequest}
               accpetedRequest={accpetedRequest}
               setAcceptRequest={setAcceptRequest}
+              show={show}
+              setShow={setShow}
+              deleteID={deleteID}
+              setDeleteID={setDeleteID}
+              whichModal={whichModal}
+              setWhichModal={setWhichModal}
             />
           </div>
         </div>

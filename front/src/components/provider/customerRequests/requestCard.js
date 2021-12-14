@@ -7,7 +7,16 @@ const requestCard = ({
   customersRequests,
   accpetedRequest,
   setAcceptRequest,
+  show,
+  setShow,
+  setDeleteID,
+  buttonModifiers,
+  setWhichModal,
 }) => {
+  const handlePromp = () => {
+    setWhichModal("rejectCustomer");
+    setShow(true);
+  };
   const servicesRequested = request.servicesRequested;
 
   const renderServices = () => {
@@ -49,12 +58,16 @@ const requestCard = ({
           <strong>Total Cost:</strong> ${request.totalCost}
         </p>
         <RequestButtons
-          key={request._id}
           request={request}
+          show={show}
+          setShow={setShow}
+          setDeleteID={setDeleteID}
           setCustomerRequest={setCustomerRequest}
           customersRequests={customersRequests}
           accpetedRequest={accpetedRequest}
           setAcceptRequest={setAcceptRequest}
+          buttonModifiers={buttonModifiers}
+          handlePromp={handlePromp}
         />
       </div>
     </div>

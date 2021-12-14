@@ -57,7 +57,7 @@ const SortBar = ({
             <div className="row">
               <div className="col-6 p-0">
                 <input type="radio" value={true} name="sortBy" />
-                <small htmlFor="sortBy">Asscend</small>
+                <small htmlFor="sortBy">Ascend</small>
               </div>
               <div className="col-6 p-0">
                 <input

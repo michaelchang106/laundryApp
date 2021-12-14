@@ -3,28 +3,44 @@
 import EditService from "./EditService.js";
 import "../providerPage.css";
 import Service from "./Service";
+import ModalCheck from "../Modal/ModalCheck.js";
 
 const Services = ({
   services,
   setServices,
   modifyServiceDisplay,
   onServiceEdit,
+  show,
+  setShow,
+  deleteID,
+  setDeleteID,
+  whichModal,
+  setWhichModal,
 }) => {
+  const handlePromp = () => {
+    setWhichModal("deleteService");
+    setShow(true);
+  };
+
+  console.log("Which Modal", whichModal);
+
   //Used to delete a service
-  const deleteService = (id) => {
-    services.forEach((s, i) => {
+  const deleteService = async (id) => {
+    let i = 0;
+    for (const s of services) {
       if (s.serviceID === id) {
         services.splice(i, 1);
+        //NEED TO RESET SERVICE ID AFTER DELETING.
+        for (let i = 0; i < services.length; i++) {
+          services[i].serviceID = i;
+        }
+        await postService(services);
       }
-      postService(services);
-    });
 
-    //Need to reset indexes or else keys will be off.
-    let updated = services.map((service, index) => {
-      return (service.serviceID = index);
-    });
+      i += 1;
+    }
 
-    setServices(updated);
+    setServices([...services]);
   };
 
   const addService = () => {
@@ -45,7 +61,6 @@ const Services = ({
   };
 
   const postService = async (services) => {
-    console.log("Posting", services);
     const res = await fetch("/api/updateServices", {
       method: "POST",
       headers: {
@@ -56,6 +71,7 @@ const Services = ({
   };
 
   const renderServices = services.map((s, i) => {
+    console.log(s);
     if (s.showEdit) {
       return (
         <EditService
@@ -64,8 +80,9 @@ const Services = ({
           serviceItem={s}
           modifyServiceDisplay={modifyServiceDisplay}
           onServiceEdit={onServiceEdit}
-          deleteService={deleteService}
+          handlePromp={handlePromp}
           submitEdit={submitEdit}
+          setDeleteID={setDeleteID}
         />
       );
     }
@@ -76,17 +93,38 @@ const Services = ({
         id={i}
         serviceItem={s}
         modifyServiceDisplay={modifyServiceDisplay}
-        deleteService={deleteService}
+        handlePromp={handlePromp}
+        setDeleteID={setDeleteID}
       />
     );
   });
 
+  const renderModal = () => {
+    let toRender;
+    if (whichModal === "deleteService") {
+      toRender = [
+        <ModalCheck
+          key="M0"
+          show={show}
+          setShow={setShow}
+          deleteService={deleteService}
+          modifyServiceDisplay={modifyServiceDisplay}
+          deleteID={deleteID}
+        />,
+      ];
+    }
+
+    return toRender;
+  };
+
   return (
     <div>
-      {renderServices}
+      {renderModal()}
+      <div>{renderServices}</div>
       <div>
         <small> Services Remaining: {4 - services.length}</small>
       </div>
+
       <div className="d-flex justify-content-center">
         {services.length < 4 && (
           <button onClick={addService}>Add Service</button>
