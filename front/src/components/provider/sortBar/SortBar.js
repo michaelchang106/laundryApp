@@ -43,21 +43,43 @@ const SortBar = ({
   return (
     <div className="row">
       <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
-        <label className="navbar-brand">Sort By:</label>
+        <label className="navbar-brand" htmlFor="SelectHowtoSort">
+          Sort By:
+        </label>
         <div className="col-2.5">
           <select
+            title="Sort by date or by total price"
             className="form-control"
-            id="inlineFormCustomSelect"
+            id="SelectHowtoSort"
             onChange={handleChange}
           >
-            <option value="requestDate">Date Requested</option>
-            <option value="totalCharge">Total Cost</option>
+            <option
+              name="RequestDate"
+              aria-label="Sort By Date"
+              value="requestDate"
+            >
+              Date Requested
+            </option>
+            <option
+              name="RequestDate"
+              aria-label="Sort By Cost"
+              value="totalCharge"
+            >
+              Total Cost
+            </option>
           </select>
           <div onChange={handleRadio}>
             <div className="row">
               <div className="col-6 p-0">
-                <input type="radio" value={true} name="sortBy" />
-                <small htmlFor="sortBy">Ascend</small>
+                <input
+                  type="radio"
+                  value={true}
+                  name="sortBy"
+                  aria-label="Ascending Order"
+                />
+                <label htmlFor="sortBy" className="sortRadio">
+                  Ascend
+                </label>
               </div>
               <div className="col-6 p-0">
                 <input
@@ -65,8 +87,11 @@ const SortBar = ({
                   value={false}
                   name="sortBy"
                   checked={!orderDirection}
+                  aria-label="Descending Order"
                 />
-                <small htmlFor="sortBy">Descend</small>
+                <label htmlFor="sortBy" className="sortRadio">
+                  Descend
+                </label>
               </div>
             </div>
           </div>

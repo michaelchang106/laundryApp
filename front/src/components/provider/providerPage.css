@@ -29,18 +29,35 @@
   font-size: 15px;
 }
 
-.deleteBtn {
+.deleteBtn,
+#rejectBtn {
   width: 70px;
   font-size: 15px;
   background-color: #a61414;
+  color: white;
 }
 
+.deleteBtn {
+  margin-left: 12px;
+}
 #perPoundCheckLbl {
   display: inline;
 }
+.card-title {
+  font-size: 19px;
+  font-weight: bold;
+  text-align: left;
+}
 
-.serviceTitle {
+.card-subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+.serviceTitle,
+h4 {
   margin: auto;
+  font-size: 20px;
 }
 
 .Layout_main__auk_r {
@@ -51,4 +68,9 @@
 
 .acptRejBtn {
   width: 80px;
+}
+
+.sortRadio {
+  font-size: 14px;
+  display: inline;
 }

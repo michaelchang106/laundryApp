@@ -79,7 +79,7 @@ function MainNavigation() {
       <Link to="/">
         <div className={classes.logo}>Hamper Dash</div>
       </Link>
-      <nav>
+      <nav aria-label="Navigation Bar">
         <ul>
           <li key="home">
             <Link to="/">Home</Link>

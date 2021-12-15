@@ -61,7 +61,7 @@ const DisplayToggles = ({
           checked={showRequest === "needResponse" ? true : false}
           autoComplete="off"
         />
-        <label className="btn btn-outline-primary" htmlFor="btnDisplay1">
+        <label className="btn btn-outline-dark" htmlFor="btnDisplay1">
           Need Response
         </label>
         <input
@@ -73,7 +73,7 @@ const DisplayToggles = ({
           checked={showRequest === "accepted" ? true : false}
           autoComplete="off"
         />
-        <label className="btn btn-outline-primary" htmlFor="btnDisplay2">
+        <label className="btn btn-outline-dark" htmlFor="btnDisplay2">
           Accepted
         </label>
         <input
@@ -85,7 +85,7 @@ const DisplayToggles = ({
           checked={showRequest === "showAll" ? true : false}
           autoComplete="off"
         />
-        <label className="btn btn-outline-primary" htmlFor="btnDisplay3">
+        <label className="btn btn-outline-dark" htmlFor="btnDisplay3">
           Show All
         </label>
       </div>

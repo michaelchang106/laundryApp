@@ -6,7 +6,7 @@ Create a working platform app that provides users and providers to request/provi
 
 As a registered user you can request laundry/dry cleaning as well as additional options like folded or delivered. You can narrow the provider results by the selective criteria of your laundry needs and sort the providers by price/distance. You can then select which provider you wish to engage in the transaction with. You can edit your profile details in the profile page.
 
-As a registered provider you can individually add which laundry services you wish to provide, such as delivery, dry clean, folding, or wash. You can then individually edit the prices for each of the services as well as remove the services completely.
+As a registered provider you can individually add which laundry services you wish to provide, such as delivery, dry clean, folding, or wash. You can then individually edit the prices for each of the services as well as remove the services completely. When a customer makes a request, their request will populate the screen. The registered provider can sort by date or by total fee for the service. The provider can also chose to accept or reject a service request. If user accepts a request they will then have a button they can use to inform the user that there laundry is ready.
 
 ## Project URL:
 
@@ -49,12 +49,12 @@ As a registered provider you can individually add which laundry services you wis
 ### src
 
 - Contains the different directories organized by:
-  - components - the different React components built and organized by 
-    - customer 
-    - layout 
-    - login 
+  - components - the different React components built and organized by
+    - customer
+    - layout
+    - login
     - provider
-    - signups 
+    - signups
     - ui
   - images - images used in the different components and pages
   - pages - the page components that are the face of what the user sees and houses other sub-components
@@ -79,11 +79,13 @@ As a registered provider you can individually add which laundry services you wis
 - Providers
 
 ## Test User Accounts
+
 ### Customer Test Account
-- Email: john_doe@email.com 
+
+- Email: john_doe@email.com
 - Password: 123
 
 ### Provider Test Account
-- Email: dirtybiz@gmail.com 
-- Password: 123
 
+- Email: dirtybiz@gmail.com
+- Password: 123

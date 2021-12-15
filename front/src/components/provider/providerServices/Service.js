@@ -25,12 +25,12 @@ const Service = ({
     <div>
       <div className="row">
         <div className="col-7 pl-0">
-          <h6>
+          <h4>
             Cost: $<span>{serviceItem.price}</span>
-          </h6>
+          </h4>
         </div>
         <div className="col-5 d-flex justify-content-end">
-          {serviceItem.perPound && <h6>Per lb.</h6>}
+          {serviceItem.perPound && <h4>Per lb.</h4>}
         </div>
       </div>
       <div className="row ">
@@ -48,9 +48,9 @@ const Service = ({
 
   return (
     <div key={serviceItem.serviceID} className="service row">
-      <h5 className="serviceTitle col-8 pb-0">
+      <h3 className="serviceTitle col-8 pb-0">
         <span>{serviceItem.service}</span>
-      </h5>
+      </h3>
       <Button
         serviceItem={serviceItem}
         modifyServiceDisplay={modifyServiceDisplay}

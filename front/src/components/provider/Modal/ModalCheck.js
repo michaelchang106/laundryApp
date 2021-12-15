@@ -21,7 +21,6 @@ const ModalCheck = ({
     if (deleteService !== undefined) {
       deleteService(deleteID);
     } else if (buttonModifiers !== undefined) {
-      console.log("ID --->", deleteID);
       buttonModifiers(deleteID, "serviceRejected");
     } else {
       throw new Error("Not a function of ModalCheck");
@@ -35,9 +34,10 @@ const ModalCheck = ({
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
+        aria-labelledby="Delete or reject item"
       >
         <Modal.Header closeButton>
-          <Modal.Title>{promptHeader}</Modal.Title>
+          <Modal.Title id="Delete or reject item">{promptHeader}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{promptMessage}</Modal.Body>
         <Modal.Footer>

@@ -2,7 +2,7 @@
 
 import Card from "../ui/Card";
 import "./SignUpProvide.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const SignUpProviderForm = ({ postProviderData }) => {
   const [providerInfo, setProviderInfo] = useState({
@@ -20,11 +20,33 @@ const SignUpProviderForm = ({ postProviderData }) => {
     confirmPassword: "",
   });
 
+  const phoneNumberRef = useRef();
+
   const handleChange = (event) => {
     const name = event.target.name;
-    const value = event.target.value;
+    let value = event.target.value;
+
+    //Format the number if it's missing the "-"
+    if (event.target.name === "phoneNumber") {
+      const phoneNumber = phoneNumberRef.current.value;
+      const cleaned = ("" + phoneNumber).replace(/\D/g, "");
+      const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+      if (match) {
+        phoneNumberRef.current.value = [
+          match[2],
+          "-",
+          match[3],
+          "-",
+          match[4],
+        ].join("");
+      }
+      value = phoneNumberRef.current.value;
+    }
+
     setProviderInfo({ ...providerInfo, [name]: value });
   };
+
+  console.log(providerInfo);
 
   //Hanle submit
   const handleSubmit = (event) => {
@@ -90,13 +112,14 @@ const SignUpProviderForm = ({ postProviderData }) => {
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder="XXX-XXX-XXXX"
               onChange={handleChange}
+              ref={phoneNumberRef}
             />
           </div>
         </div>
         <h2>Address</h2>
         <div>
           <div className="fullLengthIn">
-            <label htmlFor="address">Address Line 1</label>
+            <label htmlFor="address">Address Line</label>
             <input
               name="address"
               id="address1"

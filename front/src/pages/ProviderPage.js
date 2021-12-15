@@ -144,7 +144,7 @@ const ProviderPage = () => {
         <h1>Your Service Request Headquarters...</h1>
         <div className="row">
           <div className="serviceDetails col-3">
-            <h3>Services By You:</h3>
+            <h2>Services By You:</h2>
             <Services
               services={services}
               modifyServiceDisplay={modifyServiceDisplay}

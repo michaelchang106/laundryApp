@@ -1,5 +1,5 @@
 import React from "react";
-import CustomerReqCard from "./requestCard.js";
+import CustomerReqCard from "./RequestCard.js";
 import ModalCheck from "../Modal/ModalCheck.js";
 
 const CustomerReqDetails = ({

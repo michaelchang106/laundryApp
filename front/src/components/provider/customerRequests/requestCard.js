@@ -46,11 +46,11 @@ const requestCard = ({
   return (
     <div className="card col-4">
       <div className="card-body">
-        <h5 className="card-title">{request.customerEmail}</h5>
-        <h6 className="card-subtitle mb-2 text-muted">
+        <h2 className="card-title">{request.customerEmail}</h2>
+        <h3 className="card-subtitle mb-2 text-muted">
           Requested: {request.date}
-        </h6>
-        <h6 className="card-subtitle mt-4">Services Requested:</h6>
+        </h3>
+        <h3 className="card-subtitle mt-4">Services Requested:</h3>
 
         <ul>{renderServices()}</ul>
 

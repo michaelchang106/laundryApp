@@ -54,6 +54,7 @@ const RequestButtons = ({
             className="acptRejBtn"
             type="button"
             onClick={handleRejectClick}
+            id="rejectBtn"
           >
             Reject
           </button>
