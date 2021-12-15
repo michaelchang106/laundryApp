@@ -10,13 +10,13 @@ As a registered provider you can individually add which laundry services you wis
 
 ## Project URL:
 
-[Hamper Dash Heroku Depolyment](https://hamperdashp4.herokuapp.com/).
+[Hamper Dash Heroku Depolyment - Project 4](https://hamperdashp4.herokuapp.com/).
 
 ## Video Demonstration:
 
 ### Public Video
 
-[Hamper Dash Youtube Demo Video](https://youtu.be/v5N9a09EgNk).
+[Hamper Dash Youtube Demo Video](https://youtube/v5N9a09EgNk).
 
 ###
 
@@ -34,7 +34,7 @@ As a registered provider you can individually add which laundry services you wis
 
 ## Google Slides
 
-[Hamper Dash - Laundry App Google slides](https://docs.google.com/presentation/d/1bYNIuE9gPj8sa-mBor1tm1KgpyxUjtUu8uHuIROcY2s/edit?usp=sharing)
+[Hamper Dash - Laundry App Google slides](https://docs.google.com/presentation/d/1ENfxY8uqDCAj_f8ncWrERZQN6R7fYMTccHmIKPDP6W4/edit#slide=id.g104b88d51b4_0_125)
 
 ## Folder Content (Backend):
 
