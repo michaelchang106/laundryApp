@@ -18,7 +18,9 @@ As a registered provider you can individually add which laundry services you wis
 
 [Hamper Dash Youtube Demo Video](https://youtube/v5N9a09EgNk).
 
-###
+### Usability & Accessibility
+
+- [Usability Study Report - Google Doc](https://docs.google.com/document/d/1iN96IRm_o-DwhS6HJ-GfkI4dUBxc-58EMXDhM8Ucw9k/edit#heading=h.jgc1x1nu6ahp)
 
 ## Local Execution
 
