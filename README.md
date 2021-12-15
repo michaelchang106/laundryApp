@@ -1,4 +1,4 @@
-# [Hamper Dash - Laundry App](https://hamperdash.herokuapp.com/)
+# [Hamper Dash - Laundry App](https://hamperdashp4.herokuapp.com/)
 
 ## Objective:
 
@@ -10,7 +10,7 @@ As a registered provider you can individually add which laundry services you wis
 
 ## Project URL:
 
-[Hamper Dash Heroku Depolyment](https://hamperdash.herokuapp.com/).
+[Hamper Dash Heroku Depolyment](https://hamperdashp4.herokuapp.com/).
 
 ## Video Demonstration:
 
@@ -19,9 +19,11 @@ As a registered provider you can individually add which laundry services you wis
 ## Local Execution
 
 - Download/clone this project from [Hamper Dash - Laundry App GithHub Repo](https://github.com/michaelchang106/laundryApp).
+
 - Make sure to install node.js, which will come with node project manager (npm).
 - Change to the folder where you download the applicaiton using the OS terminal.
-- Type in the terminal `yarn install` to install all the dependencies.
+- switch to project4 after cloning the repository and run `git checkout project4`
+- Next, type in the terminal `yarn install` to install all the dependencies.
 - Type in the terminal `yarn start` to start the server.
 - In a new terminal tab browse to laundryApp/front and type `yarn start` to start the front end React development server.
 - In your favorite browser go to http://localhost:3000/.
@@ -73,12 +75,14 @@ As a registered provider you can individually add which laundry services you wis
 
 - Users (customers)
 - Login
+- User Sign Up
 
 ### [Daniel Lisko](https://github.com/djlisko01)
 
 - Providers
+- Provider Sign Up
 
-## Test User Accounts
+## Test Accounts
 
 ### Customer Test Account
 
