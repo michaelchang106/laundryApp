@@ -1,5 +1,5 @@
 // DANIEL LISKO
-
+import PropTypes from "prop-types";
 const Button = ({ serviceItem, modifyServiceDisplay, id }) => {
   const handleClick = (e) => {
     modifyServiceDisplay(serviceItem.serviceID, "showDetails");
@@ -30,4 +30,7 @@ const Button = ({ serviceItem, modifyServiceDisplay, id }) => {
   );
 };
 
+Button.propTypes = {
+  modifyServiceDisplay: PropTypes.func,
+};
 export default Button;

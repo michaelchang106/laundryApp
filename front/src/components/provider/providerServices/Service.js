@@ -1,6 +1,7 @@
 // DANIEL LISKO
 
 import Button from "./Button.js";
+import PropTypes from "prop-types";
 
 const Service = ({
   serviceItem,
@@ -59,6 +60,19 @@ const Service = ({
       {serviceItem.showDetails && details}
     </div>
   );
+};
+
+Service.propTypes = {
+  serviceItem: PropTypes.object,
+  setServices: PropTypes.func,
+  modifyServiceDisplay: PropTypes.func,
+  onServiceEdit: PropTypes.func,
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
+  handlePromp: PropTypes.func,
 };
 
 export default Service;

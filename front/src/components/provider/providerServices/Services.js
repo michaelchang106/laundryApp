@@ -4,6 +4,7 @@ import EditService from "./EditService.js";
 import "../providerPage.css";
 import Service from "./Service";
 import ModalCheck from "../Modal/ModalCheck.js";
+import PropTypes from "prop-types";
 
 const Services = ({
   services,
@@ -132,6 +133,17 @@ const Services = ({
       </div>
     </div>
   );
+};
+
+Services.propTypes = {
+  setServices: PropTypes.func,
+  modifyServiceDisplay: PropTypes.func,
+  onServiceEdit: PropTypes.func,
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
 };
 
 export default Services;

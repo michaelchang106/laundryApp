@@ -1,5 +1,6 @@
 //Daniel Lisko
 import React from "react";
+import PropTypes from "prop-types";
 
 const RequestButtons = ({
   request,
@@ -65,6 +66,21 @@ const RequestButtons = ({
   };
 
   return <div className="row">{renderButtons()}</div>;
+};
+
+RequestButtons.propTypes = {
+  sortRequests: PropTypes.string,
+  customersRequests: PropTypes.array,
+  setCustomerRequest: PropTypes.func,
+  accpetedRequest: PropTypes.bool,
+  setAcceptRequest: PropTypes.func,
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
+  buttonModifiers: PropTypes.func,
+  handlePromp: PropTypes.func,
 };
 
 export default RequestButtons;

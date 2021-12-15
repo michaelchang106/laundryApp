@@ -1,8 +1,9 @@
 //Daniel Lisko
 import React from "react";
 import RequestButtons from "./RequestButtons.js";
+import PropTypes from "prop-types";
 
-const requestCard = ({
+const RequestCard = ({
   request,
   setCustomerRequest,
   customersRequests,
@@ -75,4 +76,18 @@ const requestCard = ({
   );
 };
 
-export default requestCard;
+RequestCard.propTypes = {
+  sortRequests: PropTypes.string,
+  customersRequests: PropTypes.array,
+  setCustomerRequest: PropTypes.func,
+  accpetedRequest: PropTypes.bool,
+  setAcceptRequest: PropTypes.func,
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
+  buttonModifiers: PropTypes.func,
+};
+
+export default RequestCard;

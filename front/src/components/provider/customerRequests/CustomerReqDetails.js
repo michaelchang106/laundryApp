@@ -3,6 +3,7 @@
 import React from "react";
 import CustomerReqCard from "./RequestCard.js";
 import ModalCheck from "../Modal/ModalCheck.js";
+import PropTypes from "prop-types";
 
 const CustomerReqDetails = ({
   sortRequests,
@@ -85,6 +86,19 @@ const CustomerReqDetails = ({
       {renderRequest}
     </div>
   );
+};
+
+CustomerReqDetails.propTypes = {
+  sortRequests: PropTypes.string,
+  customersRequests: PropTypes.array,
+  setCustomerRequest: PropTypes.func,
+  accpetedRequest: PropTypes.bool,
+  setAcceptRequest: PropTypes.func,
+  show: PropTypes.bool,
+  setShow: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
 };
 
 export default CustomerReqDetails;

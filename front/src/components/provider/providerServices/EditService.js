@@ -1,7 +1,7 @@
 // DANIEL LISKO
 
 import { useState, useEffect } from "react";
-
+import PropTypes from "prop-types";
 const EditService = ({
   serviceItem,
   modifyServiceDisplay,
@@ -189,6 +189,16 @@ const EditService = ({
       </div>
     </form>
   );
+};
+
+PropTypes.propTypes = {
+  setServices: PropTypes.func,
+  onServiceEdit: PropTypes.func,
+  setDeleteID: PropTypes.func,
+  whichModal: PropTypes.bool,
+  setWhichModal: PropTypes.func,
+  handlePromp: PropTypes.func,
+  submitEdit: PropTypes.func,
 };
 
 export default EditService;
