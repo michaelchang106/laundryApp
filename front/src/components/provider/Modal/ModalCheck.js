@@ -1,3 +1,5 @@
+//Daniel Lisko
+
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
 import PropTypes from "prop-types";

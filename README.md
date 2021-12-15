@@ -12,15 +12,21 @@ As a registered provider you can individually add which laundry services you wis
 
 [Hamper Dash Heroku Depolyment - Project 4](https://hamperdashp4.herokuapp.com/).
 
+## CS 5610 Web Development - Northeastern University Bay Area
+
+- [Student Submissions](https://johnguerra.co/classes/webDevelopment_fall_2021/students/index.html)
+
 ## Video Demonstration:
 
 ### Public Video
 
-[Hamper Dash Youtube Demo Video](https://youtube/v5N9a09EgNk).
+- [Hamper Dash Youtube Demo Video](https://youtube/v5N9a09EgNk).
 
 ### Usability & Accessibility
 
-- [Usability Study Report - Google Doc](https://docs.google.com/document/d/1iN96IRm_o-DwhS6HJ-GfkI4dUBxc-58EMXDhM8Ucw9k/edit#heading=h.jgc1x1nu6ahp)
+- [Hamper Dash Usability & Accessibility Upgrades](https://youtube/fj8K9i5uzZ0)
+
+- [Usability Study Report - Google Doc](https://docs.google.com/document/d/1iN96IRm_o-DwhS6HJ-GfkI4dUBxc-58EMXDhM8Ucw9k/edit?usp=sharing)
 
 ## Local Execution
 
@@ -37,6 +43,12 @@ As a registered provider you can individually add which laundry services you wis
 ## Google Slides
 
 [Hamper Dash - Laundry App Google slides](https://docs.google.com/presentation/d/1ENfxY8uqDCAj_f8ncWrERZQN6R7fYMTccHmIKPDP6W4/edit#slide=id.g104b88d51b4_0_125)
+
+## Hamper Dash Screen Shots
+
+![Homepage](./screenShots/homepage.png)
+![Customer Main Page](./screenShots/customer-main.png)
+![Provider Main Page](./screenShots/provider-main.png)
 
 ## Folder Content (Backend):
 

@@ -1,3 +1,4 @@
+/* MICHAEL CHANG */
 import { React, useRef, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 require("dotenv").config();

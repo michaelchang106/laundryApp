@@ -1,3 +1,4 @@
+/* MICHAEL CHANG & DANIEL LISKO */
 const express = require("express");
 const router = express.Router();
 const dbManager = require("../database/dbManager.js");
@@ -137,7 +138,7 @@ router.post("/findAllUserDetails", async function (req, res) {
   console.log("Got /findAllUserDetails POST request");
   try {
     const rawData = req.body;
-    
+
     let response;
     if (rawData.userType === "customer") {
       response = await dbManager.findAllUsers("customers", rawData.email);
