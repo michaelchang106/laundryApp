@@ -25,6 +25,9 @@ function LaundryRequestForm(props) {
     const fold = foldRef.current.checked;
     const poundsOfDryClean = poundsOfDryCleanRef.current.value;
     const delivery = deliveryRef.current.checked;
+    // Xuejia Yang: I found that if I enter the date in a wrong format, i.e., 01212021, nothing would happen but the text tells me "Loading". It may
+    //              let users wait for a long time but no further changes, which will lead to bad user experience. Could you please add a format
+    //              checker like the one you used in sign up form?
     const date = dateRef.current.value;
 
     const today = new Date();
