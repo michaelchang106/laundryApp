@@ -1,5 +1,7 @@
 // MICHAEL CHANG
 
+--Anni: It's better to redirect to signin directly after sign up successfully.
+
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
