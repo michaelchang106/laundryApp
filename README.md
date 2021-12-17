@@ -116,3 +116,6 @@ As a registered provider you can individually add which laundry services you wis
 
 - Email: dirtybiz@gmail.com
 - Password: 123
+
+PROJECT 4 REVIEW: RANDY LIRANO -> MICHAEL CHANG
+SEE COMMENTS FOR DETAIL
