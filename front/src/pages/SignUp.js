@@ -9,6 +9,10 @@ import Card from "../components/ui/Card";
 function SignUp() {
   return (
     <div>
+    // Xuejia Yang: The two sign up types' pictures are in different size. It may be better
+  //              if you could crop the images so as to obey the alignment design rule.
+  //              It is also a little bit annoying because I need to read so many words
+  //              just to sign up for an account. Maybe use more intuitive description?
       <h1>Sign Up Page</h1>
       <div className="row">
         <div className="col-6 d-flex justify-content-center">
