@@ -1,5 +1,6 @@
 /* MICHAEL CHANG */
 
+--Anni: Good file constructure： clear and hierarchical.
 import PropTypes from "prop-types";
 import Card from "../../ui/Card";
 import classes from "./CustomerDetailsForm.module.css";
