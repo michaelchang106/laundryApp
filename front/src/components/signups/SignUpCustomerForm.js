@@ -202,6 +202,8 @@ function SignUpCustomerForm(props) {
         <div className={classes.control}>
           <label htmlFor="zipCode">Zip Code</label>
           <input
+            // Xuejia Yang: It should be type="number" to make sense. I do see that you have specified a pattern, 
+            //              but making type="number" may provide better user experience.
             type="text"
             pattern="[0-9]{5}"
             placeholder="Zip Code (eg. 12345)"
@@ -225,6 +227,7 @@ function SignUpCustomerForm(props) {
           <label htmlFor="phone">Phone Number</label>
           <input
             id="phoneNumber"
+            // Xuejia Yang: Same things here. Please use type="number" instead?
             type="tel"
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="123-456-7890"
