@@ -167,6 +167,7 @@ function CustomerRequestService() {
       <h1>Request Laundry Service</h1>
       <div className="row">
         <div className="col-3">
+        // Xuejia Yang: no response with this form
           <LaundryRequestForm
             laundryRequestFetch={laundryRequestFetch}
             providerCards={providerCards}
