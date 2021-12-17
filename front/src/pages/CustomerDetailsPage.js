@@ -1,5 +1,7 @@
 // MICHAEL CHANG
 
+--Anni: Gooad file constructure: clear and Hierarchical.
+
 import CustomerDetailsForm from "../components/customer/customerDetailsAndRequests/CustomerDetailsForm";
 import { useContext } from "react";
 import UserLoginContext from "../store/UserLoginContext";
