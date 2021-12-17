@@ -178,6 +178,7 @@ router.post("/allCustomerLaundryRequest", async function (req, res) {
 });
 
 /* ----------------CUSTOMER ROUTES------------------------- */
+// RANDY LIRANO REVIEW: Can be separated into different routes focusing on customer related request
 /* POST laundryRequest. */
 router.post("/laundryRequest", async function (req, res) {
   console.log("Got /laundryRequest POST request");
@@ -214,7 +215,7 @@ router.post("/laundryCustomerConfirm", async function (req, res) {
 });
 
 /*----------------Provider Routes ----------------------------*/
-
+// RANDY LIRANO REVIEW: Can be separated into different routes focusing on provider related request
 //Helper to convert service object to an array of objects
 const convertToServiceArr = (serviceObj) => {
   let serviceArr = [];
