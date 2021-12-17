@@ -17,6 +17,7 @@ function LoginForm(props) {
   const passwordRef = useRef();
 
   //intialize useContext
+  // Xuejia Yang: Just learned how to save user's login status using userContext from your code! Your codes are clear and easy to read. Thank you so much!
   const userContext = useContext(UserLoginContext);
 
   // onSubmit customer form handler
