@@ -2,6 +2,7 @@
 
 import homeLandingLaundry from "../images/homeLandingLaundry.jpg";
 
+--Anni: Do not allow customers to enter characters.
 function Home() {
   return (
     <div>
